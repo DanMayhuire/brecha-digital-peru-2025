@@ -1,0 +1,64 @@
+{
+  "model": "XGBoost",
+  "winner": "CatBoost",
+  "role": "Análisis complementario; no sustituye al ganador",
+  "n_explained": 180,
+  "sample_seed": 42,
+  "units": "log-odds antes de calibrar",
+  "background": "TreeSHAP tree_path_dependent: cobertura de hojas ajustada en desarrollo",
+  "max_additivity_residual": 2.384185791015625e-06,
+  "max_interaction_row_residual": 1.9073486328125e-06,
+  "pairs": [
+    {
+      "variable_1": "altitud",
+      "variable_2": "prop_publicas",
+      "mean_abs_pair_contribution": 0.038718474814150895
+    },
+    {
+      "variable_1": "altitud",
+      "variable_2": "ratio_alumnos_docente",
+      "mean_abs_pair_contribution": 0.028174848451615414
+    },
+    {
+      "variable_1": "internet_hogar",
+      "variable_2": "log_gasto_pc",
+      "mean_abs_pair_contribution": 0.025224550993880258
+    },
+    {
+      "variable_1": "log_ingreso_pc",
+      "variable_2": "log_gasto_pc",
+      "mean_abs_pair_contribution": 0.022771416424721892
+    },
+    {
+      "variable_1": "log_gasto_pc",
+      "variable_2": "prop_publicas",
+      "mean_abs_pair_contribution": 0.02028993847521229
+    },
+    {
+      "variable_1": "altitud",
+      "variable_2": "log_gasto_pc",
+      "mean_abs_pair_contribution": 0.018519097408150425
+    },
+    {
+      "variable_1": "log_ingreso_pc",
+      "variable_2": "prop_publicas",
+      "mean_abs_pair_contribution": 0.01494228442833345
+    },
+    {
+      "variable_1": "log_gasto_pc",
+      "variable_2": "ratio_alumnos_docente",
+      "mean_abs_pair_contribution": 0.014395046439514975
+    },
+    {
+      "variable_1": "lengua_materna",
+      "variable_2": "altitud",
+      "mean_abs_pair_contribution": 0.013842541224180927
+    },
+    {
+      "variable_1": "rural",
+      "variable_2": "log_gasto_pc",
+      "mean_abs_pair_contribution": 0.012626566575555545
+    }
+  ],
+  "note": "El par aporta 2*phi_ij al score; las interacciones son propiedades predictivas del árbol ajustado, no efectos causales ni pruebas de significación. La selección de pares es exploratoria posterior al ajuste."
+}

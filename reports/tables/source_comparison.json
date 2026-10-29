@@ -1,0 +1,56 @@
+{
+  "vivienda": {
+    "annual_rows": 44599,
+    "panel_2025_rows": 44599,
+    "matched_keys": 44599,
+    "panel_only_rows": 0,
+    "annual_only_rows": 0,
+    "panel_extra_with_any_observed_question": null,
+    "panel_only_columns": [],
+    "annual_only_columns": [],
+    "value_differences_after_decimal_missing_normalization": [],
+    "numeric_tolerance": "rtol=1e-10, atol=1e-8; no replacement of unequal sources"
+  },
+  "personas": {
+    "annual_rows": 115145,
+    "panel_2025_rows": 115145,
+    "matched_keys": 115145,
+    "panel_only_rows": 0,
+    "annual_only_rows": 0,
+    "panel_extra_with_any_observed_question": null,
+    "panel_only_columns": [
+      "p208a1",
+      "p208a2",
+      "p208b1",
+      "p208c1",
+      "p208d1"
+    ],
+    "annual_only_columns": [],
+    "value_differences_after_decimal_missing_normalization": [],
+    "numeric_tolerance": "rtol=1e-10, atol=1e-8; no replacement of unequal sources"
+  },
+  "educacion": {
+    "annual_rows": 104446,
+    "panel_2025_rows": 106958,
+    "matched_keys": 104446,
+    "panel_only_rows": 2512,
+    "annual_only_rows": 0,
+    "panel_extra_with_any_observed_question": 0,
+    "panel_only_columns": [],
+    "annual_only_columns": [],
+    "value_differences_after_decimal_missing_normalization": [],
+    "numeric_tolerance": "rtol=1e-10, atol=1e-8; no replacement of unequal sources"
+  },
+  "sumaria": {
+    "annual_rows": 33702,
+    "panel_2025_rows": 33702,
+    "matched_keys": 33702,
+    "panel_only_rows": 0,
+    "annual_only_rows": 0,
+    "panel_extra_with_any_observed_question": null,
+    "panel_only_columns": [],
+    "annual_only_columns": [],
+    "value_differences_after_decimal_missing_normalization": [],
+    "numeric_tolerance": "rtol=1e-10, atol=1e-8; no replacement of unequal sources"
+  }
+}

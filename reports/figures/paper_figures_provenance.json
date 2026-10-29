@@ -1,0 +1,9 @@
+{
+  "purpose": "Figuras de artículo con fuentes mayores; sin reajuste ni selección",
+  "dataset_sha256": "e46ff2b57a84c34319b94609460a7d7a0972be087a93cb39e3fa7dc5e24a96a5",
+  "run_signature": "1a8d2e8c341eef89399f6b813f2ae3d358dd9cd042566f5708f13d714678768b",
+  "winner": "CatBoost",
+  "winner_sample": 601,
+  "nonlinear_sample": 180,
+  "checks": "SHAP agrupado coincide con importancia canónica; pares coinciden con JSON; misma secuencia de submuestra de silueta."
+}

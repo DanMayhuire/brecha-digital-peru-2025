@@ -1,0 +1,753 @@
+{
+  "target": "No uso de internet durante el mes anterior (P314A=2), en residentes de 6–17 años matriculados y asistentes a primaria/secundaria (P306=P307=1; P308A=2/3), excluida declaración CEBA. Indicador operativo de exclusión digital; no mide competencias.",
+  "target_comparison": [
+    {
+      "objetivo": "target_rezago",
+      "n_validos": 16544,
+      "n_positivos": 6707,
+      "n_negativos": 9837,
+      "prevalencia_muestral": 0.40540377176015474,
+      "prevalencia_ponderada": 0.40357814855429286,
+      "conglomerados": 4040
+    },
+    {
+      "objetivo": "target_rezago_2",
+      "n_validos": 16544,
+      "n_positivos": 679,
+      "n_negativos": 15865,
+      "prevalencia_muestral": 0.04104206963249517,
+      "prevalencia_ponderada": 0.03835497569210667,
+      "conglomerados": 4040
+    },
+    {
+      "objetivo": "target_internet",
+      "n_validos": 16544,
+      "n_positivos": 4294,
+      "n_negativos": 12250,
+      "prevalencia_muestral": 0.25955029013539654,
+      "prevalencia_ponderada": 0.22671065765832307,
+      "conglomerados": 4040
+    }
+  ],
+  "features": [
+    "edad",
+    "sexo",
+    "lengua_materna",
+    "rural",
+    "pobreza",
+    "electricidad",
+    "internet_hogar",
+    "altitud",
+    "log_ingreso_pc",
+    "log_gasto_pc",
+    "ratio_alumnos_docente",
+    "prop_publicas",
+    "escale_coincide"
+  ],
+  "seed": 42,
+  "n_eligible": 16544,
+  "n_train": 13105,
+  "n_test": 3439,
+  "groups_train": 3232,
+  "groups_test": 808,
+  "group_overlap": 0,
+  "prevalence_train": 0.22861117482058685,
+  "prevalence_test": 0.22002391299139173,
+  "prevalence_total": 0.22671065765832307,
+  "excluded_missing_target_or_weight": 6801,
+  "anti_leak_excluded": [
+    "p314a",
+    "p314b*",
+    "p314d",
+    "p315*",
+    "p316*",
+    "no_uso_internet",
+    "exclusion_digital",
+    "p306",
+    "p307",
+    "matriculado",
+    "asiste",
+    "p308*",
+    "p301*",
+    "identificadores",
+    "coordenadas",
+    "mes"
+  ],
+  "weight": "FACPOB07: factor anual de población del módulo200. Entrenamiento compara uniforme/población/clase/combinado solo en desarrollo.",
+  "test_selection": "Una partición GroupShuffleSplit 80/20, semilla42; 5fold GroupKFold en desarrollo.",
+  "threshold": 0.5,
+  "software": {
+    "python": "3.12.14",
+    "pandas": "3.1.0",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1",
+    "catboost": "1.2.10",
+    "shap": "0.54.1",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2",
+    "joblib": "1.6.0"
+  },
+  "clustering": {
+    "stability": [
+      {
+        "seed": 42,
+        "tipo": "semilla",
+        "ari_vs_seleccion": 1.0
+      },
+      {
+        "seed": 42,
+        "tipo": "submuestra80",
+        "ari_vs_seleccion": 1.0
+      },
+      {
+        "seed": 43,
+        "tipo": "semilla",
+        "ari_vs_seleccion": 1.0
+      },
+      {
+        "seed": 43,
+        "tipo": "submuestra80",
+        "ari_vs_seleccion": 1.0
+      },
+      {
+        "seed": 44,
+        "tipo": "semilla",
+        "ari_vs_seleccion": 1.0
+      },
+      {
+        "seed": 44,
+        "tipo": "submuestra80",
+        "ari_vs_seleccion": 1.0
+      }
+    ],
+    "access_ablation": {
+      "features": [
+        "log_ingreso_pc",
+        "log_gasto_pc",
+        "altitud",
+        "ratio_alumnos_docente",
+        "prop_publicas"
+      ],
+      "silueta": 0.27913214200381065,
+      "ari_vs_completo": 0.08075259236459058,
+      "note": "Mismo metodo y k sin electricidad/internet; diagnostico de dependencia de acceso, no nueva seleccion por etiqueta."
+    },
+    "silhouette_sample_size": 2500,
+    "selected": {
+      "metodo": "GMM",
+      "k": 2,
+      "silueta": 0.45392805209910947,
+      "davies_bouldin": 1.4523776879426293,
+      "calinski_harabasz": 3037.7013970101725,
+      "min_proporcion": 0.09698588325066769,
+      "elegible": true
+    },
+    "profiles": [
+      {
+        "cluster": 0,
+        "n": 1271,
+        "proporcion": 0.09698588325066769,
+        "no_uso_ponderado": 0.4774352110997237,
+        "edad": 11.126418825362313,
+        "rural": 0.589310262270091,
+        "internet_hogar": 0.4862623229103283,
+        "electricidad": 0.40342568515984745,
+        "ingreso_pc_mensual": 486.28247105738194,
+        "gasto_pc_mensual": 474.0332842751715,
+        "altitud": 1411.2044704939392,
+        "ratio_alumnos_docente": 13.478031220217412,
+        "prop_publicas": 0.7734880626191842,
+        "prop_pobreza": 0.46526644842391146,
+        "prop_castellano": 0.8153707375202808,
+        "perfil": "Menor conectividad; rural"
+      },
+      {
+        "cluster": 1,
+        "n": 11834,
+        "proporcion": 0.9030141167493323,
+        "no_uso_ponderado": 0.21070547764721137,
+        "edad": 11.545063076947246,
+        "rural": 0.18256299372626253,
+        "internet_hogar": 1.0,
+        "electricidad": 1.0,
+        "ingreso_pc_mensual": 853.4713587129837,
+        "gasto_pc_mensual": 704.6916795730683,
+        "altitud": 1170.1472639419985,
+        "ratio_alumnos_docente": 15.922128688355453,
+        "prop_publicas": 0.5399191427690825,
+        "prop_pobreza": 0.30701418606617087,
+        "prop_castellano": 0.9551530258979705,
+        "perfil": "Mayor conectividad; urbano"
+      }
+    ],
+    "pca_variance": [
+      0.3988686202939197,
+      0.19108270870686836
+    ],
+    "selection_rule": "Máxima silueta entre soluciones con grupos de al menos 5%; DB para desempate. Ajuste sólo en desarrollo."
+  },
+  "supervised": {
+    "winner": "CatBoost",
+    "cv": [
+      {
+        "modelo": "CatBoost",
+        "config": 0,
+        "parametros": "{\"depth\": 3, \"l2_leaf_reg\": 3}",
+        "ap_cv_media": 0.5934655345861739,
+        "ap_cv_sd": 0.0108568423961078,
+        "auc_cv_media": 0.8185959164368608,
+        "f1_cv_media": 0.6998805837842419,
+        "estrategia_peso": "class",
+        "segundos": 2.603240167009062
+      },
+      {
+        "modelo": "XGBoost",
+        "config": 1,
+        "parametros": "{\"max_depth\": 3, \"min_child_weight\": 1, \"reg_lambda\": 5}",
+        "ap_cv_media": 0.5930736327287929,
+        "ap_cv_sd": 0.01634345144763289,
+        "auc_cv_media": 0.8170872799063883,
+        "f1_cv_media": 0.690111392439684,
+        "estrategia_peso": "uniform",
+        "segundos": 1.203861208006856
+      },
+      {
+        "modelo": "Logística",
+        "config": 1,
+        "parametros": "{\"C\": 0.03}",
+        "ap_cv_media": 0.5885521901828904,
+        "ap_cv_sd": 0.02563422866860606,
+        "auc_cv_media": 0.8169139793242216,
+        "f1_cv_media": 0.6706935220207318,
+        "estrategia_peso": "uniform",
+        "segundos": 0.17276508299983107
+      },
+      {
+        "modelo": "Random Forest",
+        "config": 0,
+        "parametros": "{\"max_depth\": 8, \"min_samples_leaf\": 10, \"max_features\": \"sqrt\"}",
+        "ap_cv_media": 0.5809126339696393,
+        "ap_cv_sd": 0.024842249028088945,
+        "auc_cv_media": 0.8078520729407789,
+        "f1_cv_media": 0.6316384693534278,
+        "estrategia_peso": "uniform",
+        "segundos": 1.8265409159939736
+      }
+    ],
+    "test": [
+      {
+        "modelo": "Logística",
+        "seleccionado_cv": false,
+        "roc_auc": 0.8156141310500504,
+        "average_precision": 0.5858691300869001,
+        "pr_auc_trapezoidal": 0.585244785370312,
+        "f1_macro": 0.6800884288199756,
+        "precision": 0.6496563817207702,
+        "recall": 0.3688291853320265,
+        "brier": 0.12895016665121076,
+        "specificity": 0.9438920530932203,
+        "brier_sin_calibrar": 0.1289596648185349,
+        "f1_macro_no_ponderado": 0.7144286013525645,
+        "auc_no_ponderado": 0.8390459537999311,
+        "roc_auc_no_ponderado": 0.8390459537999311,
+        "average_precision_no_ponderado": 0.6563192730843592,
+        "pr_auc_trapezoidal_no_ponderado": 0.6560442361969646,
+        "precision_no_ponderado": 0.6639741518578353,
+        "recall_no_ponderado": 0.47295742232451093,
+        "brier_no_ponderado": 0.13297663977232174,
+        "specificity_no_ponderado": 0.9190661478599221
+      },
+      {
+        "modelo": "Random Forest",
+        "seleccionado_cv": false,
+        "roc_auc": 0.8141072562147089,
+        "average_precision": 0.5850395726016747,
+        "pr_auc_trapezoidal": 0.5844104899385385,
+        "f1_macro": 0.6743730213082715,
+        "precision": 0.6432715675886378,
+        "recall": 0.35837438822901924,
+        "brier": 0.12936671164798386,
+        "specificity": 0.9439379557453481,
+        "brier_sin_calibrar": 0.13109730943219278,
+        "f1_macro_no_ponderado": 0.7202222291966284,
+        "auc_no_ponderado": 0.8326807950459627,
+        "roc_auc_no_ponderado": 0.8326807950459627,
+        "average_precision_no_ponderado": 0.6541113477903164,
+        "pr_auc_trapezoidal_no_ponderado": 0.6538282679032507,
+        "precision_no_ponderado": 0.6609907120743034,
+        "recall_no_ponderado": 0.49136939010356734,
+        "brier_no_ponderado": 0.13412847180243648,
+        "specificity_no_ponderado": 0.9147859922178988
+      },
+      {
+        "modelo": "XGBoost",
+        "seleccionado_cv": false,
+        "roc_auc": 0.8174265608882098,
+        "average_precision": 0.5953404037792167,
+        "pr_auc_trapezoidal": 0.5947552889886357,
+        "f1_macro": 0.6882937036456357,
+        "precision": 0.6573505435282921,
+        "recall": 0.38462889864402666,
+        "brier": 0.12822732685016192,
+        "specificity": 0.9434433693856479,
+        "brier_sin_calibrar": 0.12846044780836183,
+        "f1_macro_no_ponderado": 0.7223675372652355,
+        "auc_no_ponderado": 0.8403113288228788,
+        "roc_auc_no_ponderado": 0.8403113288228788,
+        "average_precision_no_ponderado": 0.666466598873928,
+        "pr_auc_trapezoidal_no_ponderado": 0.6662167021452082,
+        "precision_no_ponderado": 0.6746411483253588,
+        "recall_no_ponderado": 0.48676639815880324,
+        "brier_no_ponderado": 0.13171134735422288,
+        "specificity_no_ponderado": 0.9206225680933852
+      },
+      {
+        "modelo": "CatBoost",
+        "seleccionado_cv": true,
+        "roc_auc": 0.8203566503656547,
+        "average_precision": 0.601272493194526,
+        "pr_auc_trapezoidal": 0.6006659886991493,
+        "f1_macro": 0.6932939537541463,
+        "precision": 0.6908988629102774,
+        "recall": 0.3811808434952735,
+        "brier": 0.12728245847401115,
+        "specificity": 0.9518932754995589,
+        "brier_sin_calibrar": 0.16157966850972022,
+        "f1_macro_no_ponderado": 0.7177054915933719,
+        "auc_no_ponderado": 0.8406198367460249,
+        "roc_auc_no_ponderado": 0.8406198367460249,
+        "average_precision_no_ponderado": 0.6653133950509995,
+        "pr_auc_trapezoidal_no_ponderado": 0.6650569037156818,
+        "precision_no_ponderado": 0.6864406779661016,
+        "recall_no_ponderado": 0.4660529344073648,
+        "brier_no_ponderado": 0.13165743078103256,
+        "specificity_no_ponderado": 0.9280155642023347
+      }
+    ],
+    "confusion_counts": [
+      [
+        2385,
+        185
+      ],
+      [
+        464,
+        405
+      ]
+    ],
+    "confusion_weighted": [
+      [
+        843632.0048604012,
+        42635.42298507691
+      ],
+      [
+        154709.5539252759,
+        95298.14589953424
+      ]
+    ],
+    "bootstrap_95": {
+      "roc_auc": [
+        0.7918222306531747,
+        0.8455087395470815
+      ],
+      "average_precision": [
+        0.5522600609305643,
+        0.6446382918812104
+      ],
+      "f1_macro": [
+        0.6614137759068892,
+        0.7168289799167611
+      ]
+    },
+    "group_bootstraps": 300,
+    "weight_strategies": {
+      "Logística": "uniform",
+      "Random Forest": "uniform",
+      "XGBoost": "uniform",
+      "CatBoost": "class"
+    },
+    "constant_baselines": [
+      {
+        "modelo": "Mayoritario",
+        "roc_auc": 0.5,
+        "average_precision": 0.22002391299139182,
+        "pr_auc_trapezoidal": 0.610011956495696,
+        "f1_macro": 0.43819469974982656,
+        "precision": 0.0,
+        "recall": 0.0,
+        "brier": 0.22002391299139173,
+        "specificity": 1.0
+      },
+      {
+        "modelo": "Prevalencia desarrollo",
+        "roc_auc": 0.5,
+        "average_precision": 0.22002391299139182,
+        "pr_auc_trapezoidal": 0.610011956495696,
+        "f1_macro": 0.43819469974982656,
+        "precision": 0.0,
+        "recall": 0.0,
+        "brier": 0.17168713176907133,
+        "specificity": 1.0
+      }
+    ],
+    "fits_budget": 200,
+    "weight_sensitivity": [
+      {
+        "modelo": "Logística",
+        "estrategia": "uniform",
+        "ap_cv_media": 0.587466558224869,
+        "ap_oof_no_ponderada": 0.6635896846792978,
+        "brier_oof_ponderado": 0.13310007867496956,
+        "ap_oof_peso_educacion": 0.5966968798882344,
+        "segundos": 0.1611490000068443
+      },
+      {
+        "modelo": "Logística",
+        "estrategia": "population",
+        "ap_cv_media": 0.58540324106686,
+        "ap_oof_no_ponderada": 0.6564985010571774,
+        "brier_oof_ponderado": 0.13342955113261099,
+        "ap_oof_peso_educacion": 0.594859178051909,
+        "segundos": 0.17404774999886286
+      },
+      {
+        "modelo": "Logística",
+        "estrategia": "class",
+        "ap_cv_media": 0.5873520456457335,
+        "ap_oof_no_ponderada": 0.663119546330548,
+        "brier_oof_ponderado": 0.16272955387600854,
+        "ap_oof_peso_educacion": 0.5967818367020441,
+        "segundos": 0.17900562500290107
+      },
+      {
+        "modelo": "Logística",
+        "estrategia": "population_class",
+        "ap_cv_media": 0.5849804954760669,
+        "ap_oof_no_ponderada": 0.6563312064639438,
+        "brier_oof_ponderado": 0.17636925778738263,
+        "ap_oof_peso_educacion": 0.5949828479210285,
+        "segundos": 0.18287141699693166
+      },
+      {
+        "modelo": "Random Forest",
+        "estrategia": "uniform",
+        "ap_cv_media": 0.5809126339696393,
+        "ap_oof_no_ponderada": 0.658025277510234,
+        "brier_oof_ponderado": 0.13646337793705463,
+        "ap_oof_peso_educacion": 0.5901347084238766,
+        "segundos": 1.8916997909982456
+      },
+      {
+        "modelo": "Random Forest",
+        "estrategia": "population",
+        "ap_cv_media": 0.5753134802787597,
+        "ap_oof_no_ponderada": 0.6552443093489351,
+        "brier_oof_ponderado": 0.13771903868680924,
+        "ap_oof_peso_educacion": 0.5855980874988088,
+        "segundos": 1.666161542001646
+      },
+      {
+        "modelo": "Random Forest",
+        "estrategia": "class",
+        "ap_cv_media": 0.5774231113617707,
+        "ap_oof_no_ponderada": 0.6560148676626824,
+        "brier_oof_ponderado": 0.16564914934093358,
+        "ap_oof_peso_educacion": 0.5870722121731945,
+        "segundos": 1.923327041004086
+      },
+      {
+        "modelo": "Random Forest",
+        "estrategia": "population_class",
+        "ap_cv_media": 0.5724354875072525,
+        "ap_oof_no_ponderada": 0.6516859766619488,
+        "brier_oof_ponderado": 0.17734986955364265,
+        "ap_oof_peso_educacion": 0.5833602212572871,
+        "segundos": 1.723411415994633
+      },
+      {
+        "modelo": "XGBoost",
+        "estrategia": "uniform",
+        "ap_cv_media": 0.5912728893470869,
+        "ap_oof_no_ponderada": 0.6694197071946447,
+        "brier_oof_ponderado": 0.13241594103537185,
+        "ap_oof_peso_educacion": 0.601246681044393,
+        "segundos": 0.896118208009284
+      },
+      {
+        "modelo": "XGBoost",
+        "estrategia": "population",
+        "ap_cv_media": 0.5837730510037796,
+        "ap_oof_no_ponderada": 0.6603425443156716,
+        "brier_oof_ponderado": 0.1333664015275791,
+        "ap_oof_peso_educacion": 0.5948766488909066,
+        "segundos": 0.905245540998294
+      },
+      {
+        "modelo": "XGBoost",
+        "estrategia": "class",
+        "ap_cv_media": 0.5905069213375111,
+        "ap_oof_no_ponderada": 0.6689116135864703,
+        "brier_oof_ponderado": 0.16301305039225292,
+        "ap_oof_peso_educacion": 0.6009917704288473,
+        "segundos": 0.926488083001459
+      },
+      {
+        "modelo": "XGBoost",
+        "estrategia": "population_class",
+        "ap_cv_media": 0.582262422193091,
+        "ap_oof_no_ponderada": 0.6582046620309671,
+        "brier_oof_ponderado": 0.173766674942943,
+        "ap_oof_peso_educacion": 0.5928178201496853,
+        "segundos": 0.9143880829942646
+      },
+      {
+        "modelo": "CatBoost",
+        "estrategia": "uniform",
+        "ap_cv_media": 0.5913192977913961,
+        "ap_oof_no_ponderada": 0.6716513998397385,
+        "brier_oof_ponderado": 0.13241627516935134,
+        "ap_oof_peso_educacion": 0.6015797195893404,
+        "segundos": 2.775141791003989
+      },
+      {
+        "modelo": "CatBoost",
+        "estrategia": "population",
+        "ap_cv_media": 0.5822990247460083,
+        "ap_oof_no_ponderada": 0.6643425381829509,
+        "brier_oof_ponderado": 0.13356537688459816,
+        "ap_oof_peso_educacion": 0.5945486310902098,
+        "segundos": 2.5808864579885267
+      },
+      {
+        "modelo": "CatBoost",
+        "estrategia": "class",
+        "ap_cv_media": 0.5934655345861739,
+        "ap_oof_no_ponderada": 0.6709631911716213,
+        "brier_oof_ponderado": 0.16254703089326605,
+        "ap_oof_peso_educacion": 0.6034216327039044,
+        "segundos": 2.636389291001251
+      },
+      {
+        "modelo": "CatBoost",
+        "estrategia": "population_class",
+        "ap_cv_media": 0.5821673289541571,
+        "ap_oof_no_ponderada": 0.662501824756005,
+        "brier_oof_ponderado": 0.17290751390535375,
+        "ap_oof_peso_educacion": 0.5937394671848304,
+        "segundos": 2.7696170840063132
+      }
+    ],
+    "calibration": "Sigmoide sobre logit de predicciones OOF de desarrollo, con pesos poblacionales. Umbral fijo 0.5."
+  },
+  "phase_seconds": {
+    "prepare": 0.42144450001069345,
+    "clustering": 2.3456457919965032,
+    "supervised": 75.62806608299434,
+    "shap": 2.005466124988743
+  },
+  "measurement_checks": {
+    "no_observed_p316b_under14": true,
+    "no_observed_p316c_under14": true,
+    "p316c_skip_after_p316b_no": true,
+    "cohort_age_groups_sum": true
+  },
+  "run_signature": "1a8d2e8c341eef89399f6b813f2ae3d358dd9cd042566f5708f13d714678768b",
+  "dataset_sha256": "e46ff2b57a84c34319b94609460a7d7a0972be087a93cb39e3fa7dc5e24a96a5",
+  "analysis_code_sha256": "f8d55720df08d4c9c5025074756fe52e310c1dca228f26c190a07f918ea06c31",
+  "executed_at_utc": "2026-10-29T04:23:42.570334+00:00",
+  "historical_test_warning": "La partición de prueba ya se inspeccionó en la versión anterior. Se conserva para comparabilidad, sin usarla para selección nueva; esta auditoría es retrospectiva y no aporta una prueba externa inédita.",
+  "shap": {
+    "n_explained": 601,
+    "units": "log-odds",
+    "max_additivity_residual": 6.217248937900877e-15,
+    "cases": [
+      {
+        "caso": "alto",
+        "y": 1,
+        "probabilidad_calibrada": 0.9785558763120755,
+        "score_base": -0.018677389574655454,
+        "score_modelo": 5.133235672683971,
+        "top_contribuciones": [
+          {
+            "variable": "edad",
+            "shap": 1.2706725473819076,
+            "valor": 7.0
+          },
+          {
+            "variable": "internet_hogar",
+            "shap": 0.7569487296705761,
+            "valor": 0.0
+          },
+          {
+            "variable": "electricidad",
+            "shap": 0.7446440771399472,
+            "valor": 0.0
+          },
+          {
+            "variable": "log_gasto_pc",
+            "shap": 0.6753418701518874,
+            "valor": 4.69922295007673
+          },
+          {
+            "variable": "lengua_materna",
+            "shap": 0.6442610809591997,
+            "valor": 10.0
+          }
+        ]
+      },
+      {
+        "caso": "bajo",
+        "y": 0,
+        "probabilidad_calibrada": 0.004260188518968246,
+        "score_base": -0.018677389574655454,
+        "score_modelo": -4.701696329363006,
+        "top_contribuciones": [
+          {
+            "variable": "edad",
+            "shap": -2.4289999360655052,
+            "valor": 17.0
+          },
+          {
+            "variable": "log_gasto_pc",
+            "shap": -1.3071783489272946,
+            "valor": 7.524065356037869
+          },
+          {
+            "variable": "prop_publicas",
+            "shap": -0.4192829945040911,
+            "valor": 0.2926829268292683
+          },
+          {
+            "variable": "log_ingreso_pc",
+            "shap": -0.18887635629798624,
+            "valor": 7.368204026314764
+          },
+          {
+            "variable": "rural",
+            "shap": -0.08506627657485562,
+            "valor": 0.0
+          }
+        ]
+      }
+    ],
+    "importance": [
+      {
+        "variable": "edad",
+        "mean_abs_shap": 1.0570282650916478
+      },
+      {
+        "variable": "log_gasto_pc",
+        "mean_abs_shap": 0.4441371653785972
+      },
+      {
+        "variable": "prop_publicas",
+        "mean_abs_shap": 0.22308735736690274
+      },
+      {
+        "variable": "lengua_materna",
+        "mean_abs_shap": 0.146127276232919
+      },
+      {
+        "variable": "electricidad",
+        "mean_abs_shap": 0.13677073194034742
+      },
+      {
+        "variable": "rural",
+        "mean_abs_shap": 0.12509988261867047
+      },
+      {
+        "variable": "log_ingreso_pc",
+        "mean_abs_shap": 0.11014592050546787
+      },
+      {
+        "variable": "altitud",
+        "mean_abs_shap": 0.09458121974561119
+      },
+      {
+        "variable": "internet_hogar",
+        "mean_abs_shap": 0.08021500086006085
+      },
+      {
+        "variable": "ratio_alumnos_docente",
+        "mean_abs_shap": 0.05435597911878667
+      },
+      {
+        "variable": "pobreza",
+        "mean_abs_shap": 0.018050724931392422
+      },
+      {
+        "variable": "escale_coincide",
+        "mean_abs_shap": 0.014586223509061835
+      },
+      {
+        "variable": "sexo",
+        "mean_abs_shap": 0.005782261485684003
+      }
+    ],
+    "note": "SHAP explica el score previo a calibración. No mide efectos causales. Muestra global no ponderada."
+  },
+  "nonlinear_shap": {
+    "model": "XGBoost",
+    "winner": "CatBoost",
+    "role": "Análisis complementario; no sustituye al ganador",
+    "n_explained": 180,
+    "sample_seed": 42,
+    "units": "log-odds antes de calibrar",
+    "background": "TreeSHAP tree_path_dependent: cobertura de hojas ajustada en desarrollo",
+    "max_additivity_residual": 2.384185791015625e-06,
+    "max_interaction_row_residual": 1.9073486328125e-06,
+    "pairs": [
+      {
+        "variable_1": "altitud",
+        "variable_2": "prop_publicas",
+        "mean_abs_pair_contribution": 0.038718474814150895
+      },
+      {
+        "variable_1": "altitud",
+        "variable_2": "ratio_alumnos_docente",
+        "mean_abs_pair_contribution": 0.028174848451615414
+      },
+      {
+        "variable_1": "internet_hogar",
+        "variable_2": "log_gasto_pc",
+        "mean_abs_pair_contribution": 0.025224550993880258
+      },
+      {
+        "variable_1": "log_ingreso_pc",
+        "variable_2": "log_gasto_pc",
+        "mean_abs_pair_contribution": 0.022771416424721892
+      },
+      {
+        "variable_1": "log_gasto_pc",
+        "variable_2": "prop_publicas",
+        "mean_abs_pair_contribution": 0.02028993847521229
+      },
+      {
+        "variable_1": "altitud",
+        "variable_2": "log_gasto_pc",
+        "mean_abs_pair_contribution": 0.018519097408150425
+      },
+      {
+        "variable_1": "log_ingreso_pc",
+        "variable_2": "prop_publicas",
+        "mean_abs_pair_contribution": 0.01494228442833345
+      },
+      {
+        "variable_1": "log_gasto_pc",
+        "variable_2": "ratio_alumnos_docente",
+        "mean_abs_pair_contribution": 0.014395046439514975
+      },
+      {
+        "variable_1": "lengua_materna",
+        "variable_2": "altitud",
+        "mean_abs_pair_contribution": 0.013842541224180927
+      },
+      {
+        "variable_1": "rural",
+        "variable_2": "log_gasto_pc",
+        "mean_abs_pair_contribution": 0.012626566575555545
+      }
+    ],
+    "note": "El par aporta 2*phi_ij al score; las interacciones son propiedades predictivas del árbol ajustado, no efectos causales ni pruebas de significación. La selección de pares es exploratoria posterior al ajuste."
+  }
+}

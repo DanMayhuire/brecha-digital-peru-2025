@@ -1,0 +1,23 @@
+{
+  "winner": "CatBoost",
+  "features": [
+    "edad",
+    "sexo",
+    "lengua_materna",
+    "rural",
+    "pobreza",
+    "electricidad",
+    "internet_hogar",
+    "altitud",
+    "log_ingreso_pc",
+    "log_gasto_pc",
+    "ratio_alumnos_docente",
+    "prop_publicas",
+    "escale_coincide"
+  ],
+  "threshold": 0.5,
+  "params": {
+    "depth": 3,
+    "l2_leaf_reg": 3
+  }
+}

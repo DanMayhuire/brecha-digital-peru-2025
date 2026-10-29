@@ -1,0 +1,116 @@
+{
+  "source_dataset": "${PROJECT_ROOT}/data/processed/dataset_enaho_escale_2025.csv",
+  "source_sha256": "e46ff2b57a84c34319b94609460a7d7a0972be087a93cb39e3fa7dc5e24a96a5",
+  "questionnaire_reference": "CUESTIONARIO_ENAHO01A_2025.pdf, página PDF6: competencias TIC para personas14+; si P316B=2, salto a capítulo400.",
+  "cohorts": {
+    "integrated_residents_6_17": {
+      "n": 23345,
+      "internet_use_yes": 16953,
+      "internet_use_no": 6365,
+      "p316b_yes": 3142,
+      "p316b_no": 5161,
+      "p316b_missing_or_invalid": 15042,
+      "complete_nine_named_activities": 3142,
+      "at_least_one_activity_reported": 3039,
+      "zero_nine_activities_reported_conditional_on_observation": 103,
+      "joint_nonuse_and_zero_activities_fully_observed": 1,
+      "p316b_no_with_observed_skill_response": 0,
+      "nonmissing_by_activity": {
+        "p316c1": 3142,
+        "p316c2": 3142,
+        "p316c3": 3142,
+        "p316c4": 3142,
+        "p316c5": 3142,
+        "p316c6": 3142,
+        "p316c7": 3142,
+        "p316c8": 3142,
+        "p316c9": 3142
+      }
+    },
+    "attending_ebr_main": {
+      "n": 16544,
+      "internet_use_yes": 12250,
+      "internet_use_no": 4294,
+      "p316b_yes": 2097,
+      "p316b_no": 2944,
+      "p316b_missing_or_invalid": 11503,
+      "complete_nine_named_activities": 2097,
+      "at_least_one_activity_reported": 2020,
+      "zero_nine_activities_reported_conditional_on_observation": 77,
+      "joint_nonuse_and_zero_activities_fully_observed": 0,
+      "p316b_no_with_observed_skill_response": 0,
+      "nonmissing_by_activity": {
+        "p316c1": 2097,
+        "p316c2": 2097,
+        "p316c3": 2097,
+        "p316c4": 2097,
+        "p316c5": 2097,
+        "p316c6": 2097,
+        "p316c7": 2097,
+        "p316c8": 2097,
+        "p316c9": 2097
+      }
+    },
+    "attending_ebr_6_13": {
+      "n": 11503,
+      "internet_use_yes": 7568,
+      "internet_use_no": 3935,
+      "p316b_yes": 0,
+      "p316b_no": 0,
+      "p316b_missing_or_invalid": 11503,
+      "complete_nine_named_activities": 0,
+      "at_least_one_activity_reported": 0,
+      "zero_nine_activities_reported_conditional_on_observation": 0,
+      "joint_nonuse_and_zero_activities_fully_observed": 0,
+      "p316b_no_with_observed_skill_response": 0,
+      "nonmissing_by_activity": {
+        "p316c1": 0,
+        "p316c2": 0,
+        "p316c3": 0,
+        "p316c4": 0,
+        "p316c5": 0,
+        "p316c6": 0,
+        "p316c7": 0,
+        "p316c8": 0,
+        "p316c9": 0
+      }
+    },
+    "attending_ebr_14_17": {
+      "n": 5041,
+      "internet_use_yes": 4682,
+      "internet_use_no": 359,
+      "p316b_yes": 2097,
+      "p316b_no": 2944,
+      "p316b_missing_or_invalid": 0,
+      "complete_nine_named_activities": 2097,
+      "at_least_one_activity_reported": 2020,
+      "zero_nine_activities_reported_conditional_on_observation": 77,
+      "joint_nonuse_and_zero_activities_fully_observed": 0,
+      "p316b_no_with_observed_skill_response": 0,
+      "nonmissing_by_activity": {
+        "p316c1": 2097,
+        "p316c2": 2097,
+        "p316c3": 2097,
+        "p316c4": 2097,
+        "p316c5": 2097,
+        "p316c6": 2097,
+        "p316c7": 2097,
+        "p316c8": 2097,
+        "p316c9": 2097
+      }
+    }
+  },
+  "checks": {
+    "no_observed_p316b_under14": true,
+    "no_observed_p316c_under14": true,
+    "p316c_skip_after_p316b_no": true,
+    "cohort_age_groups_sum": true
+  },
+  "decision": "Mantener no uso de internet mes anterior como objetivo operativo para6-17; el bloque de actividades informáticas no identifica competencia de todos los escolares.",
+  "warnings": [
+    "P316B/P316C son autorreportes de exposición/actividades, no una prueba de desempeño.",
+    "Menores14 y quienes P316B=2 presentan saltos estructurales; no imputar cero competencias.",
+    "El indicador conjunto completamente observado es sensibilidad descriptiva en un subconjunto seleccionado; no es etiqueta de toda la cohorte ni un objetivo entrenado.",
+    "Conteos muestrales; no tasas nacionales oficiales."
+  ]
+}

@@ -1,0 +1,70 @@
+[
+  {
+    "caso": "alto",
+    "y": 1,
+    "probabilidad_calibrada": 0.9785558763120755,
+    "score_base": -0.018677389574655454,
+    "score_modelo": 5.133235672683971,
+    "top_contribuciones": [
+      {
+        "variable": "edad",
+        "shap": 1.2706725473819076,
+        "valor": 7.0
+      },
+      {
+        "variable": "internet_hogar",
+        "shap": 0.7569487296705761,
+        "valor": 0.0
+      },
+      {
+        "variable": "electricidad",
+        "shap": 0.7446440771399472,
+        "valor": 0.0
+      },
+      {
+        "variable": "log_gasto_pc",
+        "shap": 0.6753418701518874,
+        "valor": 4.69922295007673
+      },
+      {
+        "variable": "lengua_materna",
+        "shap": 0.6442610809591997,
+        "valor": 10.0
+      }
+    ]
+  },
+  {
+    "caso": "bajo",
+    "y": 0,
+    "probabilidad_calibrada": 0.004260188518968246,
+    "score_base": -0.018677389574655454,
+    "score_modelo": -4.701696329363006,
+    "top_contribuciones": [
+      {
+        "variable": "edad",
+        "shap": -2.4289999360655052,
+        "valor": 17.0
+      },
+      {
+        "variable": "log_gasto_pc",
+        "shap": -1.3071783489272946,
+        "valor": 7.524065356037869
+      },
+      {
+        "variable": "prop_publicas",
+        "shap": -0.4192829945040911,
+        "valor": 0.2926829268292683
+      },
+      {
+        "variable": "log_ingreso_pc",
+        "shap": -0.18887635629798624,
+        "valor": 7.368204026314764
+      },
+      {
+        "variable": "rural",
+        "shap": -0.08506627657485562,
+        "valor": 0.0
+      }
+    ]
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "features": [
+    "log_ingreso_pc",
+    "log_gasto_pc",
+    "altitud",
+    "ratio_alumnos_docente",
+    "prop_publicas"
+  ],
+  "silueta": 0.27913214200381065,
+  "ari_vs_completo": 0.08075259236459058,
+  "note": "Mismo metodo y k sin electricidad/internet; diagnostico de dependencia de acceso, no nueva seleccion por etiqueta."
+}

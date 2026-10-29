@@ -1,0 +1,44 @@
+{
+  "source_dir": "${SOURCE_DIR}",
+  "annual_dir": "${ANNUAL_DIR}",
+  "copies_of_archives_created": false,
+  "reference_source": "annual_2025",
+  "archives": [
+    {
+      "path": "${ANNUAL_DIR}/1031-Modulo01.zip",
+      "bytes": 8124173,
+      "sha256": "22f4e0f39a30244ef3da5fd3bfc8869c59be63fc1e5d4fb9bc28708426c2ffa8",
+      "role": "pipeline_input"
+    },
+    {
+      "path": "${ANNUAL_DIR}/1031-Modulo02.zip",
+      "bytes": 5612487,
+      "sha256": "74044ff418cee00f254e313f05ae75065a3c950e13ee37a0833995de3bc75a55",
+      "role": "pipeline_input"
+    },
+    {
+      "path": "${ANNUAL_DIR}/1031-Modulo03.zip",
+      "bytes": 11562979,
+      "sha256": "94207191bb130d77598e1b9b07f1dac57b54520b72d693b8c7199e8874f36c60",
+      "role": "pipeline_input"
+    },
+    {
+      "path": "${ANNUAL_DIR}/1031-Modulo34.zip",
+      "bytes": 18317746,
+      "sha256": "565098f9b9e3ff74e0f302629bfba3fc23b51abb4192acfd1c8704de221b30da",
+      "role": "pipeline_input"
+    },
+    {
+      "path": "${SOURCE_DIR}/MINEDU-20261028T132134Z-1-001.zip",
+      "bytes": 29339953,
+      "sha256": "099cdeaecab08a875bc76262d775c24602143a6f98a5a2df19eb8d0191086c60",
+      "role": "pipeline_input"
+    },
+    {
+      "path": "${SOURCE_DIR}/INEI-20261028T132135Z-1-001.zip",
+      "bytes": 468575682,
+      "sha256": "626e9165f08d61d0de78010fd4027a7b6b78ab7709db1f3d3dcd7661257acda5",
+      "role": "comparison_only"
+    }
+  ]
+}
