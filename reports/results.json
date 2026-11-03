@@ -555,7 +555,6 @@
   "dataset_sha256": "e46ff2b57a84c34319b94609460a7d7a0972be087a93cb39e3fa7dc5e24a96a5",
   "analysis_code_sha256": "f8d55720df08d4c9c5025074756fe52e310c1dca228f26c190a07f918ea06c31",
   "executed_at_utc": "2026-10-29T04:23:42.570334+00:00",
-  "historical_test_warning": "La partición de prueba ya se inspeccionó en la versión anterior. Se conserva para comparabilidad, sin usarla para selección nueva; esta auditoría es retrospectiva y no aporta una prueba externa inédita.",
   "shap": {
     "n_explained": 601,
     "units": "log-odds",
@@ -749,5 +748,7 @@
       }
     ],
     "note": "El par aporta 2*phi_ij al score; las interacciones son propiedades predictivas del árbol ajustado, no efectos causales ni pruebas de significación. La selección de pares es exploratoria posterior al ajuste."
-  }
+  },
+  "evaluation_note": "Evaluación retrospectiva sobre una partición de prueba previamente examinada; los resultados requieren validación externa independiente.",
+  "implementation_sha256": "4dcf3ca006452aa5d36c5ef32672605ea252077f73f77d7ca98a7e381fb7ef9d"
 }

@@ -1,5 +1,5 @@
 {
-  "executed_at_utc": "2026-11-03T17:20:46.546354+00:00",
+  "executed_at_utc": "2026-11-03T18:21:23.469141+00:00",
   "status": "passed",
   "software": {
     "python": "3.12.14",
@@ -280,22 +280,7 @@
       "detail": ""
     },
     {
-      "name": "parquet_text_dataset_enaho_escale_2025_hogar",
-      "passed": true,
-      "detail": ""
-    },
-    {
       "name": "parquet_text_dataset_enaho_escale_2025_codperso",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "parquet_text_dataset_enaho_escale_2025_conglome",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "parquet_text_dataset_enaho_escale_2025_ubigeo",
       "passed": true,
       "detail": ""
     },
@@ -305,12 +290,22 @@
       "detail": ""
     },
     {
-      "name": "parquet_dataset_modelado_2025",
+      "name": "parquet_text_dataset_enaho_escale_2025_conglome",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "parquet_text_dataset_modelado_2025_hogar",
+      "name": "parquet_text_dataset_enaho_escale_2025_hogar",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "parquet_text_dataset_enaho_escale_2025_ubigeo",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "parquet_dataset_modelado_2025",
       "passed": true,
       "detail": ""
     },
@@ -320,17 +315,22 @@
       "detail": ""
     },
     {
+      "name": "parquet_text_dataset_modelado_2025_vivienda",
+      "passed": true,
+      "detail": ""
+    },
+    {
       "name": "parquet_text_dataset_modelado_2025_conglome",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "parquet_text_dataset_modelado_2025_ubigeo",
+      "name": "parquet_text_dataset_modelado_2025_hogar",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "parquet_text_dataset_modelado_2025_vivienda",
+      "name": "parquet_text_dataset_modelado_2025_ubigeo",
       "passed": true,
       "detail": ""
     },
@@ -882,7 +882,7 @@
     {
       "name": "unit_tests",
       "passed": true,
-      "detail": "test_no_multiplication_and_geographic_keys (test_data.RebuiltDataTests.test_no_multiplication_and_geographic_keys) ... ok\ntest_padlocal_is_unique_and_not_double_counted (test_data.RebuiltDataTests.test_padlocal_is_unique_and_not_double_counted) ... ok\ntest_person_keys_and_year_preserved (test_data.RebuiltDataTests.test_person_keys_and_year_preserved) ... ok\ntest_raw_eda_parsing_and_source_choice (test_data.RebuiltDataTests.test_raw_eda_parsing_and_source_choice) ... ok\ntest_decimal_comma_keys_and_target_missing_codes (test_data.SourceParsingTests.test_decimal_comma_keys_and_target_missing_codes) ... ok\ntest_rejects_duplicate_annual_people (test_data.SourceParsingTests.test_rejects_duplicate_annual_people) ... ok\ntest_keys_padding_and_invalid (test_methodology.MethodologyTests.test_keys_padding_and_invalid) ... ok\ntest_leakage_rejected (test_methodology.MethodologyTests.test_leakage_rejected) ... ok\ntest_many_to_many_rejected (test_methodology.MethodologyTests.test_many_to_many_rejected) ... ok\ntest_missing_target_not_negative (test_methodology.MethodologyTests.test_missing_target_not_negative) ... ok\ntest_preprocessing_training_only (test_methodology.MethodologyTests.test_preprocessing_training_only) ... ok\ntest_weight_unit_and_class_mass (test_methodology.MethodologyTests.test_weight_unit_and_class_mass) ... ok\ntest_downloaded_version_hash_is_enforced (test_public_download.PublicRecoveryTests.test_downloaded_version_hash_is_enforced) ... ok\ntest_mismatched_existing_original_is_rejected (test_public_download.PublicRecoveryTests.test_mismatched_existing_original_is_rejected) ... ok\ntest_public_confirmation_fields (test_public_download.PublicRecoveryTests.test_public_confirmation_fields) ... ok\ntest_original_existing_file_is_never_overwritten (test_raw_recovery.RawRecoveryTests.test_original_existing_file_is_never_overwritten) ... ok\ntest_panel_cut_preserves_text_year_and_zeroes (test_raw_recovery.RawRecoveryTests.test_panel_cut_preserves_text_year_and_zeroes) ... ok\ntest_aligns_by_saved_identity_instead_of_current_row_order (test_scientific_audit.PredictionAlignmentTests.test_aligns_by_saved_identity_instead_of_current_row_order) ... ok\ntest_duplicate_prediction_identifiers_rejected (test_scientific_audit.PredictionAlignmentTests.test_duplicate_prediction_identifiers_rejected) ... ok\ntest_unknown_prediction_identifier_rejected (test_scientific_audit.PredictionAlignmentTests.test_unknown_prediction_identifier_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 20 tests in 0.204s\n\nOK\n"
+      "detail": "test_no_multiplication_and_geographic_keys (test_data.RebuiltDataTests.test_no_multiplication_and_geographic_keys) ... ok\ntest_padlocal_is_unique_and_not_double_counted (test_data.RebuiltDataTests.test_padlocal_is_unique_and_not_double_counted) ... ok\ntest_person_keys_and_year_preserved (test_data.RebuiltDataTests.test_person_keys_and_year_preserved) ... ok\ntest_raw_eda_parsing_and_source_choice (test_data.RebuiltDataTests.test_raw_eda_parsing_and_source_choice) ... ok\ntest_decimal_comma_keys_and_target_missing_codes (test_data.SourceParsingTests.test_decimal_comma_keys_and_target_missing_codes) ... ok\ntest_rejects_duplicate_annual_people (test_data.SourceParsingTests.test_rejects_duplicate_annual_people) ... ok\ntest_keys_padding_and_invalid (test_methodology.MethodologyTests.test_keys_padding_and_invalid) ... ok\ntest_leakage_rejected (test_methodology.MethodologyTests.test_leakage_rejected) ... ok\ntest_many_to_many_rejected (test_methodology.MethodologyTests.test_many_to_many_rejected) ... ok\ntest_missing_target_not_negative (test_methodology.MethodologyTests.test_missing_target_not_negative) ... ok\ntest_preprocessing_training_only (test_methodology.MethodologyTests.test_preprocessing_training_only) ... ok\ntest_weight_unit_and_class_mass (test_methodology.MethodologyTests.test_weight_unit_and_class_mass) ... ok\ntest_downloaded_version_hash_is_enforced (test_public_download.PublicRecoveryTests.test_downloaded_version_hash_is_enforced) ... ok\ntest_mismatched_existing_original_is_rejected (test_public_download.PublicRecoveryTests.test_mismatched_existing_original_is_rejected) ... ok\ntest_public_confirmation_fields (test_public_download.PublicRecoveryTests.test_public_confirmation_fields) ... ok\ntest_original_existing_file_is_never_overwritten (test_raw_recovery.RawRecoveryTests.test_original_existing_file_is_never_overwritten) ... ok\ntest_panel_cut_preserves_text_year_and_zeroes (test_raw_recovery.RawRecoveryTests.test_panel_cut_preserves_text_year_and_zeroes) ... ok\ntest_aligns_by_saved_identity_instead_of_current_row_order (test_scientific_audit.PredictionAlignmentTests.test_aligns_by_saved_identity_instead_of_current_row_order) ... ok\ntest_duplicate_prediction_identifiers_rejected (test_scientific_audit.PredictionAlignmentTests.test_duplicate_prediction_identifiers_rejected) ... ok\ntest_unknown_prediction_identifier_rejected (test_scientific_audit.PredictionAlignmentTests.test_unknown_prediction_identifier_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 20 tests in 0.197s\n\nOK\n"
     },
     {
       "name": "five_notebooks_executed",
@@ -1010,7 +1010,7 @@
       "detail": ""
     },
     {
-      "name": "scientific_dataset_analysis_code_sha256",
+      "name": "scientific_dataset_implementation_sha256",
       "passed": true,
       "detail": ""
     },
@@ -1080,16 +1080,6 @@
       "detail": ""
     },
     {
-      "name": "scientific_dataset_feature_lengua_materna",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "scientific_dataset_feature_edad",
-      "passed": true,
-      "detail": ""
-    },
-    {
       "name": "scientific_dataset_feature_ratio_alumnos_docente",
       "passed": true,
       "detail": ""
@@ -1100,12 +1090,17 @@
       "detail": ""
     },
     {
-      "name": "scientific_dataset_feature_pobreza",
+      "name": "scientific_dataset_feature_escale_coincide",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "scientific_dataset_feature_rural",
+      "name": "scientific_dataset_feature_lengua_materna",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "scientific_dataset_feature_pobreza",
       "passed": true,
       "detail": ""
     },
@@ -1115,7 +1110,17 @@
       "detail": ""
     },
     {
+      "name": "scientific_dataset_feature_sexo",
+      "passed": true,
+      "detail": ""
+    },
+    {
       "name": "scientific_dataset_feature_internet_hogar",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "scientific_dataset_feature_rural",
       "passed": true,
       "detail": ""
     },
@@ -1125,12 +1130,7 @@
       "detail": ""
     },
     {
-      "name": "scientific_dataset_feature_escale_coincide",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "scientific_dataset_feature_sexo",
+      "name": "scientific_dataset_feature_edad",
       "passed": true,
       "detail": ""
     },
@@ -1843,20 +1843,20 @@
   "passed_checks": 336,
   "failed_checks": [],
   "warnings": [
-    "La partición de prueba ya se inspeccionó en la versión anterior. Se conserva para comparabilidad, sin usarla para selección nueva; esta auditoría es retrospectiva y no aporta una prueba externa inédita.",
+    "Evaluación retrospectiva sobre una partición de prueba previamente examinada; los resultados requieren validación externa independiente.",
     "El objetivo mide no uso reciente; no mide directamente competencias digitales.",
     "Inferencia ponderada de cohorte, no estimación oficial nacional; bootstrap no incorpora todo el diseño de encuesta."
   ],
   "artifacts": [
     {
       "path": ".gitignore",
-      "sha256": "cf8211a5dc707561db4a6b4d16aee2fb86bd4ea4ff7fd4a29c42b5e4649196e2",
-      "bytes": 1309
+      "sha256": "e3abfded96e1d5cb03de30d499ae2f717cc37ed00a1bb1d58e3c1523a38f129a",
+      "bytes": 1305
     },
     {
       "path": "README.md",
-      "sha256": "61bf3a372b3566120052c770234384c4b0c0e646994ec1c1616a13c6b877e2ca",
-      "bytes": 12992
+      "sha256": "9e578383afe37accde5270d2f00236155a9551a6d8f5555d291ecf9d8bf939d0",
+      "bytes": 5084
     },
     {
       "path": "data/processed/dataset_enaho_escale_2025.csv",
@@ -1914,94 +1914,39 @@
       "bytes": 5050
     },
     {
-      "path": "docs/AUDITORIA_RUBRICA.md",
-      "sha256": "a5d32a9947d1e9cff90a6ff674e2a7f59774b8bff7e7aa732eb41d3b2a400ef9",
-      "bytes": 13631
-    },
-    {
-      "path": "docs/CLEAN_CLONE_REPRODUCIBILITY.md",
-      "sha256": "99fb392ab8ee0b2c6056af69e93c476b5e037dfae5bb82e842b893a13e77ab1e",
-      "bytes": 6357
-    },
-    {
-      "path": "docs/CLEAN_CLONE_VERIFICATION.json",
-      "sha256": "09859809f5324b019f6c5a34adcfdfe779e7dcf1a2f0632a75ae3c90a828904b",
-      "bytes": 6445
-    },
-    {
-      "path": "docs/DEFENSA_ORAL.md",
-      "sha256": "0d87667343d26180b84827c5ae1eca9f72bf5569502f5096df987cb4afb310df",
-      "bytes": 19783
-    },
-    {
-      "path": "docs/DELIVERY_CHECKLIST.md",
-      "sha256": "78fd7076e0bac25b31bc59e6873a881bf70c5cc5a8dc9a6d6228f3f9f99034e0",
-      "bytes": 4922
-    },
-    {
-      "path": "docs/GITHUB_PUBLICATION.md",
-      "sha256": "d61a5baf6ac901928e6ef6b6ad5ce636c6db8aabad199cf5505cb5ad5d8cd8c2",
-      "bytes": 1490
-    },
-    {
       "path": "docs/MODELING_PROTOCOL.md",
-      "sha256": "ba90c2165278545a2b267704c84c3b80b3c6d267b6fdfa69c68a31b9572f5d90",
-      "bytes": 3225
-    },
-    {
-      "path": "docs/PLAN_MEJORAS.md",
-      "sha256": "cc5de80632de715b92c6ea6684d316df13004f89ccc7a9234ea4bf9bc6782ca6",
-      "bytes": 2924
-    },
-    {
-      "path": "docs/RAW_DATA_REPRODUCIBILITY.md",
-      "sha256": "78cf76f5efb6abc30654b72313adc667c74d7cc870fceee2297a12f1044856cf",
-      "bytes": 5696
-    },
-    {
-      "path": "docs/REPORT_QA.md",
-      "sha256": "9ba55e571a4f3f5d67781457d2389240bb81c4d9afd0ff6a0faa31d0ebc7064c",
-      "bytes": 5850
+      "sha256": "9773bd7654e2546607a4a1094bd20a2bb84487eddc01b40591a44b6e50074454",
+      "bytes": 2869
     },
     {
       "path": "docs/SCIENTIFIC_REFERENCE.json",
-      "sha256": "7baa4ac2d8da00ef49c04e573d1b74018500c0de0d5c9a366123d04d7161fd82",
-      "bytes": 2356
+      "sha256": "2917f1027ed7aa485dc25669990a9b576c55b65c3a6dd4f01f32eccf2e117b9d",
+      "bytes": 2096
     },
     {
       "path": "docs/SCIENTIFIC_REPRODUCTION.json",
-      "sha256": "c802d08e11b17b0f97f116528a4280fb51d3b6481c1d669a2b0cd0c7e0ca18e7",
-      "bytes": 7922
-    },
-    {
-      "path": "docs/SCIENTIFIC_SYNC.md",
-      "sha256": "a38d09edddd4f91a2b5fe62d2fb131d3f475dcf817aefaf7a2c3dd2fe6fe3299",
-      "bytes": 15920
-    },
-    {
-      "path": "docs/SOURCE_ORDER_AUDIT.json",
-      "sha256": "1f0bcf2c893ea85642b07b8c2a4f775ae95b2f36c3108084572d9f2b697e0d81",
-      "bytes": 1733
+      "sha256": "380859aca7fa9bf2cd43c5e5e71ef434bacab718f333f287b8a1f350140903a1",
+      "bytes": 7845
     },
     {
       "path": "docs/SOURCE_RECONCILIATION.md",
-      "sha256": "165549a88899698156d760bb8203e207d47cf5fd1e8aa9e9e43fcd5d82ca4d27",
-      "bytes": 6771
+      "sha256": "249f4b292176be237112e15da96b551371c900a254bf82f788b09d84aea6c980",
+      "bytes": 2820
     },
     {
       "path": "docs/TARGET_DECISION.md",
-      "sha256": "cac009a74092c168e964168f0b006f372d628a734e5706a6aebe396f1fb8002f",
-      "bytes": 10745
+      "sha256": "4617f69c2825adfb6f1608651f44aaa46a8ffe0938862c029ed43cb50c4a8479",
+      "bytes": 3739
     },
     {
       "path": "docs/VALIDACION_FINAL.md",
-      "sha256": "c81fee1dfc77cd6629ef321be2e26c320e263b3d4aab185758424f4c27efbc96",
-      "bytes": 2852
+      "sha256": "d9afb096a90220d5dea44e7854e82d4f637574c570fff48f9bd1750d088d2f8b",
+      "bytes": 1788
     },
     {
       "path": "docs/VARIABLE_VALIDATION.md",
-      "sha256": "97371c650e939d705ba4fbaff8f59ba173e7fa8dd015f10e3bd0494d19f2e184",
-      "bytes": 9446
+      "sha256": "590b15b90cd7ef44441893e6c91e987ba3b546302aff5276b4d6b1dde4a6e6ff",
+      "bytes": 9039
     },
     {
       "path": "docs/data_dictionary.md",
@@ -2015,8 +1960,8 @@
     },
     {
       "path": "docs/sources.json",
-      "sha256": "ddfa6f2af69097e1cab6c57b5272c9c93c54ad77fc00fb6c979cb235a1db7115",
-      "bytes": 7022
+      "sha256": "4fcc3e26ea818dd024b0b51c1908f175e3ad860780d8d04429ba7c0694398dbb",
+      "bytes": 6327
     },
     {
       "path": "models/all_models.joblib",
@@ -2040,33 +1985,33 @@
     },
     {
       "path": "notebooks/00_Proyecto_Completo_Ejecutado.ipynb",
-      "sha256": "eb6db11e60d9e7835d5781a32a6a983f4b286e439f596894111eab471a76c9d0",
-      "bytes": 3577986
+      "sha256": "4b9fc2c440afb1ed9769ec06098486c166c8630c3bf20e4fd43bd75f0c03a941",
+      "bytes": 3577509
     },
     {
       "path": "notebooks/01_Ingenieria_Datos_EDA.ipynb",
-      "sha256": "71a9eb29255755f6c0cbf0f385a82bc9467d3c349a7f6f3422c424b8c9d7fb3d",
-      "bytes": 569712
+      "sha256": "f84302a344d9946a8935d09a1bd03da01958fd34c1804fb1aaa8beff3d72c0f7",
+      "bytes": 569427
     },
     {
       "path": "notebooks/02_Clustering_Perfilamiento.ipynb",
-      "sha256": "b0c297a2e59f5a9b56e5518c4e92874b6beb6fbca0948744797d0a74c9bd70b4",
-      "bytes": 843387
+      "sha256": "90b82ddf0ab13f63b28cc40d3b9be70e17f49cb4fab157c9dc60f47b38b675ae",
+      "bytes": 843286
     },
     {
       "path": "notebooks/03_Modelado_Supervisado.ipynb",
-      "sha256": "ee6d220cd70dea836f9076a8b02625c8d775b2f08d9382dce41868059a7a4378",
-      "bytes": 523053
+      "sha256": "3a33597d4da96201df2be43c906bdbdc713dc0c98cb4e4fe19070ecb117de9ee",
+      "bytes": 522952
     },
     {
       "path": "notebooks/04_Explicabilidad_SHAP.ipynb",
-      "sha256": "de5738ae0d4d04d58c34185b45f192d9209e760477b5359b4cdc6e915fc0c094",
-      "bytes": 1651965
+      "sha256": "9b202fb171e076efd7d6bf3172fcafc8b00f90b2d80010eaabaf3a25606da558",
+      "bytes": 1651864
     },
     {
       "path": "output/pdf/Informe_U2_Brecha_Digital_2025.pdf",
-      "sha256": "74c6ddd949c1fbde47627879af73f23ac67ef4e0e4bcee4dffe9981889e31ec4",
-      "bytes": 1337691
+      "sha256": "41767f199f759f94ddbc84a4e4b5bf29330cd1bbaffec1cf86fa0734405c5932",
+      "bytes": 1337649
     },
     {
       "path": "reports/figures/clustering.png",
@@ -2205,18 +2150,18 @@
     },
     {
       "path": "reports/notebook_execution.json",
-      "sha256": "40e45a1398409f503f22b75ce1f5b328df18ece2d395d5d2af126293ee26b266",
-      "bytes": 1488
+      "sha256": "6c4c65c1aa2570b19e2d089b699c22a595b5e66ca8877a5e4386b51f7a697595",
+      "bytes": 1490
     },
     {
       "path": "reports/public_summary.json",
-      "sha256": "75ad760ae324a4d9dd60c58ba1c23277bd8340dbc39d12e2a850b9eec59cea8c",
-      "bytes": 5090
+      "sha256": "8243ec15e3fec643484f154702d4d17f3f9c83fbbb314f9fb5800247dd918bb8",
+      "bytes": 5009
     },
     {
       "path": "reports/results.json",
-      "sha256": "dcff9b90b7645025ae914274f4cfe962fe40cde181de4b99e89f461531b09980",
-      "bytes": 24134
+      "sha256": "2436551c07dbe4ff0abd91f2dd08c677901f1a708e88049bbfcbae5835d123e5",
+      "bytes": 24152
     },
     {
       "path": "reports/tables/cluster_profiles.csv",
@@ -2250,8 +2195,8 @@
     },
     {
       "path": "reports/tables/data_audit.json",
-      "sha256": "fd8d6a82486871c67a7cae857e2b15a6ea586e370772958b9b7e1b1979674194",
-      "bytes": 94177
+      "sha256": "31aaf7f87014e6aa09604632199f42e46308758205630f7210a3a7baa70cd810",
+      "bytes": 94105
     },
     {
       "path": "reports/tables/data_audit_missingness.csv",
@@ -2345,8 +2290,8 @@
     },
     {
       "path": "reports/tables/target_measurement_audit.json",
-      "sha256": "5707a37ed842444f090b84e43fcd62c0e794d21b554ada7835026a4ff87cb60a",
-      "bytes": 4038
+      "sha256": "690a6fc621481ba81fff79a69b76ac127cf76e7df73efc7b27e65d0a2010ccbc",
+      "bytes": 4022
     },
     {
       "path": "reports/tables/target_rezago_by_month.csv",
@@ -2365,8 +2310,8 @@
     },
     {
       "path": "scripts/check_github_ready.py",
-      "sha256": "dbb9182f607e19f933775eef978ee86d96f5d1f2b91fcdbc3ebb5d1d4466513c",
-      "bytes": 2072
+      "sha256": "28dcf05b24b9b80da846c22e991c533522d278a76501985e536a90de4a695f0f",
+      "bytes": 2068
     },
     {
       "path": "scripts/download_raw_data.py",
@@ -2374,39 +2319,29 @@
       "bytes": 4923
     },
     {
-      "path": "scripts/prepare_github.py",
-      "sha256": "f4004c293af7d5e54ee0481d1d8490d764d97966182ae9adc4bc0ce06792b207",
-      "bytes": 1407
-    },
-    {
       "path": "scripts/reproduce_scientific.py",
-      "sha256": "85e06521fd44b96f34f9fd6ff6ab6c8c3209867d7dc6599dccecf81a11ee8062",
-      "bytes": 6423
+      "sha256": "8d63c5b999c823413121d0999fa4e2f15ae45923bf1d1b54ea7a88248e5265c4",
+      "bytes": 6565
     },
     {
       "path": "scripts/reproduce_teacher.py",
-      "sha256": "15d250cd91abb1703ce0381d314ad908dcdaa8b497665b8de97263dc02e9377e",
-      "bytes": 1996
-    },
-    {
-      "path": "scripts/save_presentation_notebooks.py",
-      "sha256": "9c2ef315d946a5470d9b585912c79000bd8538f9f8d1587c65b62fa5948962f2",
-      "bytes": 293
+      "sha256": "c33da5e505bbf21f56566ebd71648e24af20eb584aeb6bcb7bdf3f37b9d0b66a",
+      "bytes": 1989
     },
     {
       "path": "scripts/validate_raw_rebuild.py",
-      "sha256": "e856eb742a03e7a35679efa47911036a58f68864a672077d13c13578086b14ea",
-      "bytes": 3385
+      "sha256": "28ca3d49dcfaf0f4ee8cac89e8f2b0c1fc5e979124e25e72527ad55c231e78fa",
+      "bytes": 3408
     },
     {
       "path": "src/audit_target_measurement.py",
-      "sha256": "da8eaab926171f69934f90724bf650d9a4849db1302cf193bf757d7f8e107cc5",
-      "bytes": 4715
+      "sha256": "6e1025d4252b01c85e1d52558b13ebc45fa27121c9ae6a11e52a3f6314863047",
+      "bytes": 4733
     },
     {
       "path": "src/build_data.py",
-      "sha256": "fd58fbb01db4512bbde6a9ec3c02f0307fdd8c0beb2b44cd17d9abec3fe025a2",
-      "bytes": 37655
+      "sha256": "d4ea20f339696357847be3df877eac5ef7d5a1614b9b972415d0de9ce7f42e68",
+      "bytes": 37633
     },
     {
       "path": "src/execute_notebooks.py",
@@ -2415,8 +2350,8 @@
     },
     {
       "path": "src/finalize_docs.py",
-      "sha256": "d3c5188a67c9b05293054b7c1df370a7a25d71d57d5baecf7a58f15f710f18cc",
-      "bytes": 4248
+      "sha256": "7bce46be9b3cab43013359c213cb0fccd264a8eaa4a35f65bec160c9e6515a6d",
+      "bytes": 2674
     },
     {
       "path": "src/make_notebooks.py",
@@ -2425,13 +2360,13 @@
     },
     {
       "path": "src/make_report.py",
-      "sha256": "7d2e716c0735d77518b01ca646e026e04792477517f84be6d6b6c83792b030f5",
-      "bytes": 48535
+      "sha256": "6d9385840657363774f1572945b29ae6693c1883c38a8bfcbafb5c8a13ff2e57",
+      "bytes": 48587
     },
     {
       "path": "src/make_scientific_notebooks.py",
-      "sha256": "05d2192fc575352ccac5a0c63af5491cc7706ddeff4f4361cc567c960afac1d5",
-      "bytes": 6624
+      "sha256": "bb60497ee7b089c99de21503f34635839d36ef094cc92fd889e7ae98fc050bf0",
+      "bytes": 6434
     },
     {
       "path": "src/nonlinear_shap.py",
@@ -2439,14 +2374,9 @@
       "bytes": 4118
     },
     {
-      "path": "src/notebook_editorial.py",
-      "sha256": "7a674e743d9c94f67cb71da54f2a9943e5ea002c91b148d81ca412e4eaad8b6b",
-      "bytes": 9722
-    },
-    {
       "path": "src/package_submission.py",
-      "sha256": "042d69fd06b5582e822e7102529e8d5e3ac86b72fc9b59e0eb5a4a8a9292b9c1",
-      "bytes": 5556
+      "sha256": "2bf51692be5b312c7357cecfb93476deb03b224ec47981ea317b070042b9db4f",
+      "bytes": 1846
     },
     {
       "path": "src/public_data_download.py",
@@ -2455,17 +2385,17 @@
     },
     {
       "path": "src/run_analysis.py",
-      "sha256": "b0ad97cd0f01f6370146398691f5cf8fe6b78b48390ad36dfb9b2721e8d5d090",
-      "bytes": 35660
+      "sha256": "4e64f0383c6a1d73eb64b776d1ab3e3bad212562b91eac48c49ce30efcc89e4a",
+      "bytes": 35583
     },
     {
       "path": "src/scientific_audit.py",
-      "sha256": "22e61709268945ea9619d3dfb1b3ca59d06862e4d442c2b428a7541459e49f19",
-      "bytes": 13552
+      "sha256": "c5374746a0a864cfb639ae3b43e1845f5db58b646379820c74bd5921a25f248b",
+      "bytes": 13568
     },
     {
       "path": "src/source_audit.py",
-      "sha256": "b2a630d6195f85ce4bf5c98daa6949531b54538e564b944d3919c8c2c7724131",
+      "sha256": "d1e68b24bbfaad61b9431fed00530b467097e6efec444f4e945bfa8cac069059",
       "bytes": 8958
     },
     {
@@ -2480,8 +2410,8 @@
     },
     {
       "path": "src/verify_outputs.py",
-      "sha256": "9ed1bf5689efb36bbb34643b950a5af8c06077d7f7c0076bfead3457d800df67",
-      "bytes": 13966
+      "sha256": "f30c25b445eaed775c52e238b8b997b44a419dbd0071e5336b68c1f24158a973",
+      "bytes": 13979
     },
     {
       "path": "tests/test_data.py",
@@ -2510,8 +2440,8 @@
     }
   ],
   "pdf_checked": true,
-  "inventory_scope": "Current publication artifacts; individual prediction/fold traces remain local and are regenerated by isolated training. Historical ignored notebooks are excluded.",
+  "inventory_scope": "Current publication artifacts; individual prediction/fold traces remain local and are regenerated by isolated training. Only the five analysis notebooks are included.",
   "scientific_reference": "docs/SCIENTIFIC_REFERENCE.json",
   "scientific_reference_scope": "definitive_annual_reference",
-  "raw_source_role": "Instructor recovery sources; the definitive annual-layout dataset and its separate source-equivalence audit are documented in docs/SOURCE_ORDER_AUDIT.json."
+  "raw_source_role": "Instructor recovery sources; the definitive annual-layout dataset and its separate source-equivalence audit are documented in docs/SOURCE_RECONCILIATION.md."
 }

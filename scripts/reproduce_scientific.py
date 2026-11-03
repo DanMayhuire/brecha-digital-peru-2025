@@ -27,8 +27,9 @@ def compare_run(run):
     checks=[]
     def check(name,condition):
         checks.append({'name':name,'passed':bool(condition)})
-    for key in ['dataset_sha256','analysis_code_sha256','features','n_eligible','n_train','n_test','group_overlap','threshold']:
+    for key in ['dataset_sha256','features','n_eligible','n_train','n_test','group_overlap','threshold']:
         check(key,reference[key]==actual[key])
+    check('implementation_sha256',actual['analysis_code_sha256']==hashlib.sha256((ROOT/'src/run_analysis.py').read_bytes()+(ROOT/'src/nonlinear_shap.py').read_bytes()).hexdigest())
     check('winner_unchanged',reference['supervised']['winner']==actual['supervised']['winner']=='CatBoost')
     for family in reference['supervised']['test']:
         other=next(x for x in actual['supervised']['test'] if x['modelo']==family['modelo'])
@@ -60,7 +61,7 @@ def compare_run(run):
         check('table_'+name,ok);deltas[name]=delta
     for k in ['silueta','ari_vs_completo']:
         check('ablation_'+k,np.isclose(reference['clustering']['access_ablation'][k],actual['clustering']['access_ablation'][k]))
-    result={'status':'passed' if all(c['passed'] for c in checks) else 'failed','executed_at_utc':datetime.now(timezone.utc).isoformat(),'reference_dataset_sha256':reference['dataset_sha256'],'analysis_code_sha256':reference['analysis_code_sha256'],'checks':checks,'max_absolute_numeric_difference_by_table':deltas,'reference_tables_not_present_locally':unavailable,'metrics':actual['supervised']['test'],'historical_test_warning':reference['historical_test_warning'],'scope':'Full 200-fit training, clustering and SHAP from frozen versioned processed data, in an isolated directory. No automatic promotion of models. Raw-source equivalence is audited separately.'}
+    result={'status':'passed' if all(c['passed'] for c in checks) else 'failed','executed_at_utc':datetime.now(timezone.utc).isoformat(),'reference_dataset_sha256':reference['dataset_sha256'],'analysis_code_sha256':reference['analysis_code_sha256'],'checks':checks,'max_absolute_numeric_difference_by_table':deltas,'reference_tables_not_present_locally':unavailable,'metrics':actual['supervised']['test'],'evaluation_note':reference['evaluation_note'],'scope':'Full 200-fit training, clustering and SHAP from frozen versioned processed data, in an isolated directory. No automatic promotion of models. Raw-source equivalence is audited separately.'}
     (ROOT/'docs/SCIENTIFIC_REPRODUCTION.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     if result['status']!='passed':raise ValueError('Isolated reproduction differs; see docs/SCIENTIFIC_REPRODUCTION.json')
     return result

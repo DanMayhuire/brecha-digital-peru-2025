@@ -215,7 +215,7 @@ class Article:
         self.c.setFont('Helvetica',7.5);self.c.setFillColor(GRAY)
         self.c.drawString(M,H-27,'INTELIGENCIA ARTIFICIAL | EVALUACIÓN U2 | ENAHO-ESCALE 2025')
         self.c.line(M,36,W-M,36)
-        self.c.drawString(M,24,'Universidad Peruana Unión | Revisión: 3 de noviembre de 2026')
+        self.c.drawString(M,24,'Universidad Peruana Unión | 3 de noviembre de 2026')
         self.c.drawRightString(W-M,24,f'{self.page} / 6')
         self.md.append('\n\n---\n')
 
@@ -365,7 +365,7 @@ def generate():
     if any(key not in r for key in required):
         raise SystemExit('No se genera el informe: faltan resultados finales de robustez/SHAP.')
     if not r['clustering'].get('stability') or not r['supervised'].get('weight_sensitivity'):
-        raise SystemExit('No se genera el informe con la versión previa del análisis.')
+        raise SystemExit('Faltan estadísticas de estabilidad o sensibilidad necesarias para el informe.')
     audit=json.loads((TAB/'data_audit.json').read_text(encoding='utf-8'))
     if not audit.get('dbf_schemas',{}).get('padlocal'):
         raise SystemExit('No se genera el informe antes de auditar Padlocal.')
@@ -530,7 +530,7 @@ def generate():
       f'{esc(winner)} fue seleccionado por AP-CV tras comparar pesos e hiperparámetros; su recall ponderado de {pct(best["recall"])} al umbral {r["threshold"]} limita la detección individual. '
       'La evidencia sugiere explorar apoyos de acceso y acompañamiento apropiados a edad y contexto y evaluar su efecto en campo. SHAP explica el score, no estima el impacto de intervenciones.',size=9.1,leading=12)
     a.para('<b>Limitaciones.</b> No uso en el mes anterior no equivale a falta de habilidades, mala conexión ni exclusión permanente. Se excluyen no asistentes. ESCALE representa residencia, no escuela identificada, e incluye imputaciones; un distrito puede aparecer en ambas particiones. '
-      'Las estrategias de peso y HP se eligieron secuencialmente en los mismos folds, por lo que CV puede ser optimista. La prueba ya observada en la versión inicial no es una confirmación externa nueva. Los pesos y bootstraps no reproducen todo el diseño muestral. '
+      'Las estrategias de peso y HP se eligieron secuencialmente en los mismos folds, por lo que CV puede ser optimista. La evaluación es retrospectiva sobre una partición de prueba previamente examinada y requiere validación externa independiente. Los pesos y bootstraps no reproducen todo el diseño muestral. '
       'La medición transversal, las referencias temporales y los predictores correlacionados impiden causalidad; se requiere nueva validación espacial/temporal antes de uso decisorio.',size=9.1,leading=12)
     a.heading('Referencias y materiales reproducibles')
     references=[

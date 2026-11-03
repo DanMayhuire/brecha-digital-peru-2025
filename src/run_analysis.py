@@ -451,7 +451,7 @@ def main():
             if key in existing:summary[key]=existing[key]
     summary.update({'run_signature':signature,'dataset_sha256':datahash,'analysis_code_sha256':codehash,
       'executed_at_utc':datetime.now(timezone.utc).isoformat(),
-      'historical_test_warning':'La partición de prueba ya se inspeccionó en la versión anterior. Se conserva para comparabilidad, sin usarla para selección nueva; esta auditoría es retrospectiva y no aporta una prueba externa inédita.'})
+      'evaluation_note':'Evaluación retrospectiva sobre una partición de prueba previamente examinada; los resultados requieren validación externa independiente.'})
     summary.setdefault('phase_seconds',{})
     print('Cohorte y particiones',summary['n_train'],summary['n_test'],flush=True)
     with threadpool_limits(limits=4):

@@ -250,7 +250,6 @@
       "specificity_no_ponderado": 0.9280155642023347
     }
   ],
-  "historical_test_warning": "La partición de prueba ya se inspeccionó en la versión anterior. Se conserva para comparabilidad, sin usarla para selección nueva; esta auditoría es retrospectiva y no aporta una prueba externa inédita.",
   "scope": "Full 200-fit training, clustering and SHAP from frozen versioned processed data, in an isolated directory. No automatic promotion of models. Raw-source equivalence is audited separately.",
   "training_executed_at_utc": "2026-11-03T17:00:51.288881+00:00",
   "software": {
@@ -264,5 +263,6 @@
     "scipy": "1.18.1",
     "matplotlib": "3.11.2",
     "joblib": "1.6.0"
-  }
+  },
+  "evaluation_note": "Evaluación retrospectiva sobre una partición de prueba previamente examinada; los resultados requieren validación externa independiente."
 }

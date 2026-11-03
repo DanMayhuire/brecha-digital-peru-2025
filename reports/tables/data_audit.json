@@ -3,7 +3,7 @@
   "year": 2025,
   "modules": {
     "vivienda": {
-      "source_member": "${ANNUAL_DIR}/1031-Modulo01.zip!1031-Modulo01/Enaho01-2025-100.csv",
+      "source_member": "1031-Modulo01.zip!1031-Modulo01/Enaho01-2025-100.csv",
       "encoding": "latin1",
       "separator": ";",
       "decimal": ",",
@@ -370,7 +370,7 @@
       "missing_requested_columns": []
     },
     "personas": {
-      "source_member": "${ANNUAL_DIR}/1031-Modulo02.zip!1031-Modulo02/Enaho01-2025-200.csv",
+      "source_member": "1031-Modulo02.zip!1031-Modulo02/Enaho01-2025-200.csv",
       "encoding": "latin1",
       "separator": ";",
       "decimal": ",",
@@ -448,7 +448,7 @@
       ]
     },
     "educacion": {
-      "source_member": "${ANNUAL_DIR}/1031-Modulo03.zip!1031-Modulo03/Enaho01A-2025-300.csv",
+      "source_member": "1031-Modulo03.zip!1031-Modulo03/Enaho01A-2025-300.csv",
       "encoding": "latin1",
       "separator": ";",
       "decimal": ",",
@@ -1011,7 +1011,7 @@
       "missing_requested_columns": []
     },
     "sumaria": {
-      "source_member": "${ANNUAL_DIR}/1031-Modulo34.zip!1031-Modulo34/Sumaria-2025.csv",
+      "source_member": "1031-Modulo34.zip!1031-Modulo34/Sumaria-2025.csv",
       "encoding": "latin1",
       "separator": ";",
       "decimal": ",",
@@ -4139,7 +4139,7 @@
     "not_used": "FACPANEL* longitudinal weights: this project is a 2025 cross-section, not a continuous multi-year panel subset."
   },
   "output": {
-    "path": "${PROJECT_ROOT}/data/processed/dataset_enaho_escale_2025.csv",
+    "path": "data/processed/dataset_enaho_escale_2025.csv",
     "sha256": "e46ff2b57a84c34319b94609460a7d7a0972be087a93cb39e3fa7dc5e24a96a5",
     "columns": [
       "ano",

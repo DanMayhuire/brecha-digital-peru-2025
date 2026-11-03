@@ -22,8 +22,7 @@
     "prop_publicas",
     "escale_coincide"
   ],
-  "historical_test_warning": "La partición de prueba ya se inspeccionó en la versión anterior. Se conserva para comparabilidad, sin usarla para selección nueva; esta auditoría es retrospectiva y no aporta una prueba externa inédita.",
-  "source": "Definitive annual-layout frozen dataset and saved models; instructor raw recovery audited separately by keys.",
+  "source": "ENAHO anual 2025 y ESCALE; evaluación de modelos con dataset y orden de filas especificados por SHA-256.",
   "models": [
     {
       "modelo": "Logística",
@@ -127,5 +126,6 @@
     "n_explained": 601,
     "units": "log-odds",
     "max_additivity_residual": 6.217248937900877e-15
-  }
+  },
+  "evaluation_note": "Evaluación retrospectiva sobre una partición de prueba previamente examinada; los resultados requieren validación externa independiente."
 }

@@ -1,5 +1,5 @@
 {
-  "source_dataset": "${PROJECT_ROOT}/data/processed/dataset_enaho_escale_2025.csv",
+  "source_dataset": "data/processed/dataset_enaho_escale_2025.csv",
   "source_sha256": "e46ff2b57a84c34319b94609460a7d7a0972be087a93cb39e3fa7dc5e24a96a5",
   "questionnaire_reference": "CUESTIONARIO_ENAHO01A_2025.pdf, página PDF6: competencias TIC para personas14+; si P316B=2, salto a capítulo400.",
   "cohorts": {

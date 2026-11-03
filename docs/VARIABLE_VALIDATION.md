@@ -1,11 +1,11 @@
 # Validación conceptual de variables y factores de expansión
 
-Revisión: 2026-10-28, America/Lima. Las variables se contrastaron con el cuestionario ENAHO 2025 del material docente y el diccionario anual oficial 2025. Las páginas indicadas son páginas PDF, contadas desde 1. El diccionario panel contiene nombres heredados y algunos rótulos que no reproducen el cuestionario de 2025; se prioriza el significado de la pregunta del cuestionario y se verifica el contenido observado.
+Las variables se contrastaron con el cuestionario ENAHO 2025 del material docente y el diccionario anual oficial 2025. Las páginas indicadas son páginas PDF, contadas desde 1. El diccionario panel contiene nombres heredados y algunos rótulos que no reproducen el cuestionario de 2025; se prioriza el significado de la pregunta del cuestionario y se verifica el contenido observado.
 
 ## Fuentes comprobadas
 
-- **Q01**: `INEI/1041-Modulo1479.zip!1041-Modulo1479/CUESTIONARIO_ENAHO01_2025.pdf`, páginas 7-8: miembros, ausencia, presencia y edad.
-- **Q01A**: `INEI/1041-Modulo1475.zip!1041-Modulo1475/CUESTIONARIO_ENAHO01A_2025.pdf`, páginas 2, 5 y 6: educación, uso de internet y competencias TIC.
+- **Q01**: Cuestionario ENAHO.01 2025, páginas 7-8: miembros, ausencia, presencia y edad.
+- **Q01A**: Cuestionario ENAHO.01A 2025, páginas 2, 5 y 6: educación, uso de internet y competencias TIC.
 - **D25**: [INEI, Diccionario de Datos ENAHO 2025, mayo de 2026](https://proyectos.inei.gob.pe/iinei/srienaho/Descarga/DocumentosMetodologicos/2025-55/20_Diccionario_2025.pdf): páginas 14, 16, 30-31, 94-95, 107-111, 119 y 375.
 - **DP**: `Diccionario_panel_2021_2025.pdf` dentro de los módulos originales: páginas 588-590, 594-595, 599, 660-667; describe campos con sufijo `_25`.
 
@@ -42,7 +42,7 @@ El sufijo anual se quita únicamente después de seleccionar 2025. No se mezclan
 
 ## Competencias: evidencia y saltos
 
-La revisión anterior del proyecto no había auditado toda la página 6 del cuestionario. **Sí existe un bloque de competencias TIC**, pero no observa de manera completa el universo escolar de 6-17. Los6-13 están fuera de su universo; además P316B=2 evita preguntar C. La ausencia por esos mecanismos no es una respuesta negativa a cada habilidad.
+El cuestionario contiene un bloque de actividades informáticas autorreportadas, pero no observa de manera completa el universo escolar de 6-17. Los6-13 están fuera de su universo; además P316B=2 evita preguntar C. La ausencia por esos mecanismos no es una respuesta negativa a cada habilidad.
 
 La comprobación directa del CSV crudo de educación, con identificadores de 2025 y sin filtrar edad, encontró 106,958 registros: P314A válido en 99,919; P316B en 84,784 (20,746 sí, 64,038 no); cada P316C1...10 en 20,746. Estos conteos describen el módulo educativo completo del archivo panel docente, no la cohorte final ni la población nacional. Su cobertura específica por edad/cohorte debe consultarse en las tablas de auditoría generadas en la reconstrucción.
 
@@ -56,4 +56,4 @@ La comparación por FACPOB07/FACTORA07 evalúa sensibilidad al factor. Las métr
 
 ## Límite temporal de la validación
 
-El conjunto de prueba de este proyecto ya había sido observado en la versión anterior. La ampliación de búsqueda selecciona configuraciones solo en desarrollo y conserva la partición original; se declara evaluación retrospectiva de un holdout previamente observado. No se afirma que sea una validación externa nueva, ni que la semilla borre ese historial.
+Evaluación retrospectiva sobre una partición de prueba previamente examinada; los resultados requieren validación externa independiente.

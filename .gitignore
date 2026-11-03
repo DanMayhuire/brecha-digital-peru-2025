@@ -22,7 +22,7 @@ data/raw/minedu_escale/*
 !data/raw/minedu_escale/.gitkeep
 *.zip
 *.dbf
-reports/rebuild_teacher/
+reports/teacher_run/
 reports/raw_management/*manifest*.json
 
 /output/Evaluacion_U2_Brecha_Digital/

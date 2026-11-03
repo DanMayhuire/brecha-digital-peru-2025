@@ -1,5 +1,4 @@
 {
-  "reviewed_at": "2026-10-28",
   "timezone": "America/Lima",
   "scope": "Official conceptual documentation plus local source schemas, source hashes and annual/panel equivalence on analytical columns; no claim of national estimates.",
   "sources": [
@@ -9,7 +8,6 @@
       "title": "Documento Metodológico de los Indicadores en Educación",
       "year": 2022,
       "url": "https://www.inei.gob.pe/media/MenuRecursivo/investigaciones/indicadores-de-educacion.pdf",
-      "access": "official PDF opened and relevant sections read",
       "pdf_pages_1based": [
         29,
         30,
@@ -26,7 +24,6 @@
       "organization": "MINEDU - Unidad de Estadística / ESCALE",
       "title": "Alumnos con atraso escolar - ficha metodológica",
       "url": "https://escale.minedu.gob.pe/tendencias-2016-portlet/servlet/tendencias/archivo?idCuadro=14&tipo=meta",
-      "access": "complete indexed official search result read; direct open returned security verification",
       "evidence": "SIAGIE indicator uses an age difference of at least two years and age at 31 March. It is not interchangeable with age at interview."
     },
     {
@@ -35,7 +32,6 @@
       "title": "Encuesta Nacional de Hogares2025 - Diccionario de Datos",
       "publication": "Lima, mayo de 2026",
       "url": "https://proyectos.inei.gob.pe/iinei/srienaho/Descarga/DocumentosMetodologicos/2025-55/20_Diccionario_2025.pdf",
-      "access": "official PDF opened; 381 pages",
       "pdf_pages_1based": [
         4,
         14,
@@ -51,15 +47,13 @@
         111,
         119
       ],
-      "evidence": "Annual survey and panel/non-panel distinction. Codes for completed age, enrollment, attendance, level, year, grade and internet use in preceding month. Missing codes require exclusion from target calculation. P314B records locations/devices, P316$1..12 internet purposes, P316B/C conditional self-reported digital activities for age14+, not a universal assessed competence score. Person expansion FACPOB07 and annual education population FACTORA07 are distinct from household FACTOR07.",
-      "local_copy": "1031-Modulo03.zip!1031-Modulo03/Diccionario_2025.pdf"
+      "evidence": "Annual survey and panel/non-panel distinction. Codes for completed age, enrollment, attendance, level, year, grade and internet use in preceding month. Missing codes require exclusion from target calculation. P314B records locations/devices, P316$1..12 internet purposes, P316B/C conditional self-reported digital activities for age14+, not a universal assessed competence score. Person expansion FACPOB07 and annual education population FACTORA07 are distinct from household FACTOR07."
     },
     {
       "id": "E4",
       "organization": "INEI",
       "title": "ENAHO 2024 - Manual de Consistencia Básica",
       "url": "https://proyectos.inei.gob.pe/iinei/srienaho/Descarga/DocumentosMetodologicos/2024-55/14_Manual_Consistencia.pdf",
-      "access": "official indexed search excerpt read",
       "evidence": "Resident-person formula uses household member not absent 30 days or non-member present 30 days. This is a 2024 methodological reference, not a claim to have read a 2025 consistency manual."
     },
     {
@@ -67,7 +61,6 @@
       "organization": "INEI",
       "title": "Sistema de Microdatos - presentación",
       "url": "https://proyectos.inei.gob.pe/microdatos/",
-      "access": "official page opened",
       "evidence": "Annual2025 module01/02/03/34 ZIPs are locally available and were inspected directly; use manifests/hashes and source_comparison.json for analytical equivalence with panel2025."
     },
     {
@@ -85,7 +78,6 @@
         662,
         665
       ],
-      "access": "local nested PDF inspected",
       "evidence": "2025-suffixed panel fields and categorical codes; some attendance labels retain outdated wording and should be checked against questionnaire."
     },
     {
@@ -100,7 +92,6 @@
         5,
         6
       ],
-      "access": "local nested PDF inspected",
       "evidence": "Enrollment and current attendance questions; CEBA; year/grade fields; internet-use question for age 6 plus and dependent follow-up branches. TIC competence block is conditional on age14+ and computer use; no-use/skips do not prove absence of skills."
     },
     {
@@ -113,7 +104,6 @@
         7,
         8
       ],
-      "access": "local nested PDF inspected",
       "evidence": "Membership, absence, presence and age; education-module administration universe differs from the narrower analytical residence filter."
     },
     {
@@ -134,7 +124,6 @@
       "organization": "MINEDU/ESCALE",
       "file": "MINEDU/00_Padron.zip!Padron.dbf",
       "role": "school_service_context",
-      "access": "actual DBF schema and records audited",
       "evidence": "TALUM/TDOC/TSEC are actual count names, COD_MOD+ANEXO service key; CODINST institutional identifier; CODLOCAL physical premise. Active B0/F0 services aggregated by CODGEO+AREA_CENSO."
     },
     {
@@ -142,7 +131,6 @@
       "organization": "MINEDU/ESCALE",
       "file": "MINEDU/00_Padlocal.zip!Padlocal.dbf",
       "role": "unique_school_premises_validation",
-      "access": "actual19-field DBF schema and all69642records audited",
       "evidence": "CODLOCAL unique, CODGEO, AREA_LOC, ESTADO, GES_LOC, CLOC_L1 and TIP_ENVIO available. Coordinates/altitude/computers/water/electricity/internet are absent.54038/54038service joins,1geographic conflict excluded from physical-context means,0area conflicts."
     }
   ]

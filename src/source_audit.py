@@ -63,7 +63,7 @@ def load_annual(directory, name, wanted, clean_keys, assert_unique, hh, person, 
         if c not in {'año','mes',*hh,'codperso','ubigeo','nconglome','sub_conglome'}:
             frame[c]=pd.to_numeric(frame[c].str.replace(',','.',regex=False),errors='coerce')
             if c in MISSING_CODES:frame[c]=frame[c].replace(MISSING_CODES[c],np.nan)
-    audit['modules'][name]={'source_member':str(path)+'!'+member,'encoding':'latin1','separator':';','decimal':',',
+    audit['modules'][name]={'source_member':path.name+'!'+member,'encoding':'latin1','separator':';','decimal':',',
         'rows_with_2025_identifiers':len(frame),'unique_keys':True,'conglomerates':int(frame.conglome.nunique()),
         'columns':list(frame),'source_total_columns':len(full_columns),'source_column_names':full_columns,'missing_requested_columns':sorted(wanted-set(frame.columns))}
     audit.setdefault('raw_eda',[]).extend(raw)

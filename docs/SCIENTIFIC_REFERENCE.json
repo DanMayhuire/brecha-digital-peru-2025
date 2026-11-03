@@ -1,6 +1,5 @@
 {
-  "reference_commit": "c864fac07f8edd49bba9c54b92c396ec06169afc",
-  "scientific_source": "Annual ENAHO 2025 layout, contrasted by keys against instructor panel cut2025; ESCALE instructor sources. The sequence is frozen, not interchangeable with the original panel row order.",
+  "scientific_source": "ENAHO anual 2025 y ESCALE; dataset y orden de filas especificados por SHA-256.",
   "frozen_sha256": {
     "models/best_model.joblib": "8c7422152aa73869909bc307bb576ad671e5b03138047c3e148ff875e212128f",
     "models/all_models.joblib": "fbea99b10a62aff3152d0f7150d9befa6511d40cfaaaa6da6b8f52e68cb0dcb5",
@@ -8,7 +7,9 @@
     "data/processed/dataset_enaho_escale_2025.csv": "e46ff2b57a84c34319b94609460a7d7a0972be087a93cb39e3fa7dc5e24a96a5",
     "data/processed/dataset_modelado_internet_2025.csv": "941f0407a726fcf6b0d95a6694ba9e19b8bf767746b7c53348cdf1dd41c3b76a"
   },
-  "historical_annual_archives": [
+  "instructor_recovery_manifest": "data/raw/download_manifest.json",
+  "evaluation_note": "Evaluación retrospectiva sobre una partición de prueba previamente examinada; los resultados requieren validación externa independiente.",
+  "annual_archives": [
     {
       "path": "1031-Modulo01.zip",
       "bytes": 8124173,
@@ -45,7 +46,5 @@
       "sha256": "626e9165f08d61d0de78010fd4027a7b6b78ab7709db1f3d3dcd7661257acda5",
       "role": "comparison_only"
     }
-  ],
-  "instructor_recovery_manifest": "data/raw/download_manifest.json",
-  "historical_test_warning": "La partición de prueba ya se inspeccionó en la versión anterior. Se conserva para comparabilidad, sin usarla para selección nueva; esta auditoría es retrospectiva y no aporta una prueba externa inédita."
+  ]
 }

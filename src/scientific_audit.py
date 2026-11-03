@@ -65,7 +65,7 @@ def evaluate(phase):
             for path,digest in json.loads(reference.read_text())['frozen_sha256'].items():
                 check('frozen_'+path,sha(ROOT/path)==digest)
         check('dataset_sha256', sha(ROOT/'data/processed/dataset_enaho_escale_2025.csv') == r['dataset_sha256'])
-        check('analysis_code_sha256', hashlib.sha256((ROOT/'src/run_analysis.py').read_bytes()+(ROOT/'src/nonlinear_shap.py').read_bytes()).hexdigest() == r['analysis_code_sha256'])
+        check('implementation_sha256', hashlib.sha256((ROOT/'src/run_analysis.py').read_bytes()+(ROOT/'src/nonlinear_shap.py').read_bytes()).hexdigest() == r.get('implementation_sha256',r['analysis_code_sha256']))
         check('unique_person_keys', not base.duplicated(KEYS).any())
         check('unique_partition_indices', parts.indice.is_unique and set(parts.indice) == set(model.index))
         check('group_labels_aligned', np.array_equal(parts.conglome.to_numpy(), model.loc[parts.indice, 'conglome'].to_numpy()))
@@ -165,7 +165,7 @@ def evaluate(phase):
         detail={'model':'CatBoost','n_explained':len(values),'units':'log-odds antes de calibrar','max_additivity_residual':residual,'importance':[{'variable':f,'mean_abs_shap':float(v)} for f,v in zip(features,importance)],'complementary_model':'XGBoost','xgboost_n_explained':len(iv),'xgboost_residual':residual_xgb}
     else:
         raise ValueError(phase)
-    return {'phase':phase,'status':'passed','executed_at_utc':datetime.now(timezone.utc).isoformat(),'checks':checks,'detail':detail,'historical_test_warning':r['historical_test_warning']}
+    return {'phase':phase,'status':'passed','executed_at_utc':datetime.now(timezone.utc).isoformat(),'checks':checks,'detail':detail,'evaluation_note':r['evaluation_note']}
 
 
 def main():

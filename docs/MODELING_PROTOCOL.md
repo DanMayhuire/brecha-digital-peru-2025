@@ -1,23 +1,29 @@
-# Protocolo de revisión fijado antes del nuevo entrenamiento
+# Protocolo de modelado y evaluación
 
-Se conserva la pregunta operacional, los13predictores, las cuatro familias, el split por conglomerado con semilla42 y los mismos5folds. La decisión final sobre las fuentes y el objetivo precede a la ejecución supervisada.
+## Población y particiones
 
-## Búsqueda acotada en desarrollo
+La cohorte se define en `TARGET_DECISION.md`. GroupShuffleSplit, semilla 42 y proporción de prueba 0.2, separa CONGLOME: 13 105 personas en desarrollo y 3 439 en prueba, sin solapamiento de conglomerados. Cinco folds GroupKFold sobre desarrollo sustentan ajuste y selección.
 
-1. Por familia se compara una configuración representativa bajo cuatro estrategias: uniforme, expansión poblacional, balance de clases y expansión con balance. La normalización y el balance se calculan en el subconjunto de ajuste de cada fold. Las cuatro estrategias se comparan por AP media de los cinco folds, ponderada por FACPOB07.
-2. Se fija la estrategia de mayor AP para cada familia; se prueban seis configuraciones de hiperparámetros por familia sobre los mismos folds. El código `models_config` enumera exactamente24configuraciones.
-3. Se elige la familia/configuración con mayor AP-CV media. El máximo presupuesto son200ajustes:80de sensibilidad y120de hiperparámetros. No es optimización conjunta ni exhaustiva. El sesgo de selección de CV permanece y se declara.
-4. Las probabilidades OOF de la configuración elegida por familia entrenan un calibrador sigmoide con pesos poblacionales. El calibrador no ve prueba. El umbral principal permanece0.5; no se optimiza en prueba.
-5. Se ajusta cada modelo con desarrollo y se evalúa en prueba. Se guardan todos los resultados, sin sustituir al ganador por una métrica de prueba. Se añaden predictores constantes (mayoría y prevalencia de desarrollo) y métricas ponderadas/no ponderadas. AP y áreaPRtrapezoidal son distintos.
+## Preprocesamiento
 
-Rangos: logística C0.01–3 contempla regularización fuerte/moderada; RF profundidad8–ilimitada, hojas3–12 y fracción de características; XGBoost profundidades2–5, peso mínimo de hoja y penalización; CatBoost profundidades3–6 y L2. Árboles limitados a180/260/300 y4hilos para CPU. No se aumenta el presupuesto según el resultado de prueba.
+Las variables numéricas utilizan imputación por mediana y estandarización; las categorías, imputación por moda y one-hot con manejo de categorías no vistas. Los parámetros se ajustan dentro del entrenamiento de cada fold. Las transformaciones deterministas log(1+x) de ingreso y gasto per cápita no estiman parámetros de población.
 
-## Clustering y explicación
+## Comparación de modelos
 
-Se conserva KMeans/GMM k2–6 con preprocesamiento en desarrollo, mínima masa5%, máxima silueta y DB como desempate. Se agrega estabilidad ARI por semillas42–44 y submuestras80%, además de ablación sin electricidad/internet al mismo método/k. Los perfiles se describen después de formar grupos; la etiqueta no determina la selección.
+Se comparan regresión logística, Random Forest, XGBoost y CatBoost. Por familia se evalúan entrenamiento uniforme, ponderación poblacional, balance de clase y combinación de ambos. Los pesos se calculan exclusivamente con el entrenamiento de cada fold. La estrategia se selecciona por Average Precision ponderada de validación; después se exploran seis configuraciones de hiperparámetros por familia. El presupuesto es 200 ajustes: 16 combinaciones de familia-peso y 24 configuraciones, cada una con cinco folds.
 
-SHAP explica el ganador real antes de calibrar. Se añade XGBoost como análisis no lineal explícito con interaccionesTreeSHAP en hasta180casos de prueba, semilla42; se agrupan dummies mediante suma de contribuciones y bloques de interacción. Se escogen exploratoriamente los dos pares con mayor contribución absoluta entre variables territoriales, lengua, acceso y condiciones económicas. No se atribuyen causalidad ni significación estadística a estos pares.
+La selección utiliza la mayor AP media en desarrollo. Las diferencias entre modelos no se consideran automáticamente estadísticamente significativas. La búsqueda es secuencial, no exhaustiva ni anidada.
 
-## Límite de la evaluación
+## Calibración y métricas
 
-La prueba se observó en la versión anterior. La nueva selección no utiliza sus valores, pero no puede considerarse una evaluación inédita ni externa. Se mantiene la partición para comparar versiones y se declara el carácter retrospectivo de esta auditoría. Una nueva fuente temporal o muestra externa sería necesaria para una validación independiente posterior.
+El calibrador sigmoide se ajusta sobre el logit de las predicciones OOF de desarrollo, con factores de expansión individuales. El umbral de clasificación es 0.5. Se informan ROC-AUC, Average Precision, PR-AUC trapezoidal, F1 macro, precisión, recall, especificidad y Brier, con y sin ponderación. El bootstrap por conglomerados estima intervalos descriptivos, sin reproducir toda la estratificación de ENAHO.
+
+## Clustering y SHAP
+
+Se comparan K-Means y GMM con k=2,…,6 sobre desarrollo imputado y estandarizado. La regla selecciona máxima silueta entre soluciones con grupos de al menos 5%; Davies-Bouldin sirve de desempate. Se evalúan estabilidad entre semillas/submuestras y ablación de electricidad e internet del hogar. La etiqueta se utiliza sólo para caracterizar perfiles después del ajuste.
+
+TreeSHAP explica el CatBoost guardado en log-odds previos a calibrar. Las dummies se agrupan sumando contribuciones. Las interacciones de XGBoost constituyen un análisis complementario; los pares se seleccionan exploratoriamente por contribución absoluta. Las explicaciones no identifican efectos causales.
+
+## Alcance
+
+La evaluación es retrospectiva sobre una partición de prueba previamente examinada; requiere validación externa independiente. La prueba no interviene en la elección de hiperparámetros, estrategia de pesos, calibración ni umbral.

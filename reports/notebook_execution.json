@@ -1,42 +1,42 @@
 [
   {
     "notebook": "notebooks/01_Ingenieria_Datos_EDA.ipynb",
-    "started_at_utc": "2026-11-03T17:16:56.009921+00:00",
+    "started_at_utc": "2026-11-03T18:14:52.019915+00:00",
     "status": "passed",
     "executed_code_cells": 2,
-    "seconds": 2.8060351669992087,
-    "sha256": "71a9eb29255755f6c0cbf0f385a82bc9467d3c349a7f6f3422c424b8c9d7fb3d"
+    "seconds": 2.6270905830024276,
+    "sha256": "f84302a344d9946a8935d09a1bd03da01958fd34c1804fb1aaa8beff3d72c0f7"
   },
   {
     "notebook": "notebooks/02_Clustering_Perfilamiento.ipynb",
-    "started_at_utc": "2026-11-03T17:16:58.817218+00:00",
+    "started_at_utc": "2026-11-03T18:14:54.647863+00:00",
     "status": "passed",
     "executed_code_cells": 2,
-    "seconds": 2.534849749994464,
-    "sha256": "b0c297a2e59f5a9b56e5518c4e92874b6beb6fbca0948744797d0a74c9bd70b4"
+    "seconds": 2.4938942910011974,
+    "sha256": "90b82ddf0ab13f63b28cc40d3b9be70e17f49cb4fab157c9dc60f47b38b675ae"
   },
   {
     "notebook": "notebooks/03_Modelado_Supervisado.ipynb",
-    "started_at_utc": "2026-11-03T17:17:01.353168+00:00",
+    "started_at_utc": "2026-11-03T18:14:57.142978+00:00",
     "status": "passed",
     "executed_code_cells": 2,
-    "seconds": 4.918618959003652,
-    "sha256": "ee6d220cd70dea836f9076a8b02625c8d775b2f08d9382dce41868059a7a4378"
+    "seconds": 4.906094082994969,
+    "sha256": "3a33597d4da96201df2be43c906bdbdc713dc0c98cb4e4fe19070ecb117de9ee"
   },
   {
     "notebook": "notebooks/04_Explicabilidad_SHAP.ipynb",
-    "started_at_utc": "2026-11-03T17:17:06.272942+00:00",
+    "started_at_utc": "2026-11-03T18:15:02.050221+00:00",
     "status": "passed",
     "executed_code_cells": 2,
-    "seconds": 2.702144834001956,
-    "sha256": "de5738ae0d4d04d58c34185b45f192d9209e760477b5359b4cdc6e915fc0c094"
+    "seconds": 2.5386349170003086,
+    "sha256": "9b202fb171e076efd7d6bf3172fcafc8b00f90b2d80010eaabaf3a25606da558"
   },
   {
     "notebook": "notebooks/00_Proyecto_Completo_Ejecutado.ipynb",
-    "started_at_utc": "2026-11-03T17:17:08.976803+00:00",
+    "started_at_utc": "2026-11-03T18:15:04.590625+00:00",
     "status": "passed",
     "executed_code_cells": 5,
-    "seconds": 5.553669583998271,
-    "sha256": "eb6db11e60d9e7835d5781a32a6a983f4b286e439f596894111eab471a76c9d0"
+    "seconds": 5.539494750002632,
+    "sha256": "4b9fc2c440afb1ed9769ec06098486c166c8630c3bf20e4fd43bd75f0c03a941"
   }
 ]

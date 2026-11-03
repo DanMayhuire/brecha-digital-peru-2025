@@ -254,17 +254,17 @@ def binary_code(series: pd.Series, yes=1, no=2):
 def main():
     global ROOT
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--source-dir", type=Path, default=Path.home() / "Downloads/DocenteMaterial")
+    parser.add_argument("--source-dir", type=Path, default=ROOT / "data/raw/archives")
     parser.add_argument("--annual-dir", type=Path, default=None, help="Directory containing 1031-Modulo01/02/03/34.zip; defaults to source-dir parent")
     parser.add_argument("--output-dir", type=Path, default=ROOT / "data/processed")
     parser.add_argument("--source",choices=["annual","teacher"],default="teacher")
     parser.add_argument("--raw-dir",type=Path,default=ROOT/"data/raw")
-    parser.add_argument("--run-dir",type=Path,default=None,help="Isolated workspace; teacher default reports/rebuild_teacher")
+    parser.add_argument("--run-dir",type=Path,default=None,help="Isolated workspace; teacher default reports/teacher_run")
     args = parser.parse_args()
     if args.source=="teacher" and args.annual_dir is not None:
-        raise ValueError("--annual-dir requires explicit --source annual. For instructor originals use scripts/reproduce_teacher.py; do not mix historical notebooks with another source.")
+        raise ValueError("--annual-dir requires explicit --source annual. For instructor originals use scripts/reproduce_teacher.py; select the input source explicitly.")
     if args.run_dir or args.source=="teacher":
-        ROOT=(args.run_dir or ROOT/"reports/rebuild_teacher").resolve()
+        ROOT=(args.run_dir or ROOT/"reports/teacher_run").resolve()
         args.output_dir=ROOT/"data/processed"
     for folder in [args.output_dir, ROOT / "data/raw", ROOT / "reports/tables", ROOT / "docs"]:
         folder.mkdir(parents=True, exist_ok=True)
@@ -385,7 +385,7 @@ def main():
     output = args.output_dir / "dataset_enaho_escale_2025.csv"
     data.to_csv(output, index=False)
     data.to_parquet(args.output_dir / "dataset_enaho_escale_2025.parquet",index=False)
-    audit["output"] = {"path": str(output), "sha256": sha256(output), "columns": list(data.columns)}
+    audit["output"] = {"path": str(output.relative_to(ROOT)), "sha256": sha256(output), "columns": list(data.columns)}
     (ROOT / "reports/tables/data_audit.json").write_text(json.dumps(audit, ensure_ascii=False, indent=2, default=json_default), encoding="utf-8")
     pd.DataFrame([{"variable": c, **v} for c, v in audit["missingness"].items()]).to_csv(ROOT / "reports/tables/data_audit_missingness.csv", index=False)
     write_dictionary(data, audit, ROOT / "docs/data_dictionary.md")

@@ -17,18 +17,18 @@ def audit(phase):
     with threadpool_limits(limits=4): record=evaluate(phase)
     display(pd.DataFrame(record['checks']))
     print('Controles ejecutados:',len(record['checks']),'| Estado:',record['status'])
-    print(record['historical_test_warning'])
+    print(record['evaluation_note'])
     return record['detail']
 def table(name): display(pd.read_csv(ROOT/'reports/tables'/name))
 def figure(name):
     path=ROOT/'reports/figures'/name
     print('Figura:',name,'| SHA-256:',sha(path))
     display(Image(filename=str(path)))
-print('Evaluación real de artefactos guardados; no se entrenan clasificadores.')
+print('Evaluación de modelos y controles de integridad científica')
 '''
 SECTIONS=[
 ('01_Ingenieria_Datos_EDA','Integración de datos y análisis exploratorio','dataset',
- 'La unidad de análisis es la persona residente habitual de 6 a 17 años. Se conserva el dataset anual y su orden de filas, vinculados al modelo guardado. El corte 2025 del panel docente se reconstruye por separado: sus valores comunes coinciden por llaves, pero su orden es distinto. Este notebook verifica llaves, variables, transformaciones, población, pesos y particiones. La reconstrucción independiente se documenta en docs/SCIENTIFIC_SYNC.md; esta ejecución no se presenta como una reconstrucción desde raw.',
+ 'La unidad de análisis es la persona residente habitual de 6 a 17 años. Se verifican llaves, variables, transformaciones, población, pesos y particiones del dataset anual de 2025. La secuencia de filas se especifica mediante SHA-256. La procedencia y el procedimiento de integración se describen en docs/SOURCE_RECONCILIATION.md.',
  ['target_comparison.csv','population_flow_model.csv'],['raw_eda.png','eda.png']),
 ('02_Clustering_Perfilamiento','Segmentación y perfiles socioeducativos','clustering',
  'Se evalúa el GMM guardado de dos componentes. Se recalculan asignaciones, silueta en 2 500 casos con semilla 42, Davies–Bouldin y Calinski–Harabasz en desarrollo; se contrastan tamaños y tasas ponderadas. La etiqueta no interviene en el ajuste ni la selección. La comparación completa y la ablación se contrastan también mediante entrenamiento aislado.',
@@ -64,7 +64,7 @@ def main():
         make(ROOT/'notebooks'/f'{name}.ipynb',title,cells)
         combined += [nb.v4.new_markdown_cell('## '+title+'\n\n'+intro),nb.v4.new_code_cell(code)]
     make(ROOT/'notebooks/00_Proyecto_Completo_Ejecutado.ipynb','Brecha digital y no uso de internet: ENAHO + ESCALE 2025',[
-        nb.v4.new_markdown_cell('**Inteligencia Artificial · Universidad Peruana Unión**\n\nEste recorrido se ejecuta completo en un kernel propio. No ensambla salidas de otros notebooks. Evalúa artefactos definitivos conservados; el entrenamiento aislado y las diferencias históricas se documentan en docs/SCIENTIFIC_SYNC.md. La prueba previamente observada tiene carácter retrospectivo.'),*combined])
+        nb.v4.new_markdown_cell('**Inteligencia Artificial · Universidad Peruana Unión**\n\nEstudio del no uso de internet en estudiantes de 6 a 17 años mediante integración de datos, segmentación, clasificación y explicabilidad. La evaluación utiliza modelos ajustados con validación agrupada por conglomerado. El carácter retrospectivo de la evaluación requiere validación externa independiente.'),*combined])
     print('Cinco plantillas generadas; ejecutar src/execute_notebooks.py antes de entregar.')
 
 

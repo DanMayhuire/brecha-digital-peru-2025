@@ -11,7 +11,7 @@ def main():
  for rel in sorted(files):
   p=ROOT/rel
   if not p.is_file():continue
-  if rel.startswith(('snapshots/','tmp/','reports/rebuild_teacher/','output/BI_')) or p.name in individual:failures.append([rel,'private artifact selected'])
+  if rel.startswith(('snapshots/','tmp/','reports/teacher_run/','output/BI_')) or p.name in individual:failures.append([rel,'private artifact selected'])
   if rel.startswith(('data/processed/','models/')) and rel not in tracked:failures.append([rel,'new generated artifact selected'])
   if p.name=='shap_cases.json' and 'indice_dataset' in p.read_text():failures.append([rel,'individual SHAP row linkage'])
   if rel.startswith('data/raw/') and p.suffix.lower() in {'.csv','.dbf','.zip'}:failures.append([rel,'original data selected'])

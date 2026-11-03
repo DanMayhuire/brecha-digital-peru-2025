@@ -56,7 +56,7 @@ def audit_measurement(dataset=None, output=None):
         'cohort_age_groups_sum':cohorts['attending_ebr_main']['n']==cohorts['attending_ebr_6_13']['n']+cohorts['attending_ebr_14_17']['n']
     }
     result = {
-        'source_dataset':str(dataset), 'source_sha256':hashlib.sha256(dataset.read_bytes()).hexdigest(),
+        'source_dataset':str(dataset.relative_to(ROOT)), 'source_sha256':hashlib.sha256(dataset.read_bytes()).hexdigest(),
         'questionnaire_reference':'CUESTIONARIO_ENAHO01A_2025.pdf, página PDF6: competencias TIC para personas14+; si P316B=2, salto a capítulo400.',
         'cohorts':cohorts, 'checks':checks,
         'decision':'Mantener no uso de internet mes anterior como objetivo operativo para6-17; el bloque de actividades informáticas no identifica competencia de todos los escolares.',

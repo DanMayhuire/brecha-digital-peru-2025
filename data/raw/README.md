@@ -1,10 +1,10 @@
 # Originales ENAHO y ESCALE: descarga verificable
 
-Los seis CSV/DBF no están en GitHub. Los nombres, versiones y SHA-256 esperados se fijan en `download_manifest.json`; sus URLs son enlaces públicos de los archivos del Drive docente, no rutas del Mac del autor. La carpeta de origen es https://drive.google.com/drive/folders/1J2ExK_k8T9TAveZForau6i90lb8Ef7P2?usp=sharing .
+Los seis CSV/DBF no están en GitHub. Los nombres, versiones y SHA-256 esperados se fijan en `download_manifest.json`; sus URLs son enlaces públicos de los archivos del Drive docente, referencias persistentes de las fuentes. La carpeta de origen es https://drive.google.com/drive/folders/1J2ExK_k8T9TAveZForau6i90lb8Ef7P2?usp=sharing .
 
 ## Procedimiento automático
 
-Desde la raíz de un clon con estas correcciones:
+Desde la raíz del repositorio:
 
 ```bash
 python3 scripts/download_raw_data.py
@@ -33,4 +33,4 @@ También se conserva la recuperación desde los dos ZIP exteriores INEI/MINEDU d
 python3 scripts/download_raw_data.py --source-dir ./archivos-del-profesor
 ```
 
-Esa ruta también valida los seis originales contra el bloqueo de hashes. La opción local `--reuse-dir` puede crear enlaces físicos de copias idénticas; no es necesaria, no es predeterminada y no se utilizó en la prueba de descarga limpia. Nunca edite un original in situ.
+Esa ruta también valida los seis originales contra el bloqueo de hashes. La opción local `--reuse-dir` puede crear enlaces físicos de copias idénticas; no es necesaria, no es predeterminada. Nunca edite un original in situ.
