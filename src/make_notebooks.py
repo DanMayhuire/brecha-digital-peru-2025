@@ -29,6 +29,8 @@ def make(name,title,intro,cells):
     n=nb.v4.new_notebook();n.metadata={'kernelspec':{'name':'ia-u2','display_name':'Python IA U2','language':'python'},'language_info':{'name':'python','version':'3.12'},'canonical_code':'src/'}
     n.cells=[nb.v4.new_markdown_cell('# '+title+'\n\n'+intro),nb.v4.new_code_cell(SETUP)]
     for kind,text in cells:n.cells.append(nb.v4.new_code_cell(text) if kind=='code' else nb.v4.new_markdown_cell(text))
+    from notebook_editorial import edit_phase
+    edit_phase(n,name)
     nb.write(n,ROOT/'notebooks'/name)
 def main():
     make('01_Ingenieria_Datos_EDA.ipynb','1. Ingeniería de datos y EDA desde los originales',
