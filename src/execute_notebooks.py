@@ -1,4 +1,4 @@
-"""Ejecuta cuatro notebooks en kernels nuevos; guarda log y huellas por ejecución."""
+"""Ejecuta cinco notebooks en kernels nuevos; guarda log y huellas por ejecución."""
 from pathlib import Path
 import os,sys,time,json,hashlib
 from datetime import datetime,timezone
@@ -9,7 +9,7 @@ import nbformat
 from nbclient import NotebookClient
 from jupyter_client.kernelspec import KernelSpecManager
 
-names=['01_Ingenieria_Datos_EDA','02_Clustering_Perfilamiento','03_Modelado_Supervisado','04_Explicabilidad_SHAP']
+names=['01_Ingenieria_Datos_EDA','02_Clustering_Perfilamiento','03_Modelado_Supervisado','04_Explicabilidad_SHAP','00_Proyecto_Completo_Ejecutado']
 def main():
     kernel=ROOT/'tmp/kernel';kernel.mkdir(exist_ok=True)
     (kernel/'kernel.json').write_text(json.dumps({'argv':[sys.executable,'-m','ipykernel_launcher','-f','{connection_file}'],'display_name':'Proyecto IA','language':'python'}))
@@ -25,6 +25,8 @@ def main():
         except Exception as e:
             nbformat.write(n,path);record.update(status='failed',error=str(e));raise
         finally:
+            # Redact installation paths only, keeping outputs and real counters.
+            path.write_text(path.read_text().replace(str(ROOT),'${PROJECT_ROOT}').replace(str(Path.home()),'${HOME}'))
             record['seconds']=time.perf_counter()-tic;record['sha256']=hashlib.sha256(path.read_bytes()).hexdigest();records.append(record)
             (ROOT/'reports/notebook_execution.json').write_text(json.dumps(records,indent=2))
         print('FIN',name,record['seconds'],flush=True)

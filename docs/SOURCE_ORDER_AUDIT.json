@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "fresh_teacher_reconstruction": true,
+  "command": "python src/build_data.py --source teacher --raw-dir data/raw --run-dir tmp/scientific_sync/teacher",
+  "canonical_rows": 23345,
+  "teacher_rows": 23345,
+  "same_person_key_set": true,
+  "common_columns": 112,
+  "additional_teacher_columns": [
+    "p208a1",
+    "p208a2",
+    "p208b1",
+    "p208c1",
+    "p208d1"
+  ],
+  "differing_common_values": {},
+  "same_row_order": false,
+  "rows_at_different_positions": 23344,
+  "partitions": {
+    "desarrollo": {
+      "same_people": true,
+      "n": 13105,
+      "same_conglome": true
+    },
+    "prueba": {
+      "same_people": true,
+      "n": 3439,
+      "same_conglome": true
+    }
+  },
+  "analysis_code_equal": true,
+  "software_equal": true,
+  "canonical_dataset_sha256": "e46ff2b57a84c34319b94609460a7d7a0972be087a93cb39e3fa7dc5e24a96a5",
+  "teacher_dataset_sha256": "d0b9273b3c392ce59f91dc3746d3a4567dd02137445bfd67d0ec81cd3b03c4d2",
+  "interpretation": "Input values and cohort membership agree by keys; sequence and five unused columns differ. Fixed seeds do not make order-sensitive fitting or subsampling invariant. A full rerun of the unchanged code on the frozen canonical order reproduces the reference, whereas the historical instructor-order run has the notebook metrics. No target, feature or model selection change is made.",
+  "exact_numeric_differences_by_key": {},
+  "historical_fold_groups": [
+    {
+      "fold": 1,
+      "same_conglome": true
+    },
+    {
+      "fold": 2,
+      "same_conglome": true
+    },
+    {
+      "fold": 3,
+      "same_conglome": true
+    },
+    {
+      "fold": 4,
+      "same_conglome": true
+    },
+    {
+      "fold": 5,
+      "same_conglome": true
+    }
+  ]
+}

@@ -100,21 +100,45 @@ def main():
     if args.skip_notebooks:
         warnings.append('Notebooks not rerun in this isolated source-recovery validation; scripts executed directly.')
     elif nb.exists():
-        executions=json.loads(nb.read_text());check('four_notebooks_executed',len(executions)==4 and all(x['status']=='passed' for x in executions))
+        executions=json.loads(nb.read_text());check('five_notebooks_executed',len(executions)==5 and all(x['status']=='passed' for x in executions))
         for x in executions:
             check('notebook_hash_'+Path(x['notebook']).stem,sha(ROOT/x['notebook'])==x['sha256'])
-    else:check('four_notebooks_executed',False,'No hay registro de ejecución')
+            notebook=json.loads((ROOT/x['notebook']).read_text())
+            check('notebook_outputs_'+Path(x['notebook']).stem,all(c.get('execution_count') is not None and not any(o.get('output_type')=='error' for o in c.get('outputs',[])) for c in notebook['cells'] if c['cell_type']=='code'))
+            check('notebook_inputs_'+Path(x['notebook']).stem,all(sha(ROOT/p)==h for p,h in notebook['metadata'].get('scientific_inputs',{}).items()) and bool(notebook['metadata'].get('scientific_inputs')))
+    else:check('five_notebooks_executed',False,'No hay registro de ejecución')
     if not args.skip_pdf:
         pdf=PdfReader(ROOT/'output/pdf/Informe_U2_Brecha_Digital_2025.pdf');text='\n'.join(p.extract_text() for p in pdf.pages)
         check('paper_pages',4<=len(pdf.pages)<=6)
         check('paper_content',all(x in text for x in ['SHAP','ENAHO','ESCALE','GroupKFold']) and '\ufffd' not in text)
+        winning=next(x for x in r['supervised']['test'] if x['seleccionado_cv'])
+        check('paper_definitive_metrics',all(f'{winning[k]:.3f}' in text for k in ['roc_auc','average_precision','f1_macro']) and f"{r['clustering']['selected']['silueta']:.3f}" in text)
+    from scientific_audit import evaluate
+    from threadpoolctl import threadpool_limits
+    definitive_scope=audit.get('source_mode')!='teacher'
+    if definitive_scope:
+        with threadpool_limits(limits=4):
+            for phase in ['dataset','classification','clustering','shap']:
+                current=evaluate(phase)
+                for c in current['checks']:check('scientific_'+phase+'_'+c['name'],c['passed'])
+    else:
+        warnings.append('Separate instructor-order experiment: the frozen annual scientific-reference checks are not applicable; this result does not certify equality to the definitive models.')
     warnings += [r['historical_test_warning'],'El objetivo mide no uso reciente; no mide directamente competencias digitales.','Inferencia ponderada de cohorte, no estimación oficial nacional; bootstrap no incorpora todo el diseño de encuesta.']
-    artifacts=[{'path':str(p.relative_to(ROOT)),'sha256':sha(p),'bytes':p.stat().st_size} for folder in ['models','notebooks','output/pdf','data/processed','reports/figures','reports/tables'] for p in (ROOT/folder).glob('*') if p.is_file()]
+    private_names={'01_Revision_de_resultados.ipynb','test_predictions.csv','oof_predictions.csv','partitions.csv','cv_assignments.csv','cluster_assignments.csv'}
+    paths=[p for folder in ['models','notebooks','output/pdf','data/processed','reports/figures','reports/tables'] for p in (ROOT/folder).glob('*') if p.is_file() and p.name not in private_names]
+    paths += [ROOT/p for p in ['reports/results.json','reports/public_summary.json','reports/notebook_execution.json','docs/SCIENTIFIC_REFERENCE.json','docs/SCIENTIFIC_REPRODUCTION.json','docs/SOURCE_ORDER_AUDIT.json'] if (ROOT/p).exists()]
+    paths += [p for folder in ['src','scripts','tests','docs'] for p in (ROOT/folder).rglob('*') if p.is_file() and p.suffix in {'.py','.md','.json'}]
+    paths += [ROOT/p for p in ['README.md','requirements.txt','.gitignore','data/raw/source_manifest.json','data/raw/teacher_source_manifest.json','data/raw/download_manifest.json']]
+    artifacts=[{'path':str(p.relative_to(ROOT)),'sha256':sha(p),'bytes':p.stat().st_size} for p in sorted(set(paths))]
     final={'executed_at_utc':datetime.now(timezone.utc).isoformat(),'status':'passed' if all(c['passed'] for c in checks) else 'failed',
       'software':{**r['software'],**{p:version(p) for p in ['pyarrow','reportlab','pypdf','nbformat','nbclient','ipykernel']}},'python':platform.python_version(),'sources':sources,'configuration':{'seed':SEED,'run_signature':r['run_signature'],'features':r['features'],'weight_strategies':r['supervised']['weight_strategies'],'winner':best['winner'],'threshold':.5},
       'n_data':len(base),'n_model':len(model),'n_train':len(train),'n_test':len(test),'groups_train':train.conglome.nunique(),'groups_test':test.conglome.nunique(),'group_overlap':len(set(train.conglome)&set(test.conglome)),
       'metrics':r['supervised']['test'],'checks':checks,'passed_checks':sum(c['passed'] for c in checks),'failed_checks':[c for c in checks if not c['passed']],
-      'warnings':warnings,'artifacts':artifacts,'pdf_checked':not args.skip_pdf}
+      'warnings':warnings,'artifacts':artifacts,'pdf_checked':not args.skip_pdf,
+      'inventory_scope':'Current publication artifacts; individual prediction/fold traces remain local and are regenerated by isolated training. Historical ignored notebooks are excluded.',
+      'scientific_reference':'docs/SCIENTIFIC_REFERENCE.json',
+      'scientific_reference_scope':'definitive_annual_reference' if definitive_scope else 'separate_instructor_order_experiment',
+      'raw_source_role':'Instructor recovery sources; the definitive annual-layout dataset and its separate source-equivalence audit are documented in docs/SOURCE_ORDER_AUDIT.json.'}
     for name in ['final_verification.json','verification.json']:(ROOT/'reports'/name).write_text(json.dumps(final,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps({k:final[k] for k in ['status','passed_checks','failed_checks','n_data','n_model','group_overlap']},ensure_ascii=False,indent=2))
     if final['status']!='passed':raise SystemExit(1)

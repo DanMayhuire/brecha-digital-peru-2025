@@ -1,42 +1,42 @@
 [
   {
     "notebook": "notebooks/01_Ingenieria_Datos_EDA.ipynb",
-    "started_at_utc": "2026-10-29T04:21:40.297624+00:00",
+    "started_at_utc": "2026-11-03T17:16:56.009921+00:00",
     "status": "passed",
-    "executed_code_cells": 4,
-    "seconds": 31.261918958000024,
-    "sha256": "fe7fbaad9eb6db375f1093ae630a1ade8c8f1751604e69c4b205ebe08984fce9",
-    "metadata_note": "Se cambió solamente el nombre visible del kernel después de ejecutar; celdas y salidas se conservan.",
-    "canonical_sha256_before_path_redaction": "ae5ca131502004d7bff941494f7f726df8a805b221053792932f3b10070f9fdd"
+    "executed_code_cells": 2,
+    "seconds": 2.8060351669992087,
+    "sha256": "71a9eb29255755f6c0cbf0f385a82bc9467d3c349a7f6f3422c424b8c9d7fb3d"
   },
   {
     "notebook": "notebooks/02_Clustering_Perfilamiento.ipynb",
-    "started_at_utc": "2026-10-29T04:22:11.563280+00:00",
+    "started_at_utc": "2026-11-03T17:16:58.817218+00:00",
     "status": "passed",
-    "executed_code_cells": 3,
-    "seconds": 5.960693083005026,
-    "sha256": "123c94c967b6c5e3ca7aa3c1f2d8a09866be82165f2cc1330039cb8229aafafe",
-    "metadata_note": "Se cambió solamente el nombre visible del kernel después de ejecutar; celdas y salidas se conservan.",
-    "canonical_sha256_before_path_redaction": "e955e82c4ba67cc73c85caac5321f02da94a1fff097ecd3cc3d379f10f9b4a5b"
+    "executed_code_cells": 2,
+    "seconds": 2.534849749994464,
+    "sha256": "b0c297a2e59f5a9b56e5518c4e92874b6beb6fbca0948744797d0a74c9bd70b4"
   },
   {
     "notebook": "notebooks/03_Modelado_Supervisado.ipynb",
-    "started_at_utc": "2026-10-29T04:22:17.527615+00:00",
+    "started_at_utc": "2026-11-03T17:17:01.353168+00:00",
     "status": "passed",
-    "executed_code_cells": 4,
-    "seconds": 81.30406495901116,
-    "sha256": "eede9beba2a7dbdef6b063d775f08d5e90ad0fe94acd356a66ea16fbe93c389f",
-    "metadata_note": "Se cambió solamente el nombre visible del kernel después de ejecutar; celdas y salidas se conservan.",
-    "canonical_sha256_before_path_redaction": "57de63e84a8562768bd4511ad2264365d89b1375c68969f9e53608941ae3e7ec"
+    "executed_code_cells": 2,
+    "seconds": 4.918618959003652,
+    "sha256": "ee6d220cd70dea836f9076a8b02625c8d775b2f08d9382dce41868059a7a4378"
   },
   {
     "notebook": "notebooks/04_Explicabilidad_SHAP.ipynb",
-    "started_at_utc": "2026-10-29T04:23:38.834470+00:00",
+    "started_at_utc": "2026-11-03T17:17:06.272942+00:00",
     "status": "passed",
-    "executed_code_cells": 3,
-    "seconds": 6.248008499998832,
-    "sha256": "a2fef305f9fa65d65a3f44b3cdcf0995fa3d863a1efb77098fab50f7d87f7b0b",
-    "metadata_note": "Se cambió solamente el nombre visible del kernel después de ejecutar; celdas y salidas se conservan.",
-    "canonical_sha256_before_path_redaction": "965feed0d233ceaaad4b888c8f38a5b19cb7e449c008cf40937d91ee34309b30"
+    "executed_code_cells": 2,
+    "seconds": 2.702144834001956,
+    "sha256": "de5738ae0d4d04d58c34185b45f192d9209e760477b5359b4cdc6e915fc0c094"
+  },
+  {
+    "notebook": "notebooks/00_Proyecto_Completo_Ejecutado.ipynb",
+    "started_at_utc": "2026-11-03T17:17:08.976803+00:00",
+    "status": "passed",
+    "executed_code_cells": 5,
+    "seconds": 5.553669583998271,
+    "sha256": "eb6db11e60d9e7835d5781a32a6a983f4b286e439f596894111eab471a76c9d0"
   }
 ]

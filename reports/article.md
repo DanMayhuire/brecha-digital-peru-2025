@@ -26,7 +26,7 @@ Antes de modelar se contrastó el desfase edad-grado: los umbrales de uno y dos 
 
 En desarrollo (n=13 105), el no uso ponderado fue 39.6% en área rural y 18.4% en urbana. La figura EDA de la cohorte y los estadísticos previos a imputar acompañan la entrega; son comparaciones descriptivas.
 
-**Competencias: alcance parcial.** P316B/P316C sólo aplica desde 14 años: 5 041 elegibles, 2 097 autorreportes completos de nueve actividades y 77 sin actividades reportadas. Los pases no equivalen a cero competencias y el autorreporte no es una prueba de desempeño. Por ello no se fabricó una etiqueta conjunta para toda la cohorte.
+**Competencias: alcance parcial.** P316B/P316C sólo aplica desde 14 años: 5 041 elegibles, 2 097 autorreportes completos de nueve actividades y 77 sin actividades reportadas. Los saltos del cuestionario se trataron como ausencia estructural de observación. Este universo restringido y el carácter autorreportado de las actividades impiden definir un indicador de competencias comparable para toda la cohorte.
 
 
 
@@ -34,7 +34,7 @@ En desarrollo (n=13 105), el no uso ponderado fue 39.6% en área rural y 18.4% e
 
 ## 2. Datos, integración y evaluación reproducible
 
-Se usaron los módulos anuales oficiales ENAHO 2025 (100, 200, 300 y Sumaria), contrastados con el corte 2025 del panel suministrado por el docente, y Padrón/Padlocal ESCALE del Drive [1,2]. La comparación por llaves no encontró diferencias en los campos comunes seleccionados, tras normalizar faltantes y decimales; las filas adicionales del panel de educación no tenían respuestas observadas. Esto verifica las variables utilizadas, no identidad de todos los campos de ambas publicaciones.
+Se integraron los módulos anuales de vivienda, población y educación de ENAHO 2025 (100, 200 y 300), la base Sumaria y los padrones de servicios educativos y locales escolares de ESCALE [1,2]. Los registros se enlazaron mediante identificadores de persona, hogar y territorio. El contraste con el corte 2025 del panel ENAHO confirmó la concordancia de los valores comunes utilizados, una vez homogeneizados los formatos.
 
 Cruce: ENAHO 200 + 300 por persona; 100 + Sumaria por hogar; Padrón + Padlocal por CODLOCAL, luego agregado por UBIGEO y área.
 
@@ -48,15 +48,15 @@ Cruce: ENAHO 200 + 300 por persona; 100 + Sumaria por hogar; Padrón + Padlocal 
 | Cohorte matriculada y asistente EBR | 16 544; sin declaración CEBA |
 | Desarrollo / prueba | 13 105 / 3 439 personas; 3 232 / 808 conglomerados |
 
-**EDA crudo e integridad.** Se verificaron Latin-1, separador punto y coma y coma decimal en los anuales; el panel usa UTF-8 con BOM y coma de separación. Se inspeccionaron faltantes, tipos, dominios, llaves, cuantiles y extremos; los geocódigos conservan ceros iniciales. Se validaron unicidad y cardinalidad; ningún cruce multiplicó personas. Dos supuestos ZIP MINEDU son HTML de bloqueo y se excluyeron. Los estadísticos de campos originales y faltantes se entregan en las tablas de auditoría; el EDA predictivo usa sólo desarrollo.
+**Calidad y exploración de datos.** Se verificaron Latin-1, separador punto y coma y coma decimal en los anuales; el panel usa UTF-8 con BOM y coma de separación. Se inspeccionaron faltantes, tipos, dominios, llaves, cuantiles y extremos; los geocódigos conservan ceros iniciales. Se verificaron la unicidad de los identificadores y la cardinalidad de los cruces, sin multiplicación de personas. La exploración de predictores se realizó exclusivamente en desarrollo; las tablas complementarias describen los faltantes y las distribuciones originales.
 
-**Cruce contextual.** ENAHO 200 y 300 se enlazaron por CONGLOME, VIVIENDA, HOGAR y CODPERSO; 100 y Sumaria, por las tres llaves del hogar. Padrón se unió a Padlocal por CODLOCAL y se filtraron servicios activos de primaria/secundaria. La agregación por UBIGEO y área usa suma de alumnos / suma de docentes, proporción pública y coordenadas del Padrón contadas una vez por local validado (43 631 locales). Padlocal valida geografía; no contiene coordenadas, altitud ni conectividad escolar. El conflicto geográfico se excluye de la validación del local, sin inventar valores.
+**Cruce contextual.** ENAHO 200 y 300 se enlazaron por CONGLOME, VIVIENDA, HOGAR y CODPERSO; 100 y Sumaria, por las tres llaves del hogar. Padrón se unió a Padlocal por CODLOCAL y se filtraron servicios activos de primaria/secundaria. La agregación por UBIGEO y área usa suma de alumnos / suma de docentes, proporción pública y coordenadas del Padrón contadas una vez por local validado (43 631 locales). Padlocal permitió validar la correspondencia geográfica; las coordenadas proceden del Padrón. Se excluyó de la validación geográfica el registro con conflicto territorial.
 
-**Antifuga.** Se exige residencia habitual, edad 6-17, P306=P307=1, P308A primaria/secundaria, no declaración CEBA y P314A válido. Se excluyeron la respuesta, las ramas condicionadas P314B/P314D/P315/P316, sus derivados, llaves, coordenadas, mes y campos de escolaridad propios. GroupShuffleSplit (semilla 42) separó conglomerados: solapamiento=0. Cinco folds GroupKFold en desarrollo sustentan ajuste y selección; sus predicciones fuera de fold alimentan la calibración. Mediana/moda, one-hot y escalado se ajustaron sólo en cada entrenamiento.
+**Prevención de fuga de información.** Se exige residencia habitual, edad 6-17, P306=P307=1, P308A primaria/secundaria, no declaración CEBA y P314A válido. Se excluyeron la respuesta, las ramas condicionadas P314B/P314D/P315/P316, sus derivados, llaves, coordenadas, mes y campos de escolaridad propios. GroupShuffleSplit (semilla 42) separó conglomerados: solapamiento=0. Cinco folds GroupKFold en desarrollo sustentan ajuste y selección; sus predicciones fuera de fold alimentan la calibración. Mediana/moda, one-hot y escalado se ajustaron sólo en cada entrenamiento.
 
 **Predictores y pesos.** Se conservaron 13 variables individuales, socioeconómicas, de acceso y contexto. Ingreso y gasto per cápita mensual se transformaron con log(1+x). FACPOB07_25 es el peso anual de población. Por familia se compararon entrenamiento uniforme, peso poblacional, balance de clase y ambos, con métricas poblacionales comunes. Se eligió por AP-CV en una configuración representativa y luego se ajustaron hiperparámetros; es una búsqueda secuencial, no exhaustiva ni anidada.
 
-**Transparencia de la revisión.** La misma prueba fue observada en la versión preliminar. Esta revisión amplía la auditoría y la búsqueda en desarrollo; sus cifras de prueba son una reevaluación y no una validación externa virgen. La selección documentada sigue basada en CV.
+**Alcance de la evaluación.** El conjunto de prueba había sido examinado previamente; por ello, la evaluación es retrospectiva y requiere confirmación externa independiente. La selección de modelos e hiperparámetros se realizó mediante validación cruzada en desarrollo.
 
 
 
@@ -126,7 +126,7 @@ El ganador alcanzó AP 0.601 (IC 95% 0.552-0.645) y ROC-AUC 0.820 (IC 0.792-0.84
 
 ![Matriz de confusión](figures/confusion_matrix.png)
 
-**Figura 5.** Matriz de confusión del ganador. Prueba heredada de la versión preliminar: resultados sujetos a validación externa nueva.
+**Figura 5.** Matriz de confusión de CatBoost en el conjunto de prueba. Evaluación retrospectiva; conteos sin ponderar.
 
 
 
@@ -164,7 +164,7 @@ Las interacciones no lineales pertenecen al árbol ajustado, no a personas ni po
 
 ![Waterfall bajo](figures/shap_waterfall_bajo.png)
 
-Alto score: edad (+1.27), internet del hogar (+0.76). Bajo score: edad (-2.43), log gasto per cápita (-1.31). Los extremos correctamente clasificados ilustran el modelo, no representan a toda la cohorte. Se omiten nombres, direcciones y cualquier colegio atribuido a una persona.
+Alto score: edad (+1.27), internet del hogar (+0.76). Bajo score: edad (-2.43), log gasto per cápita (-1.31). Los extremos correctamente clasificados ilustran el comportamiento del modelo y se presentan sin identificadores personales. Su selección es ilustrativa y no representa la distribución de toda la cohorte.
 
 **Conclusiones.** La integración conserva cardinalidad y separación de conglomerados. Los perfiles presentan no uso entre 21.1% y 47.7% en desarrollo; las réplicas y la ablación permiten valorar su estabilidad. CatBoost fue seleccionado por AP-CV tras comparar pesos e hiperparámetros; su recall ponderado de 38.1% al umbral 0.5 limita la detección individual. La evidencia sugiere explorar apoyos de acceso y acompañamiento apropiados a edad y contexto y evaluar su efecto en campo. SHAP explica el score, no estima el impacto de intervenciones.
 
@@ -172,14 +172,14 @@ Alto score: edad (+1.27), internet del hogar (+0.76). Bajo score: edad (-2.43), 
 
 ## Referencias y materiales reproducibles
 
-[1] INEI. ENAHO anual 2025: módulos 100, 200, 300 y Sumaria, CSV oficiales. Panel 2021-2025 suministrado: contraste del corte 2025. MINEDU. Padrón y Padlocal ESCALE suministrados; archivos, fechas, URLs y hashes en auditoría.
+[1] INEI. Encuesta Nacional de Hogares, 2025: módulos 100, 200, 300 y Sumaria. MINEDU. ESCALE: Padrón de Servicios Educativos y Padrón de Locales Escolares, 2025.
 
 [2] INEI. ENAHO 2025: Diccionario de Datos. Lima, mayo de 2026. [Documento anual oficial](https://proyectos.inei.gob.pe/iinei/srienaho/Descarga/DocumentosMetodologicos/2025-55/20_Diccionario_2025.pdf). Cuestionarios ENAHO.01 y ENAHO.01A 2025 incluidos en los archivos suministrados.
 
-[3] Condori Coaquira, A. R. Guía de Evaluación: Proyecto IA, Brecha Digital y Educación 2025 (ENAHO-ESCALE). Curso Inteligencia Artificial, UPeU. Material docente suministrado, 7 páginas.
+[3] Condori Coaquira, A. R. Guía de Evaluación: Proyecto IA, Brecha Digital y Educación 2025 (ENAHO-ESCALE). Universidad Peruana Unión. Material del curso Inteligencia Artificial, 7 p.
 
 [4] INEI. Documento Metodológico de los Indicadores en Educación, 2022, pp. PDF 29 y 33-34. [Metodología oficial](https://www.inei.gob.pe/media/MenuRecursivo/investigaciones/indicadores-de-educacion.pdf). MINEDU/ESCALE: ficha SIAGIE de atraso, edad al 31 de marzo y desfase de al menos dos años.
 
-[5] INEI. ENAHO 2024: Manual de Consistencia Básica. [Criterio de residente habitual](https://proyectos.inei.gob.pe/iinei/srienaho/Descarga/DocumentosMetodologicos/2024-55/14_Manual_Consistencia.pdf); referencia 2024, no manual 2025.
+[5] INEI. ENAHO 2024: Manual de Consistencia Básica. [Definición de residente habitual](https://proyectos.inei.gob.pe/iinei/srienaho/Descarga/DocumentosMetodologicos/2024-55/14_Manual_Consistencia.pdf).
 
-Entrega reproducible: scripts, notebooks, dataset y diccionario, fuentes, métricas/folds, pesos, estabilidad, SHAP y versión editable del artículo. Las tablas completas sustentan las cifras condensadas en seis páginas.
+Material complementario: código de análisis, notebooks ejecutados, diccionario de variables y tablas de validación, ponderación, estabilidad y explicabilidad. La procedencia de las fuentes y sus verificaciones de integridad se documentan en el repositorio.

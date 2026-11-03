@@ -5,12 +5,15 @@ ROOT=Path(__file__).resolve().parents[1]
 def main():
  files=set(subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard'],cwd=ROOT,text=True).splitlines())
  failures=[]
- individual={'test_predictions.csv','oof_predictions.csv','partitions.csv','cv_assignments.csv','cluster_assignments.csv','shap_cases.json'}
+ individual={'test_predictions.csv','oof_predictions.csv','partitions.csv','cv_assignments.csv','cluster_assignments.csv'}
+ tracked=set(subprocess.check_output(['git','ls-files'],cwd=ROOT,text=True).splitlines())
  personal=re.compile('/'+r'Users/[^/\s]+|/'+r'home/[^/\s]+|/'+'(?:private/)?var/folders/')
  for rel in sorted(files):
   p=ROOT/rel
   if not p.is_file():continue
-  if rel.startswith(('data/processed/','models/','snapshots/','tmp/','reports/rebuild_teacher/','output/BI_')) or p.name in individual:failures.append([rel,'private artifact selected'])
+  if rel.startswith(('snapshots/','tmp/','reports/rebuild_teacher/','output/BI_')) or p.name in individual:failures.append([rel,'private artifact selected'])
+  if rel.startswith(('data/processed/','models/')) and rel not in tracked:failures.append([rel,'new generated artifact selected'])
+  if p.name=='shap_cases.json' and 'indice_dataset' in p.read_text():failures.append([rel,'individual SHAP row linkage'])
   if rel.startswith('data/raw/') and p.suffix.lower() in {'.csv','.dbf','.zip'}:failures.append([rel,'original data selected'])
   if p.suffix in {'.py','.md','.json','.ipynb','.txt','.log'}:
    text=p.read_text()

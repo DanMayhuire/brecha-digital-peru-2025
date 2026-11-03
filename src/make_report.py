@@ -69,7 +69,11 @@ def paper_figures(r):
     train[features]=train[features].astype(float);test[features]=test[features].astype(float)
     pipe=bundle['pipeline'];ct=pipe.named_steps['preprocess'];model=pipe.named_steps['model']
     rng=np.random.default_rng(r['seed']);sample=rng.choice(len(test),min(600,len(test)),replace=False)
-    extra=[test.index.get_loc(c['indice_dataset']) for c in r['shap']['cases']]
+    # Recover extremes from saved predictions; public results need no row identifiers.
+    predictions=pd.read_csv(TAB/'test_predictions.csv').set_index('indice').loc[test.index]
+    probability=predictions[bundle['winner']].to_numpy();target=predictions.y.to_numpy()
+    high=np.flatnonzero((target==1)&(probability>=.5));low=np.flatnonzero((target==0)&(probability<.5))
+    extra=[high[np.argmax(probability[high])],low[np.argmin(probability[low])]]
     ids=np.unique(np.r_[sample,extra]);sub=test.iloc[ids];z=ct.transform(sub[features])
     if isinstance(model,CatBoostClassifier):
         raw=model.get_feature_importance(Pool(z),type='ShapValues');sv=raw[:,:-1];base=raw[:,-1]
@@ -211,7 +215,7 @@ class Article:
         self.c.setFont('Helvetica',7.5);self.c.setFillColor(GRAY)
         self.c.drawString(M,H-27,'INTELIGENCIA ARTIFICIAL | EVALUACIÓN U2 | ENAHO-ESCALE 2025')
         self.c.line(M,36,W-M,36)
-        self.c.drawString(M,24,'Universidad Peruana Unión | 28 de octubre de 2026')
+        self.c.drawString(M,24,'Universidad Peruana Unión | Revisión: 3 de noviembre de 2026')
         self.c.drawRightString(W-M,24,f'{self.page} / 6')
         self.md.append('\n\n---\n')
 
@@ -406,14 +410,14 @@ def generate():
     a.image('raw_eda.png',width=418,maxheight=267,cap='<b>Figura 1.</b> EDA de módulos originales antes de cruzar y filtrar la cohorte. El recorte P1-P99 del gasto es sólo visual: no elimina observaciones analíticas. Se conservan valores originales, faltantes y dominios en las tablas de auditoría.')
     a.small(f'En desarrollo (n={n(r["n_train"])}), el no uso ponderado fue {pct(area["Rural"])} en área rural y {pct(area["Urbana"])} en urbana. La figura EDA de la cohorte y los estadísticos previos a imputar acompañan la entrega; son comparaciones descriptivas.')
     a.para(f'<b>Competencias: alcance parcial.</b> P316B/P316C sólo aplica desde 14 años: {n(skills["n"])} elegibles, {n(skills["complete_nine_named_activities"])} autorreportes completos de nueve actividades y {n(skills["zero_nine_activities_reported_conditional_on_observation"])} sin actividades reportadas. '
-      'Los pases no equivalen a cero competencias y el autorreporte no es una prueba de desempeño. Por ello no se fabricó una etiqueta conjunta para toda la cohorte.',size=9.1,leading=12,gap=0)
+      'Los saltos del cuestionario se trataron como ausencia estructural de observación. Este universo restringido y el carácter autorreportado de las actividades impiden definir un indicador de competencias comparable para toda la cohorte.',size=9.1,leading=12,gap=0)
     # Página 2: integración real, datos crudos y protocolo antifuga.
     a.new();a.heading('2. Datos, integración y evaluación reproducible')
     if audit.get('source_mode')=='teacher':
-        a.para('Se usaron los originales del Drive docente: ENAHO PANEL 2021-2025, seleccionando exclusivamente las columnas y personas de 2025, y Padrón/Padlocal ESCALE [1,2]. No se exigió pertenencia longitudinal al panel. No se renombró el archivo multianual como una publicación anual; las fuentes y huellas se conservan en el manifiesto.')
+        a.para('Se integró el corte transversal de 2025 de ENAHO PANEL 2021-2025 con el Padrón de Servicios Educativos y el Padrón de Locales Escolares de ESCALE [1,2]. La selección incluyó los registros de 2025, sin exigir continuidad longitudinal. La unidad de análisis fue la persona y el contexto educativo se agregó por distrito y área de residencia.')
     else:
-        a.para('Se usaron los módulos anuales oficiales ENAHO 2025 (100, 200, 300 y Sumaria), contrastados con el corte 2025 del panel suministrado por el docente, y Padrón/Padlocal ESCALE del Drive [1,2]. '
-          'La comparación por llaves no encontró diferencias en los campos comunes seleccionados, tras normalizar faltantes y decimales; las filas adicionales del panel de educación no tenían respuestas observadas. Esto verifica las variables utilizadas, no identidad de todos los campos de ambas publicaciones.')
+        a.para('Se integraron los módulos anuales de vivienda, población y educación de ENAHO 2025 (100, 200 y 300), la base Sumaria y los padrones de servicios educativos y locales escolares de ESCALE [1,2]. '
+          'Los registros se enlazaron mediante identificadores de persona, hogar y territorio. El contraste con el corte 2025 del panel ENAHO confirmó la concordancia de los valores comunes utilizados, una vez homogeneizados los formatos.')
     a.diagram(total)
     a.table(['Paso de construcción','Registros / comprobación'],[
       ['Personas ENAHO 2025',n(filters['persons_2025'])],
@@ -424,15 +428,15 @@ def generate():
       ['Cohorte matriculada y asistente EBR',f'{n(total)}; sin declaración CEBA'],
       ['Desarrollo / prueba',f'{n(r["n_train"])} / {n(r["n_test"])} personas; {n(r["groups_train"])} / {n(r["groups_test"])} conglomerados']],
       widths=[CW*.47,CW*.53],size=8.4)
-    a.para(('<b>EDA crudo e integridad.</b> Se leyó el corte2025 en UTF-8 con BOM, separador coma y decimal punto, preservando originales multianuales. Se revisaron faltantes y dominios antes de los cruces; no se convirtió un salto en respuesta negativa.' if audit.get('source_mode')=='teacher' else '<b>EDA crudo e integridad.</b> Se verificaron Latin-1, separador punto y coma y coma decimal en los anuales; el panel usa UTF-8 con BOM y coma de separación. Se inspeccionaron faltantes, tipos, dominios, llaves, cuantiles y extremos; los geocódigos conservan ceros iniciales. ') +
-      'Se validaron unicidad y cardinalidad; ningún cruce multiplicó personas. Dos supuestos ZIP MINEDU son HTML de bloqueo y se excluyeron. Los estadísticos de campos originales y faltantes se entregan en las tablas de auditoría; el EDA predictivo usa sólo desarrollo.')
+    a.para(('<b>Calidad y exploración de datos.</b> Se leyó el corte 2025 en UTF-8 con BOM, separador coma y decimal punto, preservando originales multianuales. Se revisaron faltantes y dominios antes de los cruces; los saltos se conservaron como ausencia estructural de observación. ' if audit.get('source_mode')=='teacher' else '<b>Calidad y exploración de datos.</b> Se verificaron Latin-1, separador punto y coma y coma decimal en los anuales; el panel usa UTF-8 con BOM y coma de separación. Se inspeccionaron faltantes, tipos, dominios, llaves, cuantiles y extremos; los geocódigos conservan ceros iniciales. ') +
+      'Se verificaron la unicidad de los identificadores y la cardinalidad de los cruces, sin multiplicación de personas. La exploración de predictores se realizó exclusivamente en desarrollo; las tablas complementarias describen los faltantes y las distribuciones originales.')
     a.para('<b>Cruce contextual.</b> ENAHO 200 y 300 se enlazaron por CONGLOME, VIVIENDA, HOGAR y CODPERSO; 100 y Sumaria, por las tres llaves del hogar. Padrón se unió a Padlocal por CODLOCAL y se filtraron servicios activos de primaria/secundaria. '
-      f'La agregación por UBIGEO y área usa suma de alumnos / suma de docentes, proporción pública y coordenadas del Padrón contadas una vez por local validado ({n(pad["physical_locals_validated"])} locales). Padlocal valida geografía; no contiene coordenadas, altitud ni conectividad escolar. El conflicto geográfico se excluye de la validación del local, sin inventar valores.')
-    a.para('<b>Antifuga.</b> Se exige residencia habitual, edad 6-17, P306=P307=1, P308A primaria/secundaria, no declaración CEBA y P314A válido. Se excluyeron la respuesta, las ramas condicionadas P314B/P314D/P315/P316, sus derivados, llaves, coordenadas, mes y campos de escolaridad propios. '
+      f'La agregación por UBIGEO y área usa suma de alumnos / suma de docentes, proporción pública y coordenadas del Padrón contadas una vez por local validado ({n(pad["physical_locals_validated"])} locales). Padlocal permitió validar la correspondencia geográfica; las coordenadas proceden del Padrón. Se excluyó de la validación geográfica el registro con conflicto territorial.')
+    a.para('<b>Prevención de fuga de información.</b> Se exige residencia habitual, edad 6-17, P306=P307=1, P308A primaria/secundaria, no declaración CEBA y P314A válido. Se excluyeron la respuesta, las ramas condicionadas P314B/P314D/P315/P316, sus derivados, llaves, coordenadas, mes y campos de escolaridad propios. '
       f'GroupShuffleSplit (semilla {r["seed"]}) separó conglomerados: solapamiento={r["group_overlap"]}. Cinco folds GroupKFold en desarrollo sustentan ajuste y selección; sus predicciones fuera de fold alimentan la calibración. Mediana/moda, one-hot y escalado se ajustaron sólo en cada entrenamiento.')
     a.para(f'<b>Predictores y pesos.</b> Se conservaron {len(r["features"])} variables individuales, socioeconómicas, de acceso y contexto. Ingreso y gasto per cápita mensual se transformaron con log(1+x). FACPOB07_25 es el peso anual de población. '
       'Por familia se compararon entrenamiento uniforme, peso poblacional, balance de clase y ambos, con métricas poblacionales comunes. Se eligió por AP-CV en una configuración representativa y luego se ajustaron hiperparámetros; es una búsqueda secuencial, no exhaustiva ni anidada.')
-    a.small('<b>Transparencia de la revisión.</b> La misma prueba fue observada en la versión preliminar. Esta revisión amplía la auditoría y la búsqueda en desarrollo; sus cifras de prueba son una reevaluación y no una validación externa virgen. La selección documentada sigue basada en CV.')
+    a.small('<b>Alcance de la evaluación.</b> El conjunto de prueba había sido examinado previamente; por ello, la evaluación es retrospectiva y requiere confirmación externa independiente. La selección de modelos e hiperparámetros se realizó mediante validación cruzada en desarrollo.')
     # Página 3: métodos, elección y estabilidad de perfiles.
     a.new();a.heading('3. Clustering: comparación, estabilidad y perfiles')
     a.para('Se compararon K-Means y mezclas gaussianas (GMM), k=2,...,6, con imputación y estandarización ajustadas en desarrollo. Se usaron log ingreso/gasto, altitud, alumnos/docente, proporción pública y acceso a electricidad e internet del hogar. '
@@ -488,7 +492,7 @@ def generate():
     st=ParagraphStyle('side',fontName='Times-Roman',fontSize=9.1,leading=12,textColor=INK)
     p=Paragraph(text,st);_,ph=p.wrap(CW-iw-15,300);a.check(max(ih,ph)+12);p.drawOn(a.c,M+iw+15,top-ph)
     a.y-=max(ih,ph)+8;a.md.append(markdown(text)+'\n\n![Matriz de confusión](figures/confusion_matrix.png)\n')
-    a.small('<b>Figura 5.</b> Matriz de confusión del ganador. Prueba heredada de la versión preliminar: resultados sujetos a validación externa nueva.',gap=0)
+    a.small('<b>Figura 5.</b> Matriz de confusión de CatBoost en el conjunto de prueba. Evaluación retrospectiva; conteos sin ponderar.',gap=0)
     # Página 5: ganador y análisis no lineal complementario separado.
     a.new();a.heading('5. SHAP del ganador e interacciones no lineales')
     if winner=='Logística':
@@ -521,7 +525,7 @@ def generate():
         contributors=sorted(case['top_contribuciones'],key=lambda x:abs(x['shap']),reverse=True)[:2]
         fields=[f'{NAMES.get(x["variable"],x["variable"])} ({x["shap"]:+.2f})' for x in contributors]
         return ('Alto' if key=='alto' else 'Bajo')+' score: '+', '.join(fields)+'.'
-    a.para(casenarrative('alto')+' '+casenarrative('bajo')+' Los extremos correctamente clasificados ilustran el modelo, no representan a toda la cohorte. Se omiten nombres, direcciones y cualquier colegio atribuido a una persona.',size=9.1,leading=12)
+    a.para(casenarrative('alto')+' '+casenarrative('bajo')+' Los extremos correctamente clasificados ilustran el comportamiento del modelo y se presentan sin identificadores personales. Su selección es ilustrativa y no representa la distribución de toda la cohorte.',size=9.1,leading=12)
     a.para(f'<b>Conclusiones.</b> La integración conserva cardinalidad y separación de conglomerados. Los perfiles presentan no uso entre {pct(min_no_use)} y {pct(max_no_use)} en desarrollo; las réplicas y la ablación permiten valorar su estabilidad. '
       f'{esc(winner)} fue seleccionado por AP-CV tras comparar pesos e hiperparámetros; su recall ponderado de {pct(best["recall"])} al umbral {r["threshold"]} limita la detección individual. '
       'La evidencia sugiere explorar apoyos de acceso y acompañamiento apropiados a edad y contexto y evaluar su efecto en campo. SHAP explica el score, no estima el impacto de intervenciones.',size=9.1,leading=12)
@@ -530,14 +534,14 @@ def generate():
       'La medición transversal, las referencias temporales y los predictores correlacionados impiden causalidad; se requiere nueva validación espacial/temporal antes de uso decisorio.',size=9.1,leading=12)
     a.heading('Referencias y materiales reproducibles')
     references=[
-      ('[1] INEI. ENAHO PANEL2021-2025: corte2025 de módulos100,200,300 y Sumaria. MINEDU. Padrón y Padlocal del Drive docente. Originales y hashes documentados.' if audit.get('source_mode')=='teacher' else '[1] INEI. ENAHO anual2025, módulos100,200,300 y Sumaria; contraste panel2025. MINEDU. Padrón y Padlocal. Fuentes y hashes documentados.'),
+      ('[1] INEI. ENAHO PANEL 2021-2025: corte de 2025, módulos 100, 200, 300 y Sumaria. MINEDU. ESCALE: Padrón de Servicios Educativos y Padrón de Locales Escolares, 2025.' if audit.get('source_mode')=='teacher' else '[1] INEI. Encuesta Nacional de Hogares, 2025: módulos 100, 200, 300 y Sumaria. MINEDU. ESCALE: Padrón de Servicios Educativos y Padrón de Locales Escolares, 2025.'),
       '[2] INEI. ENAHO 2025: Diccionario de Datos. Lima, mayo de 2026. <link href="https://proyectos.inei.gob.pe/iinei/srienaho/Descarga/DocumentosMetodologicos/2025-55/20_Diccionario_2025.pdf" color="#087d84">Documento anual oficial</link>. Cuestionarios ENAHO.01 y ENAHO.01A 2025 incluidos en los archivos suministrados.',
-      '[3] Condori Coaquira, A. R. Guía de Evaluación: Proyecto IA, Brecha Digital y Educación 2025 (ENAHO-ESCALE). Curso Inteligencia Artificial, UPeU. Material docente suministrado, 7 páginas.',
+      '[3] Condori Coaquira, A. R. Guía de Evaluación: Proyecto IA, Brecha Digital y Educación 2025 (ENAHO-ESCALE). Universidad Peruana Unión. Material del curso Inteligencia Artificial, 7 p.',
       '[4] INEI. Documento Metodológico de los Indicadores en Educación, 2022, pp. PDF 29 y 33-34. <link href="https://www.inei.gob.pe/media/MenuRecursivo/investigaciones/indicadores-de-educacion.pdf" color="#087d84">Metodología oficial</link>. MINEDU/ESCALE: ficha SIAGIE de atraso, edad al 31 de marzo y desfase de al menos dos años.',
-      '[5] INEI. ENAHO 2024: Manual de Consistencia Básica. <link href="https://proyectos.inei.gob.pe/iinei/srienaho/Descarga/DocumentosMetodologicos/2024-55/14_Manual_Consistencia.pdf" color="#087d84">Criterio de residente habitual</link>; referencia 2024, no manual 2025.'
+      '[5] INEI. ENAHO 2024: Manual de Consistencia Básica. <link href="https://proyectos.inei.gob.pe/iinei/srienaho/Descarga/DocumentosMetodologicos/2024-55/14_Manual_Consistencia.pdf" color="#087d84">Definición de residente habitual</link>.'
     ]
     for ref in references:a.para(ref,size=7.8,leading=9.7,gap=4,color=GRAY)
-    a.small('Entrega reproducible: scripts, notebooks, dataset y diccionario, fuentes, métricas/folds, pesos, estabilidad, SHAP y versión editable del artículo. Las tablas completas sustentan las cifras condensadas en seis páginas.',gap=0)
+    a.small('Material complementario: código de análisis, notebooks ejecutados, diccionario de variables y tablas de validación, ponderación, estabilidad y explicabilidad. La procedencia de las fuentes y sus verificaciones de integridad se documentan en el repositorio.',gap=0)
     a.finish()
     print(f'PDF validado: {OUT} (6 páginas)')
 

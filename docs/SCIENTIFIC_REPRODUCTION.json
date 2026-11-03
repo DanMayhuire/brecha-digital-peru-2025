@@ -1,0 +1,268 @@
+{
+  "status": "passed",
+  "executed_at_utc": "2026-11-03T17:10:14.659789+00:00",
+  "reference_dataset_sha256": "e46ff2b57a84c34319b94609460a7d7a0972be087a93cb39e3fa7dc5e24a96a5",
+  "analysis_code_sha256": "f8d55720df08d4c9c5025074756fe52e310c1dca228f26c190a07f918ea06c31",
+  "checks": [
+    {
+      "name": "dataset_sha256",
+      "passed": true
+    },
+    {
+      "name": "analysis_code_sha256",
+      "passed": true
+    },
+    {
+      "name": "features",
+      "passed": true
+    },
+    {
+      "name": "n_eligible",
+      "passed": true
+    },
+    {
+      "name": "n_train",
+      "passed": true
+    },
+    {
+      "name": "n_test",
+      "passed": true
+    },
+    {
+      "name": "group_overlap",
+      "passed": true
+    },
+    {
+      "name": "threshold",
+      "passed": true
+    },
+    {
+      "name": "winner_unchanged",
+      "passed": true
+    },
+    {
+      "name": "metrics_Logística",
+      "passed": true
+    },
+    {
+      "name": "metrics_Random Forest",
+      "passed": true
+    },
+    {
+      "name": "metrics_XGBoost",
+      "passed": true
+    },
+    {
+      "name": "metrics_CatBoost",
+      "passed": true
+    },
+    {
+      "name": "frozen_model_prediction_Logística",
+      "passed": true
+    },
+    {
+      "name": "frozen_oof_calibration_Logística",
+      "passed": true
+    },
+    {
+      "name": "frozen_model_prediction_Random Forest",
+      "passed": true
+    },
+    {
+      "name": "frozen_oof_calibration_Random Forest",
+      "passed": true
+    },
+    {
+      "name": "frozen_model_prediction_XGBoost",
+      "passed": true
+    },
+    {
+      "name": "frozen_oof_calibration_XGBoost",
+      "passed": true
+    },
+    {
+      "name": "frozen_model_prediction_CatBoost",
+      "passed": true
+    },
+    {
+      "name": "frozen_oof_calibration_CatBoost",
+      "passed": true
+    },
+    {
+      "name": "table_test_predictions.csv",
+      "passed": true
+    },
+    {
+      "name": "table_oof_predictions.csv",
+      "passed": true
+    },
+    {
+      "name": "table_cv_assignments.csv",
+      "passed": true
+    },
+    {
+      "name": "table_partitions.csv",
+      "passed": true
+    },
+    {
+      "name": "table_cluster_assignments.csv",
+      "passed": true
+    },
+    {
+      "name": "table_clustering_comparison.csv",
+      "passed": true
+    },
+    {
+      "name": "table_cluster_profiles.csv",
+      "passed": true
+    },
+    {
+      "name": "table_clustering_stability.csv",
+      "passed": true
+    },
+    {
+      "name": "table_model_comparison_cv.csv",
+      "passed": true
+    },
+    {
+      "name": "table_cv_folds.csv",
+      "passed": true
+    },
+    {
+      "name": "table_shap_importance.csv",
+      "passed": true
+    },
+    {
+      "name": "table_shap_interactions_xgboost.csv",
+      "passed": true
+    },
+    {
+      "name": "ablation_silueta",
+      "passed": true
+    },
+    {
+      "name": "ablation_ari_vs_completo",
+      "passed": true
+    }
+  ],
+  "max_absolute_numeric_difference_by_table": {
+    "test_predictions.csv": 3.3306690738754696e-16,
+    "oof_predictions.csv": 3.3306690738754696e-16,
+    "cv_assignments.csv": 0.0,
+    "partitions.csv": 0.0,
+    "cluster_assignments.csv": 0.0,
+    "clustering_comparison.csv": 0.0,
+    "cluster_profiles.csv": 0.0,
+    "clustering_stability.csv": 0.0,
+    "model_comparison_cv.csv": 0.0,
+    "cv_folds.csv": 2.7755575615628914e-17,
+    "shap_importance.csv": 0.0,
+    "shap_interactions_xgboost.csv": 0.0
+  },
+  "reference_tables_not_present_locally": [],
+  "metrics": [
+    {
+      "modelo": "Logística",
+      "seleccionado_cv": false,
+      "roc_auc": 0.8156141310500504,
+      "average_precision": 0.5858691300869001,
+      "pr_auc_trapezoidal": 0.585244785370312,
+      "f1_macro": 0.6800884288199756,
+      "precision": 0.6496563817207702,
+      "recall": 0.3688291853320265,
+      "brier": 0.12895016665121076,
+      "specificity": 0.9438920530932203,
+      "brier_sin_calibrar": 0.1289596648185349,
+      "f1_macro_no_ponderado": 0.7144286013525645,
+      "auc_no_ponderado": 0.8390459537999311,
+      "roc_auc_no_ponderado": 0.8390459537999311,
+      "average_precision_no_ponderado": 0.6563192730843592,
+      "pr_auc_trapezoidal_no_ponderado": 0.6560442361969646,
+      "precision_no_ponderado": 0.6639741518578353,
+      "recall_no_ponderado": 0.47295742232451093,
+      "brier_no_ponderado": 0.13297663977232174,
+      "specificity_no_ponderado": 0.9190661478599221
+    },
+    {
+      "modelo": "Random Forest",
+      "seleccionado_cv": false,
+      "roc_auc": 0.8141072562147089,
+      "average_precision": 0.5850395726016747,
+      "pr_auc_trapezoidal": 0.5844104899385385,
+      "f1_macro": 0.6743730213082715,
+      "precision": 0.6432715675886378,
+      "recall": 0.35837438822901924,
+      "brier": 0.12936671164798386,
+      "specificity": 0.9439379557453481,
+      "brier_sin_calibrar": 0.13109730943219278,
+      "f1_macro_no_ponderado": 0.7202222291966284,
+      "auc_no_ponderado": 0.8326807950459627,
+      "roc_auc_no_ponderado": 0.8326807950459627,
+      "average_precision_no_ponderado": 0.6541113477903164,
+      "pr_auc_trapezoidal_no_ponderado": 0.6538282679032507,
+      "precision_no_ponderado": 0.6609907120743034,
+      "recall_no_ponderado": 0.49136939010356734,
+      "brier_no_ponderado": 0.13412847180243648,
+      "specificity_no_ponderado": 0.9147859922178988
+    },
+    {
+      "modelo": "XGBoost",
+      "seleccionado_cv": false,
+      "roc_auc": 0.8174265608882098,
+      "average_precision": 0.5953404037792167,
+      "pr_auc_trapezoidal": 0.5947552889886357,
+      "f1_macro": 0.6882937036456357,
+      "precision": 0.6573505435282921,
+      "recall": 0.38462889864402666,
+      "brier": 0.12822732685016192,
+      "specificity": 0.9434433693856479,
+      "brier_sin_calibrar": 0.12846044780836183,
+      "f1_macro_no_ponderado": 0.7223675372652355,
+      "auc_no_ponderado": 0.8403113288228788,
+      "roc_auc_no_ponderado": 0.8403113288228788,
+      "average_precision_no_ponderado": 0.666466598873928,
+      "pr_auc_trapezoidal_no_ponderado": 0.6662167021452082,
+      "precision_no_ponderado": 0.6746411483253588,
+      "recall_no_ponderado": 0.48676639815880324,
+      "brier_no_ponderado": 0.13171134735422288,
+      "specificity_no_ponderado": 0.9206225680933852
+    },
+    {
+      "modelo": "CatBoost",
+      "seleccionado_cv": true,
+      "roc_auc": 0.8203566503656547,
+      "average_precision": 0.601272493194526,
+      "pr_auc_trapezoidal": 0.6006659886991493,
+      "f1_macro": 0.6932939537541463,
+      "precision": 0.6908988629102774,
+      "recall": 0.3811808434952735,
+      "brier": 0.12728245847401115,
+      "specificity": 0.9518932754995589,
+      "brier_sin_calibrar": 0.16157966850972022,
+      "f1_macro_no_ponderado": 0.7177054915933719,
+      "auc_no_ponderado": 0.8406198367460249,
+      "roc_auc_no_ponderado": 0.8406198367460249,
+      "average_precision_no_ponderado": 0.6653133950509995,
+      "pr_auc_trapezoidal_no_ponderado": 0.6650569037156818,
+      "precision_no_ponderado": 0.6864406779661016,
+      "recall_no_ponderado": 0.4660529344073648,
+      "brier_no_ponderado": 0.13165743078103256,
+      "specificity_no_ponderado": 0.9280155642023347
+    }
+  ],
+  "historical_test_warning": "La partición de prueba ya se inspeccionó en la versión anterior. Se conserva para comparabilidad, sin usarla para selección nueva; esta auditoría es retrospectiva y no aporta una prueba externa inédita.",
+  "scope": "Full 200-fit training, clustering and SHAP from frozen versioned processed data, in an isolated directory. No automatic promotion of models. Raw-source equivalence is audited separately.",
+  "training_executed_at_utc": "2026-11-03T17:00:51.288881+00:00",
+  "software": {
+    "python": "3.12.14",
+    "pandas": "3.1.0",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1",
+    "catboost": "1.2.10",
+    "shap": "0.54.1",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2",
+    "joblib": "1.6.0"
+  }
+}

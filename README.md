@@ -2,11 +2,11 @@
 
 Proyecto existente `InteliogenciaArtificial`, Universidad Peruana Unión. Clasifica **no uso de internet en el mes anterior** en residentes habituales de6–17 años matriculados/asistentes a primaria o secundaria, sin CEBA declarada. No mide directamente competencias digitales ni efectos causales.
 
-## Fuentes actuales y resultados históricos
+## Versión científica definitiva
 
-Se recuperaron los dos ZIP del Drive docente y sus seis originales en `data/raw/`. Los CSV son ENAHO PANEL2021–2025: se conservan sus nombres y se selecciona sólo2025. Padrón/Padlocal son los DBF originales. Consulte `data/raw/README.md` y `source_manifest.json`. Los datos crudos no se incluyen en Git ni en el ZIP de entrega.
+La referencia es el CatBoost guardado, sus predicciones y el dataset anual de 2025 con su orden original. Prueba ponderada: ROC-AUC 0.820357, AP 0.601272 y F1 macro 0.693294. GMM k=2: silueta 0.453928. Los cinco notebooks ejecutan controles reales de estos mismos artefactos; no afirman entrenar modelos cuando sólo los evalúan.
 
-Los modelos, métricas, artículo y entregas anteriores se conservan y corresponden a la ejecución ANUAL2025 documentada en octubre. La recuperación del Drive no cambia retrospectivamente su procedencia. La reconstrucción docente se valida aparte en `reports/rebuild_teacher/`; no se mezclan ambas versiones.
+Los seis originales del profesor se recuperan automáticamente desde Drive, con SHA-256. Su corte 2025 tiene las mismas personas y valores comunes, pero distinto orden de filas y cinco columnas adicionales no predictoras. Una semilla fija no hace al ajuste ni al muestreo invariantes al orden. Por eso la reproducción docente es un experimento distinto, no una sustitución automática de las cifras definitivas. La investigación, la reproducción aislada y los hashes se documentan en `docs/SCIENTIFIC_SYNC.md` y `docs/SCIENTIFIC_REFERENCE.json`.
 
 ## Entorno
 
@@ -83,15 +83,15 @@ FACPOB07 es el factor individual principal; FACTORA07 se considera en sensibilid
 
 Consulte `reports/results.json` y `docs/VALIDACION_FINAL.md` para las cifras de la ejecución final. La documentación no se considera evidencia suficiente sin los archivos generados y sus verificaciones. El estado anterior completo se conserva en `snapshots/`, excluido del ZIP y de Git. La publicación posterior en GitHub fue autorizada por el usuario; consulte docs/GITHUB_PUBLICATION.md.
 
-### Notebooks históricos
+### Notebooks sincronizados
 
-La ejecución anual anterior se conserva en los respaldos. Los notebooks visibles se ejecutaron nuevamente con la fuente del profesor y guardan sus resultados reales para exposición. Las métricas de esa ejecución se resumen en reports/public_summary.json; los modelos y el artículo históricos anteriores permanecen aparte. El builder rechaza mezclar argumentos de fuente anual con teacher.
+Se conserva la ejecución anterior en un respaldo local con manifiesto SHA-256. Los notebooks actuales recalculan métricas, asignaciones y explicaciones de los modelos definitivos guardados. El recorrido 00 se ejecuta completo en su propio kernel; no concatena salidas de otras ejecuciones. El entrenamiento completo se reproduce por separado y se compara sin promover ni reemplazar modelos.
 
 ## Qué contiene GitHub y cómo reproducir
 
 La versión de Git contiene código, pruebas, cuatro notebooks con salidas reales guardadas, documentación, tablas agregadas y el informe. Los notebooks ejecutados se conservan con sus salidas para que las tablas y gráficos aparezcan al abrirlos. Los respaldos permanecen locales en snapshots. El registro histórico de ejecución no es un hash de la versión sin salidas: es evidencia local de aquella corrida.
 
-Los seis originales crudos no están versionados y `.gitignore` los excluye. **El remoto existente sí contiene ocho archivos procesados y cuatro archivos de modelos de una publicación anterior**; `.gitignore` no retira archivos ya versionados. No se eliminan ni se reescribe su historial en esta corrección. El nuevo procedimiento descarga y reconstruye desde originales sin utilizar esos productos previos. Las predicciones individuales nuevas, logs, respaldos y entregas Power BI se excluyen de los commits preparados. `reports/public_summary.json` resume la ejecución docente presentada en los notebooks, sin casos individuales. Los registros detallados de verificación y sus hashes permanecen locales; se regeneran al reproducir.
+Los seis originales crudos no están versionados y `.gitignore` los excluye. **El remoto existente sí contiene ocho archivos procesados y cuatro archivos de modelos de una publicación anterior**; `.gitignore` no retira archivos ya versionados. No se eliminan ni se reescribe su historial en esta corrección. El nuevo procedimiento descarga y reconstruye desde originales sin utilizar esos productos previos. Las predicciones individuales nuevas, logs, respaldos y entregas Power BI se excluyen de los commits preparados. `reports/public_summary.json` resume la referencia definitiva. Los registros de verificación actuales contienen hashes del paquete presente y excluyen las trazas individuales que se regeneran localmente.
 
 No se usan rutas con nombres de usuario. `Path(__file__)` resuelve el proyecto y `--source-dir` permite elegir la carpeta de los ZIP en cada computadora. Una ruta de entrada configurada por el usuario es necesaria para sus archivos locales, pero no se fija a la computadora del autor. Siga los comandos de recuperación y `scripts/reproduce_teacher.py --train` de este README.
 
@@ -107,14 +107,35 @@ Para usar Jupyter, registre el entorno de su propio clon y seleccione ese kernel
 .venv/bin/python -m ipykernel install --user --name ia-u2 --display-name "Python IA U2"
 ```
 
-Los notebooks reconstruyen el proyecto abierto al ejecutarlos. Para conservar entregas existentes, trabaje en un clon nuevo o use la reproducción aislada recomendada. No se garantiza que un clon sin los originales pueda entrenar: el procedimiento de colocación y validación de los ZIP está documentado.
+Los notebooks evalúan los artefactos definitivos guardados. Las trazas individuales de evaluación se regeneran mediante el entrenamiento aislado cuando no existen. Consulte el procedimiento científico siguiente; descargar raw y entrenar con su orden docente original constituye otro experimento.
 
 ## Presentación en JupyterLab: abrir sin volver a ejecutar
 
 La entrega para exposición conserva outputs y contadores de ejecución reales. No se borran para GitHub: portabilidad significa eliminar rutas personales, no borrar resultados. Las imágenes están embebidas en los ipynb, por lo que ver los resultados no requiere kernel activo, originales ni descompresión. Para recalcular sí se necesitan el entorno y los originales ya preparados.
 
-Abra `notebooks/00_Proyecto_Completo_Ejecutado.ipynb` para el recorrido unificado, o los cuatro notebooks de fases. El unificado compila salidas de ejecuciones reales en kernels independientes, declaradas por fase; no inventa resultados ni contadores. La evidencia se conserva en reports/raw_management/presentation_execution.json. No ejecute scripts/make_notebooks.py antes de exponer: genera plantillas nuevas; debe ir seguido de la ejecución y guardado real.
+Abra `notebooks/00_Proyecto_Completo_Ejecutado.ipynb` para el recorrido unificado, o los cuatro notebooks de fases. El unificado se ejecuta completo en un kernel nuevo, con contadores y salidas propios. La evidencia vigente es `reports/notebook_execution.json`. Los generadores de notebooks crean plantillas: deben ir seguidos de `src/execute_notebooks.py`, que ejecuta y guarda las cinco versiones.
 
 ## Prueba de recuperación en un clon limpio
 
 Se auditó el remoto y se probó el mecanismo con descargas nuevas, sin caché pip ni archivos del proyecto original y sin enlaces físicos. La prueba previa a la publicación y sus límites se documentan en `docs/CLEAN_CLONE_REPRODUCIBILITY.md`. El inventario adjunto corresponde al commit anterior identificado en esa auditoría.
+
+## Reproducción de la referencia científica congelada
+
+Desde un clon con Python 3.12 y las dependencias instaladas:
+
+```bash
+.venv/bin/python scripts/reproduce_scientific.py --run-dir tmp/scientific_reproduction --restore-evaluation-traces
+```
+
+Este comando entrena en una carpeta nueva a partir del dataset procesado versionado, con el orden congelado, y compara predicciones, métricas, folds, clustering y SHAP. Se detiene si hay diferencias y no reemplaza modelos del proyecto principal. `docs/SCIENTIFIC_REPRODUCTION.json` registra el resultado de la comparación actual. Esto reproduce la referencia publicada; la recuperación desde raw y su equivalencia por llaves tienen evidencia separada en `docs/SOURCE_ORDER_AUDIT.json`.
+
+Las trazas individuales están excluidas de Git. La opción `--restore-evaluation-traces` recupera sólo las que falten después de comparar con la referencia; no reemplaza modelos ni trazas existentes. Se probó esta recuperación en una copia sin trazas iniciales. Para revisar la referencia:
+
+```bash
+.venv/bin/python src/scientific_audit.py
+.venv/bin/python src/execute_notebooks.py
+.venv/bin/python src/verify_outputs.py
+.venv/bin/python -m unittest discover -s tests -v
+```
+
+Los registros históricos no se reutilizan como pruebas actuales. La prueba final ya había sido observada y la evaluación es retrospectiva. No se altera el objetivo ni se elige un ganador nuevo por sus cifras de prueba.

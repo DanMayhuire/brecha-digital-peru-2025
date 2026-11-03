@@ -1,48 +1,40 @@
-# Validación final ejecutada
+# Validación final de la sincronización científica
 
-Fecha UTC: 2026-10-29T04:34:35.530194+00:00. Estado: **passed**. 152 controles aprobados; 0 fallidos. Véase `reports/final_verification.json` para detalles, fuentes, hashes, versiones, configuración y métricas.
+Registro vigente: `reports/final_verification.json`. Estado: **passed**; 336 controles aprobados y 0 fallidos. La fecha exacta y las huellas están en el registro, que debe regenerarse después de cualquier cambio de artefactos.
 
-## Ejecución real
+## Ejecuciones reales
 
-Los cuatro notebooks ejecutaron los scripts canónicos en kernels nuevos. Registro:
+| Notebook | Celdas de código | Segundos observados | Estado |
+|---|---:|---:|---|
+| `notebooks/01_Ingenieria_Datos_EDA.ipynb` | 2 | 2.81 | passed |
+| `notebooks/02_Clustering_Perfilamiento.ipynb` | 2 | 2.53 | passed |
+| `notebooks/03_Modelado_Supervisado.ipynb` | 2 | 4.92 | passed |
+| `notebooks/04_Explicabilidad_SHAP.ipynb` | 2 | 2.70 | passed |
+| `notebooks/00_Proyecto_Completo_Ejecutado.ipynb` | 5 | 5.55 | passed |
 
-|Notebook|Segundos observados|Estado|Celdas código|
-|---|---:|---|---:|
-|01_Ingenieria_Datos_EDA.ipynb|31.26|passed|4|
-|02_Clustering_Perfilamiento.ipynb|5.96|passed|3|
-|03_Modelado_Supervisado.ipynb|81.30|passed|4|
-|04_Explicabilidad_SHAP.ipynb|6.25|passed|3|
+Los cinco notebooks evalúan realmente los modelos conservados en kernels nuevos. El recorrido 00 ejecuta su código completo en su propio kernel. No se ensamblan outputs de otras corridas ni se presenta evaluación como entrenamiento. Los hashes de entrada y ejecución son comprobados por el verificador.
 
-## Datos y resultados regenerados
+## Entrenamiento aislado y pruebas
 
-- Fuente anual 2025 única, contrastada con corte panel; mismos valores comunes seleccionados normalizados. Educación panel añade 2512 filas sin respuestas. No se afirma equivalencia de columnas no leídas.
-- Base 23345 residentes, cohorte 16544; desarrollo 13105 y prueba 3439. Grupos 3232/808; intersección 0.
-- Padlocal 69642 locales únicos;54038 servicios enlazados sin multiplicación. Un conflicto geográfico se aparta de coordenadas/contexto físico. Coincidencia ENAHO 100%;contexto ESCALE 98.179482%.
-- Ganador CatBoost, AP-CV 0.593466±0.010857; ventaja sobre XGBoost pequeña y no establecida como estadísticamente significativa.
-- Prueba ponderada: ROC-AUC 0.820357; AP 0.601272; PR trapezoidal0.600666; F1 macro0.693294; precisión 0.690899; recall 0.381181; especificidad 0.951893; Brier 0.127282.
-- Clustering GMM k 2, silueta 0.453928; ARI 1 entre las semillas/submuestras evaluadas. Sin internet/electricidad, ARI 0.080753 y silueta 0.279132: los grupos dependen fuertemente de los accesos; no se presentan como estructuras latentes independientes de ellos.
-- SHAP del ganador residuo 6.22e-15; interacciones XGBoost residuo 2.38e-06. Score antes de calibración y probabilidad calibrada diferenciados.
+Se ejecutó realmente el análisis completo en un directorio aislado y se contrastó con la referencia: 35 comprobaciones aprobadas. `docs/SCIENTIFIC_REPRODUCTION.json` conserva las diferencias y tolerancias; `docs/SCIENTIFIC_SYNC.md` detalla el método y los cambios.
 
-## Pruebas ejecutadas
+Se ejecutaron 20 pruebas unitarias y `pip check`; ambos aprobaron. Las nuevas pruebas comprueban alineación por identidad y rechazo de filas duplicadas o inexistentes. Se revisaron las seis páginas del PDF renderizado. El control de privacidad de archivos candidatos aprobó. Los modelos y datasets congelados no se reemplazaron.
 
-Se ejecutó unittest sobre `tests/`: pruebas negativas de uniones duplicadas y variables prohibidas, ceros/códigos, aislamiento del preprocesamiento, pesos, faltantes de la etiqueta y datos reales. Se recalcularon métricas desde predicciones; se comparó el modelo persistido; se reconstruyeron particiones y folds seed 42; se comprobó aditividad SHAP, fuentes y huellas de notebooks/artefactos. `pip check` aprobó las dependencias.
+## Resultados conservados
 
-## Errores y correcciones durante ejecución
+| Magnitud | Valor |
+|---|---:|
+| CatBoost ROC-AUC ponderada | 0.8203566504 |
+| CatBoost AP ponderada | 0.6012724932 |
+| CatBoost F1 macro ponderado | 0.6932939538 |
+| GMM k=2: silueta | 0.4539280521 |
+| Desarrollo / prueba | 13105 / 3439 |
+| Solapamiento CONGLOME | 0 |
 
-La primera apertura de kernel en sandbox fue bloqueada por puertos locales; se ejecutó con acceso local autorizado. Un intento inicial se detuvo por la guarda de versión al cambiar código entre fases. Se conservaron trazas en `notebook_execution_attempt1.json` y se repitieron los cuatro notebooks con versión congelada. No se presentan esos resultados intermedios como ejecución final. El aviso TCP del kernel se refiere a comunicación local en loopback; no hubo exposición remota. El encabezado DBF tiene año no estándar/inconsistente con FECHA_ACT2025 y no determina el año analítico. Detalles en SOURCE_RECONCILIATION.
+## Alcance y límites
 
-## Comandos comprobados
+El corte docente reconstruido tiene las mismas personas y valores comunes que la referencia anual, con otro orden de filas y cinco campos adicionales no predictivos. La reproducción de esta referencia usa el dataset procesado versionado con su orden fijado por hash. La igualdad por llaves no implica identidad byte a byte entre publicaciones ni invariancia al orden.
 
-```bash
-.venv/bin/python src/execute_notebooks.py
-.venv/bin/python src/make_report.py
-.venv/bin/python src/verify_outputs.py
-.venv/bin/python src/finalize_docs.py
-.venv/bin/python src/package_submission.py
-```
+La partición de prueba ya se inspeccionó en la versión anterior. Se conserva para comparabilidad, sin usarla para selección nueva; esta auditoría es retrospectiva y no aporta una prueba externa inédita.
 
-Los originales deben existir; configure IA_SOURCE_DIR/IA_ANNUAL_DIR como indica README. El ZIP no incluye las fuentes. La validación registra solo pruebas ejecutadas; no certifica generalización externa ni la defensa oral.
-
-## Límites pendientes
-
-La medición completa de competencias para 6–17 no está disponible por universo/saltos del cuestionario; la aproximación digital continúa siendo parcial frente al constructo amplio de la guía. Faltan atributos de infraestructura escolar en Padlocal; no se fabrican. La prueba ya fue observada en la versión previa. La cohorte no representa una tasa nacional oficial. Falta la sustentación por el estudiante; no hay bloqueo técnico para la entrega privada con estas limitaciones declaradas.
+Los resultados anteriores están preservados en el respaldo verificable documentado en el informe de sincronización. No se cambió el objetivo ni se eligió otro ganador por prueba. La corrección permanece local, pendiente de revisión; no se ha hecho commit ni push.

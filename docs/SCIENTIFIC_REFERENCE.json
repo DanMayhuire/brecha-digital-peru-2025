@@ -1,0 +1,51 @@
+{
+  "reference_commit": "c864fac07f8edd49bba9c54b92c396ec06169afc",
+  "scientific_source": "Annual ENAHO 2025 layout, contrasted by keys against instructor panel cut2025; ESCALE instructor sources. The sequence is frozen, not interchangeable with the original panel row order.",
+  "frozen_sha256": {
+    "models/best_model.joblib": "8c7422152aa73869909bc307bb576ad671e5b03138047c3e148ff875e212128f",
+    "models/all_models.joblib": "fbea99b10a62aff3152d0f7150d9befa6511d40cfaaaa6da6b8f52e68cb0dcb5",
+    "models/clustering.joblib": "60f3a247ca517f61371a709fdf85824d31bdc9b3a279db030227639dd8439c73",
+    "data/processed/dataset_enaho_escale_2025.csv": "e46ff2b57a84c34319b94609460a7d7a0972be087a93cb39e3fa7dc5e24a96a5",
+    "data/processed/dataset_modelado_internet_2025.csv": "941f0407a726fcf6b0d95a6694ba9e19b8bf767746b7c53348cdf1dd41c3b76a"
+  },
+  "historical_annual_archives": [
+    {
+      "path": "1031-Modulo01.zip",
+      "bytes": 8124173,
+      "sha256": "22f4e0f39a30244ef3da5fd3bfc8869c59be63fc1e5d4fb9bc28708426c2ffa8",
+      "role": "pipeline_input"
+    },
+    {
+      "path": "1031-Modulo02.zip",
+      "bytes": 5612487,
+      "sha256": "74044ff418cee00f254e313f05ae75065a3c950e13ee37a0833995de3bc75a55",
+      "role": "pipeline_input"
+    },
+    {
+      "path": "1031-Modulo03.zip",
+      "bytes": 11562979,
+      "sha256": "94207191bb130d77598e1b9b07f1dac57b54520b72d693b8c7199e8874f36c60",
+      "role": "pipeline_input"
+    },
+    {
+      "path": "1031-Modulo34.zip",
+      "bytes": 18317746,
+      "sha256": "565098f9b9e3ff74e0f302629bfba3fc23b51abb4192acfd1c8704de221b30da",
+      "role": "pipeline_input"
+    },
+    {
+      "path": "MINEDU-20261028T132134Z-1-001.zip",
+      "bytes": 29339953,
+      "sha256": "099cdeaecab08a875bc76262d775c24602143a6f98a5a2df19eb8d0191086c60",
+      "role": "pipeline_input"
+    },
+    {
+      "path": "INEI-20261028T132135Z-1-001.zip",
+      "bytes": 468575682,
+      "sha256": "626e9165f08d61d0de78010fd4027a7b6b78ab7709db1f3d3dcd7661257acda5",
+      "role": "comparison_only"
+    }
+  ],
+  "instructor_recovery_manifest": "data/raw/download_manifest.json",
+  "historical_test_warning": "La partición de prueba ya se inspeccionó en la versión anterior. Se conserva para comparabilidad, sin usarla para selección nueva; esta auditoría es retrospectiva y no aporta una prueba externa inédita."
+}
