@@ -23,7 +23,7 @@ Si `.venv` ya existe y tiene las dependencias, no es necesario recrearlo. Los ar
 ## Recuperar originales y reproducir en macOS
 
 ```bash
-git clone https://github.com/DanMayhuire/InteliogenciaArtificial.git
+git clone https://github.com/DanMayhuire/brecha-digital-peru-2025.git
 cd InteliogenciaArtificial
 python3.12 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
@@ -31,7 +31,7 @@ python3.12 -m venv .venv
 .venv/bin/python scripts/reproduce_teacher.py
 ```
 
-El repositorio está destinado a GitHub privado; necesita acceso a la cuenta o una invitación para clonarlo. La descarga manual del Drive está documentada; no hacen falta los ZIP anuales para esta ruta. Las rutas del pipeline son relativas al proyecto, y la ubicación externa de los ZIP se proporciona como argumento.
+El repositorio indicado por el usuario es público. Los originales y predicciones individuales nuevos se mantienen fuera del commit. La descarga manual del Drive está documentada; no hacen falta los ZIP anuales para esta ruta. Las rutas del pipeline son relativas al proyecto, y la ubicación externa de los ZIP se proporciona como argumento.
 
 El último comando reconstruye sólo datos en una carpeta de validación. Para ejecutar también entrenamiento, SHAP, gráficos, informe y verificación sin alterar el trabajo anterior:
 

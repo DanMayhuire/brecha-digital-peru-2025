@@ -14,4 +14,4 @@ No se afirma100% conceptual ni20/20: objetivo operacional más estrecho que comp
 
 ## Versión para GitHub
 
-Se prepara el primer commit en main del repositorio privado DanMayhuire/InteliogenciaArtificial, por solicitud expresa del usuario. Incluye cinco notebooks ejecutados y salidas embebidas. Las fuentes y los resultados por persona permanecen locales. Detalles de alcance en docs/GITHUB_PUBLICATION.md.
+Se prepara el actualización de main del repositorio indicado por el usuario DanMayhuire/brecha-digital-peru-2025, por solicitud expresa del usuario. Incluye cinco notebooks ejecutados y salidas embebidas. Las fuentes y los resultados por persona permanecen locales. Detalles de alcance en docs/GITHUB_PUBLICATION.md.
