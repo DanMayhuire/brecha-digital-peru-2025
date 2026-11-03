@@ -1,0 +1,170 @@
+{
+  "status": "passed",
+  "remote_commit": "87d8fb907e8ecdb94b0b94a3508641d7bb9183d7",
+  "remote_files_count": 127,
+  "remote_raw_originals": 0,
+  "remote_processed_files": 8,
+  "remote_model_files": 4,
+  "raw_files": [
+    {
+      "module": "vivienda",
+      "path": "inei_enaho/enaho01-2021-2025-100-panel.csv",
+      "sha256": "fc1f64703e72f981520292142daeaa1ab8ae5cbb9ee0f8c6bfb8c78e54bd9923",
+      "bytes": 660202020,
+      "materialization": "fresh_public_download",
+      "downloaded_link_count": 1,
+      "run_copy_link_count": 1,
+      "run_is_distinct_inode": true,
+      "tracked_in_remote": false,
+      "ignored": true
+    },
+    {
+      "module": "personas",
+      "path": "inei_enaho/enaho01-2021-2025-200-panel.csv",
+      "sha256": "105a0975d2ed2dfe2aa4202980082e9d2486d21c534b031ebf714592381a2f13",
+      "bytes": 298389161,
+      "materialization": "fresh_public_download",
+      "downloaded_link_count": 1,
+      "run_copy_link_count": 1,
+      "run_is_distinct_inode": true,
+      "tracked_in_remote": false,
+      "ignored": true
+    },
+    {
+      "module": "educacion",
+      "path": "inei_enaho/enaho01a-2021-2025-300-panel.csv",
+      "sha256": "b3454390acc09d84be03be154356fda2c2f5a758b81205ee6e55ee4be381c8b7",
+      "bytes": 2311312187,
+      "materialization": "fresh_public_download",
+      "downloaded_link_count": 1,
+      "run_copy_link_count": 1,
+      "run_is_distinct_inode": true,
+      "tracked_in_remote": false,
+      "ignored": true
+    },
+    {
+      "module": "sumaria",
+      "path": "inei_enaho/sumaria-2021-2025-panel.csv",
+      "sha256": "13fd157bb937f22060ad4f94b3493c8734953c04feb088d599b709888b9258bc",
+      "bytes": 301223612,
+      "materialization": "fresh_public_download",
+      "downloaded_link_count": 1,
+      "run_copy_link_count": 1,
+      "run_is_distinct_inode": true,
+      "tracked_in_remote": false,
+      "ignored": true
+    },
+    {
+      "module": "padron",
+      "path": "minedu_escale/Padron.dbf",
+      "sha256": "c2d5c934ea1aa1014199e11515b4760813ffd173e7e057557c96a978cd3fb925",
+      "bytes": 143837746,
+      "materialization": "fresh_public_download",
+      "downloaded_link_count": 1,
+      "run_copy_link_count": 1,
+      "run_is_distinct_inode": true,
+      "tracked_in_remote": false,
+      "ignored": true
+    },
+    {
+      "module": "padlocal",
+      "path": "minedu_escale/Padlocal.dbf",
+      "sha256": "c5c5de8b8b12b4645c4967e47b7a0fc27f631ec6cb158e3eff9051556d174c8e",
+      "bytes": 47426844,
+      "materialization": "fresh_public_download",
+      "downloaded_link_count": 1,
+      "run_copy_link_count": 1,
+      "run_is_distinct_inode": true,
+      "tracked_in_remote": false,
+      "ignored": true
+    }
+  ],
+  "pipeline_checks": 147,
+  "failed_checks": [],
+  "n_integrated": 23345,
+  "n_model": 16544,
+  "group_overlap": 0,
+  "source_reuse": false,
+  "hardlinks_used": false,
+  "pip_cache_used": false,
+  "fresh_venv": true,
+  "notebooks_rerun": false,
+  "tests_run": 17,
+  "scientific_original_artifacts_changed": [],
+  "download_urls": [
+    {
+      "module": "vivienda",
+      "archive_name": "1041-Modulo1474.zip",
+      "file_id": "1VyH-kHKHdugOfb2SOSrKC9If2P6eJZLT",
+      "view_url": "https://drive.google.com/file/d/1VyH-kHKHdugOfb2SOSrKC9If2P6eJZLT/view",
+      "download_url": "https://drive.google.com/uc?export=download&id=1VyH-kHKHdugOfb2SOSrKC9If2P6eJZLT",
+      "raw": {
+        "path": "inei_enaho/enaho01-2021-2025-100-panel.csv",
+        "bytes": 660202020,
+        "sha256": "fc1f64703e72f981520292142daeaa1ab8ae5cbb9ee0f8c6bfb8c78e54bd9923"
+      }
+    },
+    {
+      "module": "personas",
+      "archive_name": "1041-Modulo1479.zip",
+      "file_id": "1Wcl24s3wJQRkZh3BSejHxeYWurtkOu7V",
+      "view_url": "https://drive.google.com/file/d/1Wcl24s3wJQRkZh3BSejHxeYWurtkOu7V/view",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Wcl24s3wJQRkZh3BSejHxeYWurtkOu7V",
+      "raw": {
+        "path": "inei_enaho/enaho01-2021-2025-200-panel.csv",
+        "bytes": 298389161,
+        "sha256": "105a0975d2ed2dfe2aa4202980082e9d2486d21c534b031ebf714592381a2f13"
+      }
+    },
+    {
+      "module": "educacion",
+      "archive_name": "1041-Modulo1475.zip",
+      "file_id": "1v99MYB7mQhvPeRAN99dnqSqMnH5VduxU",
+      "view_url": "https://drive.google.com/file/d/1v99MYB7mQhvPeRAN99dnqSqMnH5VduxU/view",
+      "download_url": "https://drive.google.com/uc?export=download&id=1v99MYB7mQhvPeRAN99dnqSqMnH5VduxU",
+      "raw": {
+        "path": "inei_enaho/enaho01a-2021-2025-300-panel.csv",
+        "bytes": 2311312187,
+        "sha256": "b3454390acc09d84be03be154356fda2c2f5a758b81205ee6e55ee4be381c8b7"
+      }
+    },
+    {
+      "module": "sumaria",
+      "archive_name": "1041-Modulo1478.zip",
+      "file_id": "1bZk-o8isVoJ9erZok4mI2WMhgix6SC-1",
+      "view_url": "https://drive.google.com/file/d/1bZk-o8isVoJ9erZok4mI2WMhgix6SC-1/view",
+      "download_url": "https://drive.google.com/uc?export=download&id=1bZk-o8isVoJ9erZok4mI2WMhgix6SC-1",
+      "raw": {
+        "path": "inei_enaho/sumaria-2021-2025-panel.csv",
+        "bytes": 301223612,
+        "sha256": "13fd157bb937f22060ad4f94b3493c8734953c04feb088d599b709888b9258bc"
+      }
+    },
+    {
+      "module": "padron",
+      "archive_name": "00_Padron.zip",
+      "file_id": "1cDjrSbG10dwnAid7u79Rfp01tQ_8kVXj",
+      "view_url": "https://drive.google.com/file/d/1cDjrSbG10dwnAid7u79Rfp01tQ_8kVXj/view",
+      "download_url": "https://drive.google.com/uc?export=download&id=1cDjrSbG10dwnAid7u79Rfp01tQ_8kVXj",
+      "raw": {
+        "path": "minedu_escale/Padron.dbf",
+        "bytes": 143837746,
+        "sha256": "c2d5c934ea1aa1014199e11515b4760813ffd173e7e057557c96a978cd3fb925"
+      }
+    },
+    {
+      "module": "padlocal",
+      "archive_name": "00_Padlocal.zip",
+      "file_id": "1T6GtuyNHV9iCtMTKAnKgO-1TStDYqe-S",
+      "view_url": "https://drive.google.com/file/d/1T6GtuyNHV9iCtMTKAnKgO-1TStDYqe-S/view",
+      "download_url": "https://drive.google.com/uc?export=download&id=1T6GtuyNHV9iCtMTKAnKgO-1TStDYqe-S",
+      "raw": {
+        "path": "minedu_escale/Padlocal.dbf",
+        "bytes": 47426844,
+        "sha256": "c5c5de8b8b12b4645c4967e47b7a0fc27f631ec6cb158e3eff9051556d174c8e"
+      }
+    }
+  ],
+  "test_scope": "Fresh public HTTPS clone plus proposed code/lock changes only. All raw data downloaded anonymously; tracked generated products removed in clone before reproduction.",
+  "proposed_changes_pushed_at_time_of_test": false
+}

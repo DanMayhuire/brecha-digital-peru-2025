@@ -13,7 +13,7 @@ Los modelos, métricas, artículo y entregas anteriores se conservan y correspon
 Python3.12; se conservan las versiones ML existentes. Se añadieron nbformat, nbclient e ipykernel únicamente para ejecutar los cuatro notebooks. Dependencias directas fijadas en `requirements.txt`.
 
 ```bash
-cd /ruta/al/proyecto/InteliogenciaArtificial
+cd brecha-digital-peru-2025
 python3.12 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 ```
@@ -24,14 +24,14 @@ Si `.venv` ya existe y tiene las dependencias, no es necesario recrearlo. Los ar
 
 ```bash
 git clone https://github.com/DanMayhuire/brecha-digital-peru-2025.git
-cd InteliogenciaArtificial
+cd brecha-digital-peru-2025
 python3.12 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python scripts/download_raw_data.py --source-dir /ruta/a/los/ZIP/del/profesor
+.venv/bin/python scripts/download_raw_data.py
 .venv/bin/python scripts/reproduce_teacher.py
 ```
 
-El repositorio indicado por el usuario es público. Los originales y predicciones individuales nuevos se mantienen fuera del commit. La descarga manual del Drive está documentada; no hacen falta los ZIP anuales para esta ruta. Las rutas del pipeline son relativas al proyecto, y la ubicación externa de los ZIP se proporciona como argumento.
+El descargador consulta los seis enlaces públicos del profesor registrados en `data/raw/download_manifest.json`, descarga únicamente los ZIP necesarios, extrae los originales y exige que sus tamaños y SHA-256 coincidan con esa versión. No necesita sesión de Google ni archivos previos. Si Drive exige inicio de sesión, limita la cuota o deja de compartir un archivo, el script se detiene con un error: consulte la alternativa manual en `data/raw/README.md`. No se sustituyen datos por una versión distinta.
 
 El último comando reconstruye sólo datos en una carpeta de validación. Para ejecutar también entrenamiento, SHAP, gráficos, informe y verificación sin alterar el trabajo anterior:
 
@@ -39,7 +39,7 @@ El último comando reconstruye sólo datos en una carpeta de validación. Para e
 .venv/bin/python scripts/reproduce_teacher.py --train
 ```
 
-La ejecución se realiza con copias del código en `reports/rebuild_teacher/` y originales compartidos mediante enlaces físicos, no duplicados. Los nuevos resultados se guardan allí, incluidos el PDF y `reports/final_verification.json`. No se reejecutan los notebooks en esta ruta: la verificación lo declara. No atribuya automáticamente las cifras nuevas al artículo histórico.
+La ejecución se realiza con copias del código y de los originales en `reports/rebuild_teacher/`. Por defecto no se usan enlaces físicos. La opción `--link-raw` permite reutilización local voluntaria y no se utilizó en la prueba del clon limpio. Los nuevos resultados se guardan allí, incluidos el PDF y `reports/final_verification.json`. No se reejecutan los notebooks en esta ruta: la verificación lo declara. No atribuya automáticamente las cifras nuevas al artículo histórico.
 
 Para validar la equivalencia de entradas y la preservación de los artefactos anteriores:
 
@@ -91,7 +91,7 @@ La ejecución anual anterior se conserva en los respaldos. Los notebooks visible
 
 La versión de Git contiene código, pruebas, cuatro notebooks con salidas reales guardadas, documentación, tablas agregadas y el informe. Los notebooks ejecutados se conservan con sus salidas para que las tablas y gráficos aparezcan al abrirlos. Los respaldos permanecen locales en snapshots. El registro histórico de ejecución no es un hash de la versión sin salidas: es evidencia local de aquella corrida.
 
-Los datos crudos/procesados, modelos, predicciones por persona, logs, respaldos y entregas de Power BI no se suben. `reports/public_summary.json` resume la ejecución docente presentada en los notebooks, sin casos individuales. Los registros detallados de verificación y sus hashes permanecen locales; se regeneran al reproducir.
+Los seis originales crudos no están versionados y `.gitignore` los excluye. **El remoto existente sí contiene ocho archivos procesados y cuatro archivos de modelos de una publicación anterior**; `.gitignore` no retira archivos ya versionados. No se eliminan ni se reescribe su historial en esta corrección. El nuevo procedimiento descarga y reconstruye desde originales sin utilizar esos productos previos. Las predicciones individuales nuevas, logs, respaldos y entregas Power BI se excluyen de los commits preparados. `reports/public_summary.json` resume la ejecución docente presentada en los notebooks, sin casos individuales. Los registros detallados de verificación y sus hashes permanecen locales; se regeneran al reproducir.
 
 No se usan rutas con nombres de usuario. `Path(__file__)` resuelve el proyecto y `--source-dir` permite elegir la carpeta de los ZIP en cada computadora. Una ruta de entrada configurada por el usuario es necesaria para sus archivos locales, pero no se fija a la computadora del autor. Siga los comandos de recuperación y `scripts/reproduce_teacher.py --train` de este README.
 
@@ -114,3 +114,7 @@ Los notebooks reconstruyen el proyecto abierto al ejecutarlos. Para conservar en
 La entrega para exposición conserva outputs y contadores de ejecución reales. No se borran para GitHub: portabilidad significa eliminar rutas personales, no borrar resultados. Las imágenes están embebidas en los ipynb, por lo que ver los resultados no requiere kernel activo, originales ni descompresión. Para recalcular sí se necesitan el entorno y los originales ya preparados.
 
 Abra `notebooks/00_Proyecto_Completo_Ejecutado.ipynb` para el recorrido unificado, o los cuatro notebooks de fases. El unificado compila salidas de ejecuciones reales en kernels independientes, declaradas por fase; no inventa resultados ni contadores. La evidencia se conserva en reports/raw_management/presentation_execution.json. No ejecute scripts/make_notebooks.py antes de exponer: genera plantillas nuevas; debe ir seguido de la ejecución y guardado real.
+
+## Prueba de recuperación en un clon limpio
+
+Se auditó el remoto y se probó el mecanismo con descargas nuevas, sin caché pip ni archivos del proyecto original y sin enlaces físicos. La prueba previa a la publicación y sus límites se documentan en `docs/CLEAN_CLONE_REPRODUCIBILITY.md`. El inventario adjunto corresponde al commit anterior identificado en esa auditoría.

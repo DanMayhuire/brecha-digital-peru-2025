@@ -1,7 +1,7 @@
 """Recover instructor originals from local outer ZIPs; never invent download URLs."""
 from pathlib import Path
 from zipfile import ZipFile
-import argparse,hashlib,io,json,os,shutil,zlib,urllib.request
+import argparse,hashlib,io,json,os,shutil,zlib,urllib.request,sys
 ROOT=Path(__file__).resolve().parents[1]
 DRIVE='https://drive.google.com/drive/folders/1J2ExK_k8T9TAveZForau6i90lb8Ef7P2?usp=sharing'
 def digest(p):
@@ -32,6 +32,10 @@ def extract(z,info,dest,reuse):
  return {'path':str(dest.relative_to(ROOT/'data/raw')),'bytes':dest.stat().st_size,'sha256':digest(dest),'zip_member':info.filename,'crc32':info.CRC,'materialization':method}
 def main():
  ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--source-dir',type=Path,default=None);ap.add_argument('--inei-url');ap.add_argument('--minedu-url');ap.add_argument('--reuse-dir',type=Path,default=None);args=ap.parse_args()
+ if args.source_dir is None and not args.inei_url and not args.minedu_url:
+  sys.path.insert(0,str(ROOT/'src'))
+  from public_data_download import recover_public
+  manifest=recover_public(ROOT);print(json.dumps({'recovered_files':len(manifest['files']),'verified_sha256':True}));return
  source=args.source_dir or ROOT/'data/raw/archives';source.mkdir(parents=True,exist_ok=True)
  for prefix,url in [('INEI',args.inei_url),('MINEDU',args.minedu_url)]:
   if url and not list(source.glob(prefix+'*.zip')):
@@ -55,6 +59,10 @@ def main():
      info=matches[0];dest=raw/('inei_enaho' if prefix=='INEI' else 'minedu_escale')/Path(info.filename).name
      record=extract(nested,info,dest,args.reuse_dir/('enaho' if prefix=='INEI' else 'escale') if args.reuse_dir else None)
      record.update(module=label,outer_member=member,source_archive=prefix);records.append(record)
+ lock=json.loads((raw/'download_manifest.json').read_text())
+ expected={r['module']:r['raw'] for r in lock['downloads']}
+ for record in records:
+  if record['sha256']!=expected[record['module']]['sha256'] or record['bytes']!=expected[record['module']]['bytes']:raise ValueError('Original differs from the pinned instructor version: '+record['module'])
  (raw/'teacher_source_manifest.json').write_text(json.dumps({'reference_source':'instructor_panel_2021_2025_cut2025','drive':DRIVE,'archives':archives,'files':records,'note':'Original multiyear CSVs; not annual files. Hardlinks are read-only by policy: never edit raw in place.'},indent=2)+'\n')
  print(json.dumps({'recovered_files':len(records),'files':records},indent=2))
 if __name__=='__main__':main()

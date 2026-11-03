@@ -48,3 +48,6 @@ reports/raw_management/*manifest*.json
 /output/*
 !/output/pdf/
 /notebooks/01_Revision_de_resultados.ipynb
+
+# Local browser diagnostics are not project artifacts.
+/.playwright-mcp/

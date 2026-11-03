@@ -83,5 +83,44 @@
       "source_archive": "MINEDU"
     }
   ],
-  "note": "Original multiyear CSVs; not annual files. Hardlinks are read-only by policy: never edit raw in place."
+  "note": "Original multiyear CSVs; not annual files. Hardlinks are read-only by policy: never edit raw in place.",
+  "download_manifest": "download_manifest.json",
+  "public_sources": [
+    {
+      "module": "vivienda",
+      "archive_name": "1041-Modulo1474.zip",
+      "view_url": "https://drive.google.com/file/d/1VyH-kHKHdugOfb2SOSrKC9If2P6eJZLT/view",
+      "download_url": "https://drive.google.com/uc?export=download&id=1VyH-kHKHdugOfb2SOSrKC9If2P6eJZLT"
+    },
+    {
+      "module": "personas",
+      "archive_name": "1041-Modulo1479.zip",
+      "view_url": "https://drive.google.com/file/d/1Wcl24s3wJQRkZh3BSejHxeYWurtkOu7V/view",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Wcl24s3wJQRkZh3BSejHxeYWurtkOu7V"
+    },
+    {
+      "module": "educacion",
+      "archive_name": "1041-Modulo1475.zip",
+      "view_url": "https://drive.google.com/file/d/1v99MYB7mQhvPeRAN99dnqSqMnH5VduxU/view",
+      "download_url": "https://drive.google.com/uc?export=download&id=1v99MYB7mQhvPeRAN99dnqSqMnH5VduxU"
+    },
+    {
+      "module": "sumaria",
+      "archive_name": "1041-Modulo1478.zip",
+      "view_url": "https://drive.google.com/file/d/1bZk-o8isVoJ9erZok4mI2WMhgix6SC-1/view",
+      "download_url": "https://drive.google.com/uc?export=download&id=1bZk-o8isVoJ9erZok4mI2WMhgix6SC-1"
+    },
+    {
+      "module": "padron",
+      "archive_name": "00_Padron.zip",
+      "view_url": "https://drive.google.com/file/d/1cDjrSbG10dwnAid7u79Rfp01tQ_8kVXj/view",
+      "download_url": "https://drive.google.com/uc?export=download&id=1cDjrSbG10dwnAid7u79Rfp01tQ_8kVXj"
+    },
+    {
+      "module": "padlocal",
+      "archive_name": "00_Padlocal.zip",
+      "view_url": "https://drive.google.com/file/d/1T6GtuyNHV9iCtMTKAnKgO-1TStDYqe-S/view",
+      "download_url": "https://drive.google.com/uc?export=download&id=1T6GtuyNHV9iCtMTKAnKgO-1TStDYqe-S"
+    }
+  ]
 }

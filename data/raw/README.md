@@ -1,22 +1,36 @@
-# Fuentes originales del profesor (no versionar bases)
+# Originales ENAHO y ESCALE: descarga verificable
 
-`source_manifest.json` y `teacher_source_manifest.json` registran seis archivos reales, tamaño, CRC32 y SHA256, así como los ZIP exteriores y sus huellas. Los nombres multianuales se conservan: estos archivos NO son CSV anuales renombrados.
+Los seis CSV/DBF no están en GitHub. Los nombres, versiones y SHA-256 esperados se fijan en `download_manifest.json`; sus URLs son enlaces públicos de los archivos del Drive docente, no rutas del Mac del autor. La carpeta de origen es https://drive.google.com/drive/folders/1J2ExK_k8T9TAveZForau6i90lb8Ef7P2?usp=sharing .
 
-- `inei_enaho/`: originales `enaho01-2021-2025-100-panel.csv`, `enaho01-2021-2025-200-panel.csv`, `enaho01a-2021-2025-300-panel.csv`, `sumaria-2021-2025-panel.csv`.
-- `minedu_escale/`: `Padron.dbf`, `Padlocal.dbf`.
+## Procedimiento automático
 
-Fuente: https://drive.google.com/drive/folders/1J2ExK_k8T9TAveZForau6i90lb8Ef7P2?usp=sharing
-
-Descargue los dos ZIP exteriores INEI y MINEDU de esa carpeta. Google Drive puede requerir navegación, permisos o confirmación para archivos grandes. No se asume una URL directa inexistente ni se automatiza una sesión autenticada.
+Desde la raíz de un clon con estas correcciones:
 
 ```bash
-.venv/bin/python scripts/download_raw_data.py --source-dir /ruta/a/los/dos/ZIP
+python3 scripts/download_raw_data.py
 ```
 
-El script verifica formato ZIP, CRC de extracción y SHA256; rechaza sobrescribir un original diferente. Permite `--inei-url` y `--minedu-url` para URLs HTTPS directas proporcionadas por el usuario; rechaza HTML/login en lugar de ZIP. No se descargó de nuevo nada durante esta ejecución porque los ZIP ya estaban disponibles.
+No requiere bibliotecas adicionales: utiliza Python estándar. Descarga los seis ZIP a `data/raw/archives/`, extrae cuatro CSV multianuales y dos DBF, valida cada SHA-256 antes de aceptar el resultado y escribe los manifiestos de preparación. Los originales se conservan con sus nombres; el builder usa únicamente el corte2025. Los manifiestos del estado actual y el archivo de bloqueo de descargas tienen funciones distintas: el último fija los hashes esperados y no se reemplaza por los calculados.
 
-La opción `--reuse-dir /ruta/data/raw` reutiliza archivos extraídos idénticos mediante enlaces físicos después de comprobar tamaño y CRC. Se usó aquí para evitar duplicar varios GB. Un enlace físico es el mismo contenido en disco: nunca edite los originales in situ. Si no hay copias válidas, se extraen desde el ZIP. La opción de reutilización es local y no es necesaria en otro equipo.
+## Archivos públicos exactos
 
-El loader selecciona exclusivamente las columnas `_25` y registros del año2025. No exige continuidad longitudinal. UTF8 con BOM, separador coma, decimal punto; llaves y año como texto. No se confunde el módulo Salud con Sumaria.
+|Módulo|ZIP en Drive|Archivo extraído|
+|---|---|---|
+|Vivienda|[1041-Modulo1474.zip](https://drive.google.com/file/d/1VyH-kHKHdugOfb2SOSrKC9If2P6eJZLT/view)|inei_enaho/enaho01-2021-2025-100-panel.csv|
+|Personas|[1041-Modulo1479.zip](https://drive.google.com/file/d/1Wcl24s3wJQRkZh3BSejHxeYWurtkOu7V/view)|inei_enaho/enaho01-2021-2025-200-panel.csv|
+|Educación|[1041-Modulo1475.zip](https://drive.google.com/file/d/1v99MYB7mQhvPeRAN99dnqSqMnH5VduxU/view)|inei_enaho/enaho01a-2021-2025-300-panel.csv|
+|Sumaria|[1041-Modulo1478.zip](https://drive.google.com/file/d/1bZk-o8isVoJ9erZok4mI2WMhgix6SC-1/view)|inei_enaho/sumaria-2021-2025-panel.csv|
+|Servicios educativos|[00_Padron.zip](https://drive.google.com/file/d/1cDjrSbG10dwnAid7u79Rfp01tQ_8kVXj/view)|minedu_escale/Padron.dbf|
+|Locales escolares|[00_Padlocal.zip](https://drive.google.com/file/d/1T6GtuyNHV9iCtMTKAnKgO-1TStDYqe-S/view)|minedu_escale/Padlocal.dbf|
 
-Los originales se ignoran en Git y en el empaquetado. Sólo README, manifiestos y marcadores de carpetas se pueden versionar. El manifiesto histórico de la ejecución ANUAL anterior se conservó aparte para no atribuir sus resultados a otra fuente retrospectivamente.
+## Alternativa manual si cambia el acceso de Drive
+
+Abra los enlaces anteriores, descargue los seis ZIP y descomprima únicamente los archivos indicados en las rutas relativas de la tabla. Después ejecute el mismo comando automático: comprueba los originales ya colocados mediante SHA-256 y genera los manifiestos sin volver a descargarlos. Si los permisos han cambiado deberá solicitar acceso al propietario; el código no automatiza autenticación ni evade cuotas. Si un archivo cambia de versión, la discrepancia SHA-256 exige revisar la fuente y no debe ignorarse.
+
+También se conserva la recuperación desde los dos ZIP exteriores INEI/MINEDU descargados manualmente de las subcarpetas del profesor:
+
+```bash
+python3 scripts/download_raw_data.py --source-dir ./archivos-del-profesor
+```
+
+Esa ruta también valida los seis originales contra el bloqueo de hashes. La opción local `--reuse-dir` puede crear enlaces físicos de copias idénticas; no es necesaria, no es predeterminada y no se utilizó en la prueba de descarga limpia. Nunca edite un original in situ.
