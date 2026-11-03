@@ -1,0 +1,87 @@
+{
+  "reference_source": "instructor_panel_2021_2025_cut2025",
+  "drive": "https://drive.google.com/drive/folders/1J2ExK_k8T9TAveZForau6i90lb8Ef7P2?usp=sharing",
+  "archives": [
+    {
+      "path": "INEI-20261028T132135Z-1-001.zip",
+      "bytes": 468575682,
+      "sha256": "626e9165f08d61d0de78010fd4027a7b6b78ab7709db1f3d3dcd7661257acda5",
+      "role": "instructor_original"
+    },
+    {
+      "path": "MINEDU-20261028T132134Z-1-001.zip",
+      "bytes": 29339953,
+      "sha256": "099cdeaecab08a875bc76262d775c24602143a6f98a5a2df19eb8d0191086c60",
+      "role": "instructor_original"
+    }
+  ],
+  "files": [
+    {
+      "path": "inei_enaho/enaho01-2021-2025-100-panel.csv",
+      "bytes": 660202020,
+      "sha256": "fc1f64703e72f981520292142daeaa1ab8ae5cbb9ee0f8c6bfb8c78e54bd9923",
+      "zip_member": "1041-Modulo1474/enaho01-2021-2025-100-panel.csv",
+      "crc32": 2657381798,
+      "materialization": "hardlink_existing_identical",
+      "module": "vivienda",
+      "outer_member": "INEI/1041-Modulo1474.zip",
+      "source_archive": "INEI"
+    },
+    {
+      "path": "inei_enaho/enaho01-2021-2025-200-panel.csv",
+      "bytes": 298389161,
+      "sha256": "105a0975d2ed2dfe2aa4202980082e9d2486d21c534b031ebf714592381a2f13",
+      "zip_member": "1041-Modulo1479/enaho01-2021-2025-200-panel.csv",
+      "crc32": 3692281885,
+      "materialization": "hardlink_existing_identical",
+      "module": "personas",
+      "outer_member": "INEI/1041-Modulo1479.zip",
+      "source_archive": "INEI"
+    },
+    {
+      "path": "inei_enaho/enaho01a-2021-2025-300-panel.csv",
+      "bytes": 2311312187,
+      "sha256": "b3454390acc09d84be03be154356fda2c2f5a758b81205ee6e55ee4be381c8b7",
+      "zip_member": "1041-Modulo1475/enaho01a-2021-2025-300-panel.csv",
+      "crc32": 112684989,
+      "materialization": "hardlink_existing_identical",
+      "module": "educacion",
+      "outer_member": "INEI/1041-Modulo1475.zip",
+      "source_archive": "INEI"
+    },
+    {
+      "path": "inei_enaho/sumaria-2021-2025-panel.csv",
+      "bytes": 301223612,
+      "sha256": "13fd157bb937f22060ad4f94b3493c8734953c04feb088d599b709888b9258bc",
+      "zip_member": "1041-Modulo1478/sumaria-2021-2025-panel.csv",
+      "crc32": 456860542,
+      "materialization": "hardlink_existing_identical",
+      "module": "sumaria",
+      "outer_member": "INEI/1041-Modulo1478.zip",
+      "source_archive": "INEI"
+    },
+    {
+      "path": "minedu_escale/Padron.dbf",
+      "bytes": 143837746,
+      "sha256": "c2d5c934ea1aa1014199e11515b4760813ffd173e7e057557c96a978cd3fb925",
+      "zip_member": "Padron.dbf",
+      "crc32": 346226554,
+      "materialization": "hardlink_existing_identical",
+      "module": "padron",
+      "outer_member": "MINEDU/00_Padron.zip",
+      "source_archive": "MINEDU"
+    },
+    {
+      "path": "minedu_escale/Padlocal.dbf",
+      "bytes": 47426844,
+      "sha256": "c5c5de8b8b12b4645c4967e47b7a0fc27f631ec6cb158e3eff9051556d174c8e",
+      "zip_member": "Padlocal.dbf",
+      "crc32": 2944465523,
+      "materialization": "hardlink_existing_identical",
+      "module": "padlocal",
+      "outer_member": "MINEDU/00_Padlocal.zip",
+      "source_archive": "MINEDU"
+    }
+  ],
+  "note": "Original multiyear CSVs; not annual files. Hardlinks are read-only by policy: never edit raw in place."
+}

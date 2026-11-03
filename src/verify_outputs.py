@@ -21,14 +21,17 @@ def sha(p):
     return h.hexdigest()
 
 def main():
-    ap=argparse.ArgumentParser();ap.add_argument('--skip-pdf',action='store_true');args=ap.parse_args()
+    ap=argparse.ArgumentParser();ap.add_argument('--skip-pdf',action='store_true');ap.add_argument('--skip-notebooks',action='store_true');args=ap.parse_args()
     checks=[];warnings=[]
     def check(name,condition,detail=''):
         checks.append({'name':name,'passed':bool(condition),'detail':detail})
     r=json.loads((ROOT/'reports/results.json').read_text());audit=json.loads((ROOT/'reports/tables/data_audit.json').read_text())
     manifest=json.loads((ROOT/'data/raw/source_manifest.json').read_text())
     sources=manifest.get('archives',[])
-    for src in sources:
+    if manifest.get('files'):
+        for item in manifest['files']:
+            path=ROOT/'data/raw'/item['path'];check('raw_'+item['module'],path.exists() and sha(path)==item['sha256'])
+    for src in ([] if manifest.get('files') else sources):
         text=src['path'].replace('${SOURCE_DIR}',os.environ.get('IA_SOURCE_DIR',str(Path.home()/'Downloads/DocenteMaterial'))).replace('${ANNUAL_DIR}',os.environ.get('IA_ANNUAL_DIR',str(Path.home()/'Downloads')))
         p=Path(os.path.expandvars(text));check('source_'+p.name,p.exists() and sha(p)==src['sha256'],'SHA256 original')
     basepath=ROOT/'data/processed/dataset_enaho_escale_2025.csv'
@@ -94,7 +97,9 @@ def main():
     (ROOT/'reports/tests.log').write_text(tests.stdout+tests.stderr)
     check('unit_tests',tests.returncode==0,tests.stderr[-4000:])
     nb=ROOT/'reports/notebook_execution.json'
-    if nb.exists():
+    if args.skip_notebooks:
+        warnings.append('Notebooks not rerun in this isolated source-recovery validation; scripts executed directly.')
+    elif nb.exists():
         executions=json.loads(nb.read_text());check('four_notebooks_executed',len(executions)==4 and all(x['status']=='passed' for x in executions))
         for x in executions:
             check('notebook_hash_'+Path(x['notebook']).stem,sha(ROOT/x['notebook'])==x['sha256'])

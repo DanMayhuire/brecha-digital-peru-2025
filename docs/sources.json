@@ -73,7 +73,7 @@
     {
       "id": "L1",
       "organization": "INEI - materials supplied in instructor Drive download",
-      "outer_archive": "${SOURCE_DIR}/INEI-20261028T132135Z-1-001.zip",
+      "outer_archive": "INEI-20261028T132135Z-1-001.zip",
       "nested_archive": "INEI/1041-Modulo1475.zip",
       "file": "1041-Modulo1475/Diccionario_panel_2021_2025.pdf",
       "pdf_pages_1based": [
@@ -91,7 +91,7 @@
     {
       "id": "L2",
       "organization": "INEI - materials supplied in instructor Drive download",
-      "outer_archive": "${SOURCE_DIR}/INEI-20261028T132135Z-1-001.zip",
+      "outer_archive": "INEI-20261028T132135Z-1-001.zip",
       "nested_archive": "INEI/1041-Modulo1475.zip",
       "file": "1041-Modulo1475/CUESTIONARIO_ENAHO01A_2025.pdf",
       "pdf_pages_1based": [
@@ -106,7 +106,7 @@
     {
       "id": "L3",
       "organization": "INEI - materials supplied in instructor Drive download",
-      "outer_archive": "${SOURCE_DIR}/INEI-20261028T132135Z-1-001.zip",
+      "outer_archive": "INEI-20261028T132135Z-1-001.zip",
       "nested_archive": "INEI/1041-Modulo1479.zip",
       "file": "1041-Modulo1479/CUESTIONARIO_ENAHO01_2025.pdf",
       "pdf_pages_1based": [

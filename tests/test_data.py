@@ -65,9 +65,11 @@ class RebuiltDataTests(unittest.TestCase):
     def test_raw_eda_parsing_and_source_choice(self):
         raw=pd.read_csv(ROOT/'reports/tables/raw_eda_variables.csv')
         self.assertEqual(raw.numeric_parse_failures.sum(),0)
-        self.assertGreater(raw.decimal_comma_values.sum(),0)
+        self.assertGreaterEqual(raw.decimal_comma_values.sum(),0)
+        if self.audit.get('source_mode')!='teacher':self.assertGreater(raw.decimal_comma_values.sum(),0)
         manifest=json.loads((ROOT/'data/raw/source_manifest.json').read_text())
-        self.assertEqual(manifest['reference_source'],'annual_2025')
+        self.assertIn(manifest['reference_source'],['annual_2025','instructor_panel_2021_2025_cut2025'])
+        self.assertTrue('source_comparison' in self.audit or self.audit.get('source_mode')=='teacher')
         for c in ['p314b_1','p316_5','p316b','p316c1','p316c10']:
             self.assertIn(c,self.data)
 

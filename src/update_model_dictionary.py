@@ -15,7 +15,7 @@ def main():
             if len(cells)==4:base[cells[0]]=cells[3]
     features=r['features'];cats=['sexo','lengua_materna','rural','pobreza','electricidad','internet_hogar','escale_coincide']
     descriptions={**base,
-      'indice_dataset':'Índice de la fila en la tabla integrada anual. Solo enlaza artefactos de auditoría; nunca se entrena con él.',
+      'indice_dataset':'Índice de la fila en la tabla integrada de2025. Solo enlaza artefactos de auditoría; nunca se entrena con él.',
       'edad_normativa':'P308C+5 si primaria; P308B+11 si secundaria. Referencia exploratoria, sin cumpleaños al31marzo.',
       'desfase_edad_grado':'Edad de entrevista menos edad normativa. No es la medición administrativa SIAGIE; no predictor digital.',
       'target_rezago':'Etiqueta alternativa descriptiva: desfase>=1, solo grado y nivel válidos. No entrenada ni usada para elegir el objetivo por score.',
@@ -27,7 +27,7 @@ def main():
       'Generado por `src/update_model_dictionary.py` desde el Parquet real, la lista explícita de predictores y los resultados guardados. Complementa `docs/data_dictionary.md` y `docs/SOURCE_RECONCILIATION.md`.','',
       f'La tabla `data/processed/dataset_modelado_2025.parquet` (CSV compatible: `dataset_modelado_internet_2025.csv`) contiene **{len(d):,} personas, {len(d.columns)} columnas y {len(features)} predictores**. La etiqueta tiene {int(d.target_internet.eq(1).sum()):,} positivos y {int(d.target_internet.eq(0).sum()):,} negativos, conteos muestrales.','',
       '## Cohorte y fuente canónica','',
-      'Una fila por residente habitual6–17. Fuente canónica: módulos anuales ENAHO2025(100/200/300/Sumaria); ESCALE Padrón cruzado con Padlocal y agregado por distrito-área. El panel docente se usa únicamente para reconciliación de fuentes. AÑO y llaves se mantienen como texto en Parquet.','',
+      ('Una fila por residente habitual6–17. Fuente: corte2025 de originales PANEL2021–2025 del profesor; Padrón/Padlocal por distrito-área; llaves y año como texto.' if json.loads((ROOT/'reports/tables/data_audit.json').read_text()).get('source_mode')=='teacher' else 'Una fila por residente habitual6–17. Fuente canónica: módulos anuales ENAHO2025(100/200/300/Sumaria); ESCALE Padrón cruzado con Padlocal y agregado por distrito-área. El panel docente se usa únicamente para reconciliación de fuentes. AÑO y llaves se mantienen como texto en Parquet.'),'',
       'Elegible: P306=P307=1, P308A∈{2,3}, sin CEBA afirmativa(P307D!=1), P314A∈{1,2} y FACPOB07 positivo. Un NA estructural de CEBA no se convierte en afirmación de CEBA; una respuesta faltante de internet no se convierte en clase0.','',
       'No uso reciente es una dimensión operativa de exclusión digital; no acredita falta de competencias. P316B/C tiene universo14+ y saltos por uso de equipo: los NA de menores y no usuarios no significan incapacidad. Estas ramas se retienen solo para auditar esa limitación.','',
       '## Entradas reales del clasificador','',

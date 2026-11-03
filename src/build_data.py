@@ -252,34 +252,53 @@ def binary_code(series: pd.Series, yes=1, no=2):
 
 
 def main():
+    global ROOT
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-dir", type=Path, default=Path.home() / "Downloads/DocenteMaterial")
     parser.add_argument("--annual-dir", type=Path, default=None, help="Directory containing 1031-Modulo01/02/03/34.zip; defaults to source-dir parent")
     parser.add_argument("--output-dir", type=Path, default=ROOT / "data/processed")
+    parser.add_argument("--source",choices=["annual","teacher"],default="teacher")
+    parser.add_argument("--raw-dir",type=Path,default=ROOT/"data/raw")
+    parser.add_argument("--run-dir",type=Path,default=None,help="Isolated workspace; teacher default reports/rebuild_teacher")
     args = parser.parse_args()
+    if args.source=="teacher" and args.annual_dir is not None:
+        raise ValueError("--annual-dir requires explicit --source annual. For instructor originals use scripts/reproduce_teacher.py; do not mix historical notebooks with another source.")
+    if args.run_dir or args.source=="teacher":
+        ROOT=(args.run_dir or ROOT/"reports/rebuild_teacher").resolve()
+        args.output_dir=ROOT/"data/processed"
     for folder in [args.output_dir, ROOT / "data/raw", ROOT / "reports/tables", ROOT / "docs"]:
         folder.mkdir(parents=True, exist_ok=True)
-    inei = next(args.source_dir.glob("INEI*.zip"))
-    minedu = next(args.source_dir.glob("MINEDU*.zip"))
-    audit = {"created_at_utc": datetime.now(timezone.utc).isoformat(), "year": 2025,
-             "modules": {}, "filters": {}, "merges": {}, "warnings": []}
-    annual_dir=args.annual_dir or args.source_dir.parent
-    annual_files=[annual_dir/f'1031-Modulo{m}.zip' for m in ['01','02','03','34']]
-    for p in annual_files:
-        if not p.is_file():raise FileNotFoundError(f'Required annual input missing: {p}')
-    manifest = {"source_dir": str(args.source_dir), "annual_dir":str(annual_dir), "copies_of_archives_created":False,
-        "reference_source":"annual_2025", "archives":[{"path":str(p),"bytes":p.stat().st_size,"sha256":sha256(p),
-            "role":"comparison_only" if p==inei else "pipeline_input"} for p in [*annual_files,minedu,inei]]}
-    (ROOT / "data/raw/source_manifest.json").write_text(json.dumps(manifest,indent=2,ensure_ascii=False),encoding='utf-8')
-    members={name:load_annual(annual_dir,name,wanted,clean_keys,assert_unique,HH,PERSON,audit) for name,(_,wanted) in MODS.items()}
-    panel_audit={'modules':{}}
-    with ZipFile(inei) as archive:
-        panel={name:load_2025(archive,name,panel_audit) for name in MODS}
-    audit['panel_modules_for_comparison']=panel_audit['modules']
-    comparison=compare_sources(panel,members,PERSON,HH)
-    (ROOT/'reports/tables/source_comparison.json').write_text(json.dumps(comparison,indent=2,ensure_ascii=False,default=json_default))
-    audit['source_comparison']=comparison
-    del panel
+    audit = {"created_at_utc": datetime.now(timezone.utc).isoformat(), "year":2025,"modules":{},"filters":{},"merges":{},"warnings":[]}
+    if args.source=='teacher':
+        from teacher_inputs import load_teacher,RawEscale
+        raw=args.raw_dir.resolve()
+        manifest=json.loads((raw/'teacher_source_manifest.json').read_text())
+        (ROOT/'data/raw/source_manifest.json').write_text(json.dumps(manifest,indent=2))
+        members={name:load_teacher(raw,name,wanted,clean_keys,assert_unique,HH,PERSON,audit) for name,(_,wanted) in MODS.items()}
+        minedu=None
+    else:
+        inei = next(args.source_dir.glob("INEI*.zip"))
+        minedu = next(args.source_dir.glob("MINEDU*.zip"))
+        audit = {"created_at_utc": datetime.now(timezone.utc).isoformat(), "year": 2025,
+                 "modules": {}, "filters": {}, "merges": {}, "warnings": []}
+        annual_dir=args.annual_dir or args.source_dir.parent
+        annual_files=[annual_dir/f'1031-Modulo{m}.zip' for m in ['01','02','03','34']]
+        for p in annual_files:
+            if not p.is_file():raise FileNotFoundError(f'Required annual input missing: {p}')
+        manifest = {"source_dir": str(args.source_dir), "annual_dir":str(annual_dir), "copies_of_archives_created":False,
+            "reference_source":"annual_2025", "archives":[{"path":str(p),"bytes":p.stat().st_size,"sha256":sha256(p),
+                "role":"comparison_only" if p==inei else "pipeline_input"} for p in [*annual_files,minedu,inei]]}
+        (ROOT / "data/raw/source_manifest.json").write_text(json.dumps(manifest,indent=2,ensure_ascii=False),encoding='utf-8')
+        members={name:load_annual(annual_dir,name,wanted,clean_keys,assert_unique,HH,PERSON,audit) for name,(_,wanted) in MODS.items()}
+        panel_audit={'modules':{}}
+        with ZipFile(inei) as archive:
+            panel={name:load_2025(archive,name,panel_audit) for name in MODS}
+        audit['panel_modules_for_comparison']=panel_audit['modules']
+        comparison=compare_sources(panel,members,PERSON,HH)
+        (ROOT/'reports/tables/source_comparison.json').write_text(json.dumps(comparison,indent=2,ensure_ascii=False,default=json_default))
+        audit['source_comparison']=comparison
+        del panel
+    audit["source_mode"]=args.source
     save_raw_eda(members,audit,ROOT)
     persons = members["personas"]
     age_ok = persons.p208a.between(6, 17)
@@ -327,7 +346,7 @@ def main():
         invalid = data[name].notna() & ~data[name].between(lo, hi)
         audit.setdefault("invalid_numeric_values", {})[name] = int(invalid.sum())
         data.loc[invalid, name] = np.nan
-    with ZipFile(minedu) as archive:
+    with (RawEscale(raw) if args.source=="teacher" else ZipFile(minedu)) as archive:
         escale = read_padron(archive, audit)
     escale.to_csv(args.output_dir / "escale_distrito_area_2025.csv", index=False)
     escale.to_parquet(args.output_dir / "escale_distrito_area_2025.parquet",index=False)
@@ -355,7 +374,7 @@ def main():
         "not_used": "FACPANEL* longitudinal weights: this project is a 2025 cross-section, not a continuous multi-year panel subset.",
     }
     audit["warnings"] = [
-        "Annual ENAHO2025 is canonical; the teacher panel cut is used only for an explicit aggregate comparison of keys and values. No panel continuity is required.",
+        "Source mode: "+args.source+"; only2025 is analyzed, no longitudinal continuity required.",
         "Incomplete interviews are retained where the required person data exist; missingness is explicit, not fabricated or silently dropped.",
         "ESCALE describes district-area educational context, not the exact school attended. Residence district may differ from school district.",
         "Exclusion_digital is an operational non-use-of-internet indicator among attendees, not a direct digital-competence measurement or causal effect.",
@@ -460,7 +479,7 @@ def write_dictionary(data: pd.DataFrame, audit: dict, path: Path):
     lines = [
         "# Diccionario de datos ENAHO + ESCALE 2025", "",
         f"Cohorte: {len(data):,} personas residentes habituales de 6 a 17 años. Una fila por CONGLOME+VIVIENDA+HOGAR+CODPERSO de 2025.", "",
-        "Fuente canónica: descargas anuales ENAHO2025. El corte panel2025 se compara por llaves y valores, sin usarlo para completar datos. Las llaves y AÑO permanecen como texto; no se cargan nombres, direcciones ni coordenadas de hogares.", "",
+        ("Fuente: originales del profesor PANEL2021-2025, únicamente corte2025; no se exige continuidad longitudinal." if audit.get("source_mode")=="teacher" else "Fuente canónica: descargas anuales ENAHO2025; panel solo para contraste.")+" Llaves y AÑO son texto; no se cargan nombres, direcciones ni coordenadas del hogar.", "",
         "## Procedencia y decisiones", "",
         "- Ficha técnica PANEL 2021-2025 p.6: archivos con hogares paneles y no paneles de cada año.",
         "- Diccionario anual ENAHO2025: pp.14,16 servicios; pp.29-31 edad/residencia/factor persona; pp.94-95 educación; pp.107-111 uso/TIC/competencias; p.119 factor de educación. Los códigos de missing se normalizan por variable, nunca globalmente.",

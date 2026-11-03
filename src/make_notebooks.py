@@ -17,13 +17,13 @@ def run_script(name,*args):
     result=subprocess.run([sys.executable,str(ROOT/'src'/name),*map(str,args)],cwd=ROOT,text=True,capture_output=True)
     (ROOT/'reports').mkdir(exist_ok=True)
     (ROOT/'reports'/f'notebook_{name}_{Path(str(args[-1])).name if args else "run"}.log').write_text(result.stdout+result.stderr)
-    print(result.stdout[-4500:])
+    print(result.stdout[-4500:].replace(str(ROOT),'${PROJECT_ROOT}').replace(str(Path.home()),'${HOME}'))
     if result.returncode: print(result.stderr); result.check_returncode()
     print(f'Ejecución real completada en {time.perf_counter()-started:.1f} segundos')
 def show(name): display(Image(filename=str(ROOT/'reports/figures'/name)))
 def table(name): display(pd.read_csv(ROOT/'reports/tables'/name).head(20))
 def results(): return json.loads((ROOT/'reports/results.json').read_text())
-print('Python:',sys.version.split()[0], '| ejecutable del kernel:',sys.executable)
+print('Python:',sys.version.split()[0], '| kernel del entorno del proyecto')
 '''
 def make(name,title,intro,cells):
     n=nb.v4.new_notebook();n.metadata={'kernelspec':{'name':'ia-u2','display_name':'Python IA U2','language':'python'},'language_info':{'name':'python','version':'3.12'},'canonical_code':'src/'}
@@ -32,9 +32,9 @@ def make(name,title,intro,cells):
     nb.write(n,ROOT/'notebooks'/name)
 def main():
     make('01_Ingenieria_Datos_EDA.ipynb','1. Ingeniería de datos y EDA desde los originales',
-      'Esta fase reconstruye realmente los datos, audita las fuentes y ejecuta el EDA. No carga salidas antiguas como si fueran una ejecución nueva. Se necesitan los ZIP declarados en README; conserve los originales. La semilla de análisis es42.',[
-      ('markdown','## Fuentes y reconstrucción\nLa carpeta se configura con IA_SOURCE_DIR; IA_ANNUAL_DIR indica la carpeta de las cuatro descargas anuales. Las rutas predeterminadas usan Downloads del usuario actual. El builder comprueba su contenido y registra hashes.'),
-      ('code',"source=Path(os.environ.get('IA_SOURCE_DIR',Path.home()/'Downloads/DocenteMaterial'))\nannual=Path(os.environ.get('IA_ANNUAL_DIR',Path.home()/'Downloads'))\nrun_script('build_data.py','--source-dir',source,'--annual-dir',annual)\nrun_script('run_analysis.py','--phase','prepare')"),
+      'Esta fase reconstruye realmente los datos, audita las fuentes y ejecuta el EDA. No carga salidas antiguas como si fueran una ejecución nueva. Los originales ya están organizados en data/raw. Las salidas se guardan tras ejecutar de verdad y pueden verse al abrir el archivo, sin volver a entrenar. La semilla de análisis es42.',[
+      ('markdown','## Fuentes del profesor y reconstrucción\nLos originales del profesor ya están preparados en data/raw; no hace falta descomprimirlos durante la exposición. Para reconstruir en otra computadora, siga el README. Esta celda reconstruye datos en el proyecto abierto; use un clon o directorio de trabajo destinado a reproducir para conservar resultados anteriores.'),
+      ('code',"run_script('build_data.py','--source','teacher','--raw-dir',ROOT/'data/raw','--run-dir',ROOT)\nrun_script('run_analysis.py','--phase','prepare')"),
       ('markdown','## Calidad y población\nLa información escolar es contexto territorial por distrito/área; no asignamos una escuela concreta a cada encuestado. Los saltos del cuestionario permanecen diferenciados de respuestas negativas.'),
       ('code',"audit=json.loads((ROOT/'reports/tables/data_audit.json').read_text())\ndisplay(pd.DataFrame(audit['merges']).T)\nprint('Población:',audit['filters'])\nprint('Cobertura:',audit['cohort']['escale_match_rate'])\ntable('target_comparison.csv')\nshow('eda.png')\nfor p in sorted((ROOT/'reports/figures').glob('*raw*.png')): display(Image(filename=str(p)))"),
       ('code',"display(Markdown((ROOT/'docs/TARGET_DECISION.md').read_text()))\ndisplay(Markdown((ROOT/'docs/VARIABLE_VALIDATION.md').read_text()))"),

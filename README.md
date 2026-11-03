@@ -2,17 +2,11 @@
 
 Proyecto existente `InteliogenciaArtificial`, Universidad Peruana Unión. Clasifica **no uso de internet en el mes anterior** en residentes habituales de6–17 años matriculados/asistentes a primaria o secundaria, sin CEBA declarada. No mide directamente competencias digitales ni efectos causales.
 
-## Fuentes y privacidad
+## Fuentes actuales y resultados históricos
 
-Los originales se conservan externamente, sin modificarlos. El pipeline compara el corte 2025 del panel del docente con la descarga anual y utiliza una única fuente canónica. La decisión exacta y las diferencias ejecutadas figuran en `docs/SOURCE_RECONCILIATION.md` y `reports/tables/source_comparison.json` cuando finaliza la reconstrucción. Los nombres de los ZIP, tamaños y hashes están en `data/raw/source_manifest.json`.
+Se recuperaron los dos ZIP del Drive docente y sus seis originales en `data/raw/`. Los CSV son ENAHO PANEL2021–2025: se conservan sus nombres y se selecciona sólo2025. Padrón/Padlocal son los DBF originales. Consulte `data/raw/README.md` y `source_manifest.json`. Los datos crudos no se incluyen en Git ni en el ZIP de entrega.
 
-Requisitos locales:
-
-- Carpeta de cuatro archivos anuales: `1031-Modulo01.zip`, `1031-Modulo02.zip`, `1031-Modulo03.zip`, `1031-Modulo34.zip`. El módulo04 es Salud; no sustituye a Sumaria34.
-- Carpeta del docente: ZIP exterior `INEI-20261028T132135Z-1-001.zip` (contraste panel y documentación) y `MINEDU-20261028T132134Z-1-001.zip` (Padrón y Padlocal).
-- Los ZIP no forman parte del paquete de entrega. Para reconstruir en otro equipo es necesario obtenerlos de las fuentes declaradas, colocarlos en dos carpetas y ajustar las variables de entorno que aparecen abajo.
-
-Los datos procesados conservan claves técnicas de la publicación anonimizada de INEI para auditar las uniones; no se cargan nombres, DNI, direcciones ni contactos. No publique el paquete ni las predicciones de personas. El ZIP es una entrega privada al docente: excluye originales, entornos, cachés y predicciones por fila. ESCALE representa contexto territorial del distrito/área de residencia, no el colegio identificado de cada encuestado.
+Los modelos, métricas, artículo y entregas anteriores se conservan y corresponden a la ejecución ANUAL2025 documentada en octubre. La recuperación del Drive no cambia retrospectivamente su procedencia. La reconstrucción docente se valida aparte en `reports/rebuild_teacher/`; no se mezclan ambas versiones.
 
 ## Entorno
 
@@ -26,42 +20,35 @@ python3.12 -m venv .venv
 
 Si `.venv` ya existe y tiene las dependencias, no es necesario recrearlo. Los archivos `.joblib` se cargan solo si son los generados por este proyecto; pueden regenerarse desde las fuentes.
 
-## Ejecución completa desde originales
-
-En el Mac actual, las carpetas conocidas son Downloads/DocenteMaterial y Downloads. En otro equipo ajuste estos dos valores:
+## Recuperar originales y reproducir en macOS
 
 ```bash
-export IA_SOURCE_DIR="$HOME/Downloads/DocenteMaterial"
-export IA_ANNUAL_DIR="$HOME/Downloads"
-.venv/bin/python src/build_data.py --source-dir "$IA_SOURCE_DIR" --annual-dir "$IA_ANNUAL_DIR"
-.venv/bin/python src/run_analysis.py --target internet
-.venv/bin/python src/update_model_dictionary.py
-.venv/bin/python src/make_report.py
-.venv/bin/python src/verify_outputs.py
-.venv/bin/python src/finalize_docs.py
-.venv/bin/python src/package_submission.py
+git clone https://github.com/DanMayhuire/brecha-digital-peru-2025.git
+cd InteliogenciaArtificial
+python3.12 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python scripts/download_raw_data.py --source-dir /ruta/a/los/ZIP/del/profesor
+.venv/bin/python scripts/reproduce_teacher.py
 ```
 
-La verificación exige evidencia de los cuatro notebooks. Para obtener toda esa evidencia y ejecutar el pipeline mediante los notebooks, utilice la ruta siguiente en lugar de repetir builder y análisis:
+El repositorio indicado por el usuario es público. Los originales y predicciones individuales nuevos se mantienen fuera del commit. La descarga manual del Drive está documentada; no hacen falta los ZIP anuales para esta ruta. Las rutas del pipeline son relativas al proyecto, y la ubicación externa de los ZIP se proporciona como argumento.
+
+El último comando reconstruye sólo datos en una carpeta de validación. Para ejecutar también entrenamiento, SHAP, gráficos, informe y verificación sin alterar el trabajo anterior:
 
 ```bash
-.venv/bin/python src/execute_notebooks.py
-.venv/bin/python src/update_model_dictionary.py
-.venv/bin/python src/make_report.py
-.venv/bin/python src/verify_outputs.py
-.venv/bin/python src/finalize_docs.py
-.venv/bin/python src/package_submission.py
+.venv/bin/python scripts/reproduce_teacher.py --train
 ```
 
-No es necesario ejecutar ambas rutas de entrenamiento. El runner abre un kernel limpio por notebook y registra tiempos, celdas ejecutadas, estado y hashes en `reports/notebook_execution.json`. Los notebooks llaman a los scripts canónicos; no duplican las implementaciones ni simulan entrenamiento cargando métricas antiguas.
+La ejecución se realiza con copias del código en `reports/rebuild_teacher/` y originales compartidos mediante enlaces físicos, no duplicados. Los nuevos resultados se guardan allí, incluidos el PDF y `reports/final_verification.json`. No se reejecutan los notebooks en esta ruta: la verificación lo declara. No atribuya automáticamente las cifras nuevas al artículo histórico.
 
-Para abrirlos en su Jupyter actual, seleccione el intérprete del proyecto. Se puede registrar este kernel para el Jupyter que ya tenga instalado:
+Para validar la equivalencia de entradas y la preservación de los artefactos anteriores:
 
 ```bash
-.venv/bin/python -m ipykernel install --user --name ia-u2 --display-name "Python IA U2"
+.venv/bin/python scripts/validate_raw_rebuild.py
+.venv/bin/python -m unittest discover -s tests -v
 ```
 
-Abra los cuatro notebooks en orden y seleccione **Python IA U2**. Instalar JupyterLab completo no es necesario si ya dispone de él. El notebook histórico de revisión se conserva como trabajo previo; la entrega usa los cuatro recorridos nuevos.
+Se mantiene `src/build_data.py --source annual --source-dir ... --annual-dir ...` como compatibilidad explícita con los ZIP anuales originales; no es la ruta predeterminada actual. `--source teacher` es el valor predeterminado y utiliza los CSV/DBF ya organizados. El builder puede usarse directamente con `--raw-dir` y `--run-dir`. No elija el directorio principal como destino de una prueba si desea preservar los resultados existentes.
 
 ## Fases y métodos
 
@@ -94,4 +81,36 @@ FACPOB07 es el factor individual principal; FACTORA07 se considera en sensibilid
 
 ## Estado y resultados
 
-Consulte `reports/results.json` y `docs/VALIDACION_FINAL.md` para las cifras de la ejecución final. La documentación no se considera evidencia suficiente sin los archivos generados y sus verificaciones. El estado anterior completo se conserva en `snapshots/`, excluido del ZIP y de Git. No se hicieron commits, push ni publicaciones remotas.
+Consulte `reports/results.json` y `docs/VALIDACION_FINAL.md` para las cifras de la ejecución final. La documentación no se considera evidencia suficiente sin los archivos generados y sus verificaciones. El estado anterior completo se conserva en `snapshots/`, excluido del ZIP y de Git. La publicación posterior en GitHub fue autorizada por el usuario; consulte docs/GITHUB_PUBLICATION.md.
+
+### Notebooks históricos
+
+La ejecución anual anterior se conserva en los respaldos. Los notebooks visibles se ejecutaron nuevamente con la fuente del profesor y guardan sus resultados reales para exposición. Las métricas de esa ejecución se resumen en reports/public_summary.json; los modelos y el artículo históricos anteriores permanecen aparte. El builder rechaza mezclar argumentos de fuente anual con teacher.
+
+## Qué contiene GitHub y cómo reproducir
+
+La versión de Git contiene código, pruebas, cuatro notebooks con salidas reales guardadas, documentación, tablas agregadas y el informe. Los notebooks ejecutados se conservan con sus salidas para que las tablas y gráficos aparezcan al abrirlos. Los respaldos permanecen locales en snapshots. El registro histórico de ejecución no es un hash de la versión sin salidas: es evidencia local de aquella corrida.
+
+Los datos crudos/procesados, modelos, predicciones por persona, logs, respaldos y entregas de Power BI no se suben. `reports/public_summary.json` resume la ejecución docente presentada en los notebooks, sin casos individuales. Los registros detallados de verificación y sus hashes permanecen locales; se regeneran al reproducir.
+
+No se usan rutas con nombres de usuario. `Path(__file__)` resuelve el proyecto y `--source-dir` permite elegir la carpeta de los ZIP en cada computadora. Una ruta de entrada configurada por el usuario es necesaria para sus archivos locales, pero no se fija a la computadora del autor. Siga los comandos de recuperación y `scripts/reproduce_teacher.py --train` de este README.
+
+Antes de un commit:
+
+```bash
+.venv/bin/python scripts/check_github_ready.py
+```
+
+Para usar Jupyter, registre el entorno de su propio clon y seleccione ese kernel:
+
+```bash
+.venv/bin/python -m ipykernel install --user --name ia-u2 --display-name "Python IA U2"
+```
+
+Los notebooks reconstruyen el proyecto abierto al ejecutarlos. Para conservar entregas existentes, trabaje en un clon nuevo o use la reproducción aislada recomendada. No se garantiza que un clon sin los originales pueda entrenar: el procedimiento de colocación y validación de los ZIP está documentado.
+
+## Presentación en JupyterLab: abrir sin volver a ejecutar
+
+La entrega para exposición conserva outputs y contadores de ejecución reales. No se borran para GitHub: portabilidad significa eliminar rutas personales, no borrar resultados. Las imágenes están embebidas en los ipynb, por lo que ver los resultados no requiere kernel activo, originales ni descompresión. Para recalcular sí se necesitan el entorno y los originales ya preparados.
+
+Abra `notebooks/00_Proyecto_Completo_Ejecutado.ipynb` para el recorrido unificado, o los cuatro notebooks de fases. El unificado compila salidas de ejecuciones reales en kernels independientes, declaradas por fase; no inventa resultados ni contadores. La evidencia se conserva en reports/raw_management/presentation_execution.json. No ejecute scripts/make_notebooks.py antes de exponer: genera plantillas nuevas; debe ir seguido de la ejecución y guardado real.
